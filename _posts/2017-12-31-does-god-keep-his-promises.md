@@ -8,7 +8,7 @@ thumb: /assets/img/resources/thumb/does-god-keep-his-promises.jpg
 header: /assets/img/resources/full/does-god-keep-his-promises.jpg
 author: Dylan Howard
 preview: You see, God didn't only fulfill His promise to Simeon–that Simeon would see the Christ–God also fulfilled His promise of salvation to His people. He did this by sending His Son the die in our place. Christ made peace through the blood of His cross.
-audio: /assets/audio/messages/does-god-keep-his-promises.ogg
+audio: /assets/audio/messages/does-god-keep-his-promises.mp3
 ---
 Prayer
 GREAT FATHER,

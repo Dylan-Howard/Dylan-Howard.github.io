@@ -8,7 +8,7 @@ thumb: /assets/img/resources/thumb/unity-amidst-diversity.jpg
 header: /assets/img/resources/full/unity-amidst-diversity.jpg
 author: Dylan Howard
 preview: Brothers and sisters, if we’re going to strive for deeper unity–if we’re truly going to accept one another in love, we must understand the lives that our brothers and sisters live.
-audio: /assets/audio/messages/unity-amidst-diversity.ogg
+audio: /assets/audio/messages/unity-amidst-diversity.mp3
 ---
 Opening Prayer
 LORD,
