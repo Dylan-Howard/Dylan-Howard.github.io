@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Fountain of All Joy
-date: 2018-12-01 00:00:00 -0600
+date: 2017-12-01 00:00:00 -0600
 categories: devotions
 type: devotion
 thumb: /assets/img/resources/thumb/the-fountain-of-all-joy.jpg
