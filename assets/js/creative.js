@@ -39,9 +39,13 @@
     target: '#mainNav',
     offset: 57
   });
-  // Activate scrollspy to add active class to navbar items on scroll
   $(window).scroll(function() {
-    $('.share-bar').addClass('active');
+    if($('.share-bar').offset().top < $('#more').position().top) {
+      $('.share-bar').addClass('active');
+    } else {
+      $('.share-bar').removeClass('active');
+    }
+
   });
 
   // Collapse Navbar

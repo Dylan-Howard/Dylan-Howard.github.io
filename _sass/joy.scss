@@ -551,9 +551,9 @@ audio {
   display: flex;
   justify-content: center;
   position: fixed;
-  bottom: -42px;
+  bottom: -53px;
   z-index: 1;
-  padding: 5px 0;
+  padding: 10px 0;
   width: 100vw;
   -webkit-transition: .3s;
   -moz-transition:.3s;
@@ -561,7 +561,6 @@ audio {
   transition: .3s; }
   .share-bar.active {
     bottom: 0; }
-
 .share-over {
   background-color: #fff;
   display: flex;
