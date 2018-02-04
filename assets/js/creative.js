@@ -39,6 +39,10 @@
     target: '#mainNav',
     offset: 57
   });
+  // Activate scrollspy to add active class to navbar items on scroll
+  $(window).scroll(function() {
+    $('.share-bar').addClass('active');
+  });
 
   // Collapse Navbar
   var navbarCollapse = function() {
@@ -78,5 +82,29 @@
     scale: 0.3,
     distance: '0px'
   }, 300);
+
+  /* Search Function */
+  $('#search').keyup(function() {
+    if($('#search').val() != '') {
+      $('#resources').find('.article-box').each(function() {
+        if($(this).find('.description').find('h4').html().toUpperCase().indexOf($('#search').val().toUpperCase()) > -1) {
+          $(this).parent().css('display', '');
+        } else if ($(this).find('.description').find('p').html().toUpperCase().indexOf($('#search').val().toUpperCase()) > -1) {
+          $(this).parent().css('display', '');
+        } else if ($(this).find('.category').html().toUpperCase().indexOf($('#search').val().toUpperCase()) > -1) {
+          $(this).parent().css('display', '');
+        } else {
+          $(this).parent().css('display', 'none');
+        }
+      });
+    }
+  });
+
+  /* Share Functions */
+  $('.share-btn').click(function() {
+    console.log('switching');
+    $('.share-over').toggleClass('active');
+    $('.share-under').toggleClass('active');
+  });
 
 })(jQuery); // End of use strict
