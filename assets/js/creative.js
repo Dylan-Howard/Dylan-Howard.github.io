@@ -102,7 +102,6 @@
 
   /* Share Functions */
   $('.share-btn').click(function() {
-    console.log('switching');
     $('.share-over').toggleClass('active');
     $('.share-under').toggleClass('active');
   });
