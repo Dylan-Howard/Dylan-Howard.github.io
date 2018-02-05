@@ -7,132 +7,113 @@ type: sermon
 thumb: /assets/img/resources/thumb/unity-amidst-diversity.jpg
 header: /assets/img/resources/full/unity-amidst-diversity.jpg
 author: Dylan Howard
-preview: Brothers and sisters, if we’re going to strive for deeper unity–if we’re truly going to accept one another in love, we must understand the lives that our brothers and sisters live.
+preview: Brothers and sisters, if we're going to strive for deeper unity–if we're truly going to accept one another in love, we must understand the lives that our brothers and sisters live.
 audio: /assets/audio/messages/unity-amidst-diversity.mp3
 ---
-Opening Prayer
-LORD,
-Unless You build Your house, we labor in vain.
-Please work through me now, to build up Your house.
-In Christ name I pray, Amen.
-Sermon
-Introduction
-I remember that one of the first times I could drive after I got my license, I was going to a friend’s birthday party. It was fun, and I was headed home around 8 o’clock or so because I had a curfew. But, being that late on a November night, it was pretty dark outside. In fact, if I remember correctly, it might have started to rain.
-Another friend of mine that was leaving about the same time still only had his permit, so his dad was going to make him take some backroads home just so he’d get the experience. I’ve always been a fan of taking backroads when I’m the one driving, so, naturally, I followed them.
-After a while, I realized how long it was going to take, so I decide that I’d just cut back over to the main road. This was my first mistake. What I did wrong, was assume I knew which way the main road was. I made a turn, followed it to a dead end, and realized I was in trouble.
-Now you may think, “Oh, that’s no big deal. You can just look up the directions on your phone.” The problem with that was that my phone was dead and I didn’t have a charger. So, there I was, a sixteen year old kid, in the middle of somewhere I’d never been, pitch black outside, raining, with no idea where I was. At that point, I realized just how important it is to know where you’ve been, and how you got to where you are.
-I think a similar thing can be said of history. It’s important to know where we were before and how we got to the point we’re at now, so that we can know how to get to where we’re headed.
-Today, with the topic of “God and Race” in mind, we find ourselves in a passage where Paul is explaining to the members of the Ephesian church where they were, where they’re at, and where they’re headed.
-So, with that in outline in mind, I invite you to look with me at Ephesians chapter 2 verse 11.
-If you don’t have a Bible with you, you can find it on page _____ in the pew Bible.
-If you’re not used to looking at a Bible, I’m glad you’re here, the big numbers are the chapters and the little numbers are the verses. So, to find the section we’re looking at, you’ll look for the book of Ephesians, then look for the big number 2 and then the little number 11.
-If you will, let’s stand in honor of the reading of God’s Word. Ephesians chapter 2 verse 11,
-So then, remember that at one time you were Gentiles in the flesh–called “the uncircumcised” by those called “the circumcised,” which is done in the flesh by human hands. At that time you were without the Messiah, excluded from the citizenship of Israel, and foreigners to the covenants of promise, without hope and without God in this world. But now in Christ Jesus, you who were far away have been brought near by the blood of the Messiah. For He is our peace, who made both groups one and tore down the dividing wall of hostility. In His flesh He made of no effect the law consisting of commands and expressed in regulations, so that He might create in Himself one new man from the two, resulting in peace. He did this so that He might reconcile both to God in one body through the cross and put hostility to death by it. When the Messiah came, He proclaimed the good news of peace to those who were far away and peace to those who were near. For through Him we both have access by one Spirit to the Father. So then, you are no longer foreigners and strangers, but fellow citizens with the saints and members of God’s household, built on the foundation of the apostles and prophets with Christ Jesus Himself as the cornerstone. The whole building being put together by Him, grows into a holy sanctuary in the Lord. You are also being built together for God’s dwelling in the Spirit. [Ephesians 2:11-22]
-This is the Word of God; thanks be to Him. You may be seated.
-In this passage of Scripture, Paul is telling us our history as the people of God.
-His main point in writing this letter to the Ephesian church, is unity. This is the key, if you will, that Paul is playing in throughout the entire letter.
-In fact, Paul greets the church in chapter 1 verse 2 with the standard greeting of both Greeks and Jews when he says, “Grace and peace.” Then, in his farewell in chapter 6, Paul reverses the order when he says, “peace and grace.” From beginning to end, Unity is the central idea. But how do we have unity? Who exactly has this unity? And how does this have anything to do with race?
-The point Paul is making is that true unity is only found in the people of God, who have been unified by God’s saving work. This includes every social class, every language, every political party, and every race.
-So, with unity in mind, this passage we’re looking at has three main parts of our history. First, in verses 11 through 12, Paul tells us of the division that existed between the Jews and the Gentiles. Then, in verses 13 through 18, Paul tells us of Christ’s unifying work. Finally, in verses 19 through 22, Paul tells us of the unity that we now have in Christ.
-Our Divided Past (v.11-12)
-So, Paul’s first section of our history is our divided past. Specifically, he’s discussing the division between Jews and Gentiles. Look with me at verse 11 again,
-So then, remember that at one time you were Gentiles in the flesh–called “the uncircumcised” by those called “the circumcised,” [Ephesians 2:11a]
-Here, Paul is reminding the Gentile Christians of their past, and of the division that was between them and the Jews. Paul reminds them of the label that they were frequently known by, “the uncircumcised.” Who called them this? The circumcised Jews of the day.
-Right away, Paul’s drawing the picture of division between the Jews and the Gentiles with the distinguishing mark of God’s people in the Old Testament: circumcision.
-You see, the Jews didn’t just practice circumcision for health purposes, this was a sign that was given to them by God to separate themselves from the other nations surrounding them. You can see back in Genesis that as God called Abraham and promised to make a people for Himself, God also commanded that Abraham be circumcised. Circumcision was an outward sign of entrance into the covenant community of God’s people.
-The Jews were in this covenant community. Gentiles were outside of this community. And, as verse 11 suggests, the Jews made sure that the Gentiles knew they were excluded because of the circumcision.
-Throughout Israel’s history, they still practiced this command of God. It was administered on the 8th day after the birth of a baby boy, so that every male Jew was circumcised.
-However, despite Israel keeping this command, they lost the purpose–the meaning behind the practice. The Jews became prideful in this sign. They placed their faith in their circumcision, not the God who commanded it.
-In fact, they became so obsessed with this sign that it became the single factor in whether they’d consider one a Jew or not. This one act, determined whether a person would be considered favored by God or not. In another letter, Paul refers to these Jews obsessed with circumcision as “dogs,…evil workers,…those who mutilate the flesh…” (Philippians 3:3)
-What are the implications of this division, though? What’s the big deal about not being in the group of the Jews? Paul answers this in verse 12,
-At that time, you were without the Messiah, excluded from the citizenship of Israel, and foreigners to the covenants of promise, without hope and without God in the world. [Ephesians 2:12]
-The division between the Jews and Gentiles goes far deeper that simply belonging to a group or not. The Jews had a promise from God that they would be redeemed. God, from the very beginning, promised His people that He would send a Messiah.
-Now, since the Gentiles were excluded from citizenship to Israel, they were considered foreigners to the promises of God. Namely, that they were foreigners to the promise of God’s redemption through a Savior.
-But what redemption did God promise? Right before this passage, in verses 1 through 3 of chapter 2, Paul tells us that we are dead in our trespasses and sins and facing God’s wrath.
-Friends, we’ve all affronted God’s authority. In our hearts and in our actions, we’ve rebelled against God’s good and perfect commands. And now, we stand before Him, the good and just judge, and rightly deserve punishment. How can a good God allow evil to just be swept away under an eternal rug? If God is to be good, He must condemn evil, and that means condemning our sin.
-The goodness of the gospel, however, is that God is both good, and merciful. In God’s goodness, He doesn’t just sweep evil under the rug, He deals with it. But God, in His mercy, Has come in person, taken the sins of His people on Himself, and offered Himself as a sacrifice for them.
-But these Gentiles didn’t have the promise of a redeeming Messiah, and therefore, they had no hope to which they could look forward. And without this hope, they were without God. They could not know Him. Not that God was entirely disinterested with them, but that they couldn’t call God their Father. The only way they could know God was as the Holy King of the Universe against which they rebelled. The only way they could know God was the Good and Perfect Judge who would one day condemn all evil, which included them.
-Friends, this is our history. We’ve all rebelled against God. Not one of us has kept His commandments. This is why we need the hope of the gospel.
-If you’re a non-Christian here today. I’m going to risk offending you by telling you that this is also you, right now. Even if you’ve been to church your entire life. Unless we turn from our sin, from our rebellion against God, and trust in His saving work on the cross, you face this wrath. You are without hope and without God.
-Christ’s Unifying Work (v.13-18)
-The next section of our history that Paul’s describes in verses 13 through 18 is Christ’s unifying work.
-We already saw the division Paul pictured in verses 11 and 12, but Paul addresses the resolution to this problem. Verse 13 says,
-But now, in Christ Jesus, you who were far away have been brought near by the blood of the Messiah. [Ephesians 2:13]
-How is this division resolved? Through Christ’s blood of the cross. This large chasm between the Jews and the Gentiles, between God’s people, and those not has now been closed by Christ’s blood.
-But what’s so special about Christ’s blood? Why is this important for making unity? Earlier in this letter Paul wrote,
-We have redemption in Him, through His blood, the forgiveness of our trespasses. [Ephesians 1:7]
-Friend, through Christ’s blood alone, do we have forgiveness of our trespasses. Christ’s sacrifice on the cross was not limited to only Jews. God didn’t only redeem people from Israel, but from every nation.
-Not only are the far away Gentiles brought near, but we see that Christ has made the two groups one. The Gentiles, who were excluded from the members of God’s people, far away from God’s people, were brought into the circle of God’s people.
-We are now unified in Christ, who is our peace. How did Christ do this though? How did He unify both Jews and Gentiles? Paul gives us two answers: the first is that Christ tore down the dividing wall of hostility. In verse 14, he says,
-For He is our peace, who made both groups one and tore down the dividing wall of hostility… [Ephesians 2:14]
-What Paul means is that Christ died for both Jews and Gentiles on the Cross. He grouped them both together in His sacrifice. Christ’s death on the cross outed all of us as equal before God. That may sound like good news, but, at least to some degree, that’s tragic news. Just think, we are all so sinful that we needed the incarnate God to die in our place. One Puritan meditated on it this way,
-Thy blood is the blood of incarnate God,
-  its worth infinite, its value beyond all thought.
-Infinite must be the evil and guilt
-that demands such a price.
-[The Precious Blood – Valley of Vision]
-If our sin was so wicked and evil that it demanded the blood of God’s only Son, we can see that we all are equal before God, but that our equality is our deserving hell. Indeed, Christ tore down this dividing wall by revealing our common need for salvation.
-Look with me at the end of verse 14 though. Paul continues,
-In His flesh, He made of no effect the law consisting of commands and expressed in regulations, so that He might create one new man from the two, resulting in peace. [Ephesians 2:14b-15a]
-The second answer Paul gives us as to how Christ made both groups one is that Christ made the law of no effect. It’s paid. It’s fulfilled. We no longer have the guilt of our disobedience hanging over our heads because Christ came and lived in perfect obedience to the law, and now offers us that perfection through faith.
-Again, in verse 16, Paul makes it doubly clear what Christ’s intentions were,
-He did this so that He might reconcile both the God in one body through the cross and put hostility to death by it. [Ephesians 2:16]
-We all owed a common debt, and Christ paid our common debt. We all stood equally guilty before God, but now, for those in Him, we stand equally in our faith in Christ’s salvation. He’s put hostility between the earthly races to death by unifying us in Christ’s death and resurrection.
-Friend, that’s great news! We deserved death, but Christ took our death in our place. This great divide and hostility between the Jews and Gentiles was put to death. Our common need for a Savior was exposed by God coming in the flesh to pay for our sins, and He’s provided a common bond for His people in their salvation through faith in Him.
-If you’re a non-Christian here today, I wonder how you think about this? You might ask, “can these two groups really be brought together?”, “Could this really happen today?” The answer scripture gives us is an emphatic YES!
-You see, when God exposed our need for a Savior, He showed the deepest core of each person. Namely, that we were rebels against our very Creator. He showed the evil thoughts and intention in each of our hearts. These may not come across as what we imagine as evil. We might think, “Oh, a little lie isn’t evil,” but, friends, by lying we’re telling God that we think we know better than Him, and that means holding up what is false instead of what is true, so that we can gain. You see, our deepest selves, have the tendency to disregard God’s authority. That’s our evil.
-Now, since our deepest need is a Savior, they our greatest joy must be if that Savior is provided. This is how we are unified. God’s people are unified by their common, deepest joy in Christ.
-Now, non-Christian, I don’t mean to exclude you–in fact, I invite to join, to repent and believe in Christ–but this unity is only offered through faith in Christ. So I urge you this morning to consider your rebellion from God, consider your inability to be keep God’s perfect and good law, and trust in Christ who offers us His perfect life.
-Moving on, this news isn’t just available to all, it is to be proclaimed to all, look at verse 17. Paul writes,
-When the Messiah came, He proclaimed the good news of peace to you who were far away, and peace to those who were near. [Ephesians 2:17]
-This peace that Christ made through the cross, He proclaimed to all people. Jew and Gentile, rich and poor. Every social class, every language, every political position, and every race. Christ has unified all of His people, and as His followers, we’re follow Him in this.
-This is why we’re commanded to take the gospel to areas of the world where they’ve never heard it. Christ has offered them salvation but they’ve never heard. This is why we pray fervently for God to send people to them, and labor at home to teach the gospel in our communities.
-Keep going to verse 18,
-For through Him we both have access by one Spirit to the Father. [Ephesians 2:18]
-We have salvation through a single Christ, by a single Spirit and a single Father. There’s not a salvation for Jews here, and a salvation for Gentiles here. We both, as a new people of God, have access to God by a single sacrifice, which is God Himself.
-Unity Created (v.19-22)
-So Paul has shown us our divided past, and Paul has shown us Christ’s unifying work. Now, the final section of our history that Paul mentions is the unity that Christ has created. Paul uses three images to describe our unity that we have in Christ.
-The first image Paul uses to describe our unity in Christ is fellow citizens of a divine kingdom. In verse 19 Paul says,
-So then, you are no longer foreigners and strangers, but fellow citizens with the saints… [Ephesians 2:19]
-This reminiscent of the issue Paul brought up earlier in our text. In verse 12 Paul said,
-...you were without the messiah, excluded from the citizenship of Israel, and foreigners to the covenants of promise… [Ephesians 2:12]
-Paul’s reminding the Gentiles that they are no longer aliens to God’s kingdom, but that they have been brought into God’s divine kingdom, granted full citizenship, and lavished with all the benefits of their heavenly home.
-Another way Paul gives us to think about our unity in Christ is as members of God’s family. The last part of verse 19 says,
-…And members of God’s household… [Ephesians 2:19b]
-Earlier in this letter, Paul wrote,
-He predestined us to be adopted through Jesus Christ for Himself, according to His favor and will… [Ephesians 1:5]
-In Paul’s letter to the Romans, he wrote,
-For you did not receive a spirit of slavery to fall back into fear, but you received the Spirit of adoption, by whom we cry out, “Abba, Father!” [Romans 8:15]
-For those who have trusted in Christ, God has saved us, and adopted us into His family. He is no longer the judge sure to deliver His wrath to us, but that wrath has been delivered to Christ and now we who made ourselves enemies of God are now adopted as His children.
-The final image Paul gives us to understand our unity in Christ is as building blocks of God’s temple. Verses 20 through 22 say,
-Built on the foundation of the apostles and prophets, with Christ Jesus Himself as the cornerstone. The whole building, being put together by Him, grows into a holy sanctuary in the Lord. You are also being built together for God’s dwelling in the Spirit. [Ephesians 2:20-22]
-The picture that Paul’s painting here is similar to how we’d build a Lincoln Log cabin. First, you need a solid foundation to build on. That’s Christ. Then we have the little flat pieces that start off the building with. That’s the apostles and prophets. Then there’s the rest of the pieces that get added on top.
-In the same way, God is building a people for Himself. They’re all knitted and locked together. Firmly situated on Christ.
-So, just as fellow citizens in a nation, and just as members of a family, and just as building blocks of a building, for those of us in Christ–that is, for those who turn from our sin and trust in God for salvation–we now stand unified.
-Implications of this Unity (4:1-3)
-So what does this mean for us? For us who, by faith, are members of God’s people now, what does it mean for us to be unified? There are numerous implications, but let me submit just one to you this morning. Look with me to chapter 4 verse 1.
-Therefore I, the prisoner for the Lord, urge you to walk worthy of the calling you have received, with all humility and gentleness, with patience accepting one another in love, diligently keeping the unity of the Spirit with the peace that binds us. [Ephesians 4:1-3]
-For us who are unified in Christ, we are commanded to strive for deeper unity.
-We are called to labor for this peace. Specifically regarding racial tension, this means recognizing inequality around us. It means recognizing privileges that one group might have over another.
-Brothers and sisters, we cannot simply be color-blind. Now, here me. I am by no means saying that we should hold stigmas or stereotypes against people. What I’m saying is that, in order for us to follow this command to keep unity and accept one another in love, we have to recognize the lives of our brothers and sisters who are of a different race.
-For example, I have an African-American friend–one of the friendliest guys you’ll ever meet. He served in the Marines, so he’s this really big, tough-looking guy, but he’s also in band and he wants to be a weather man, so he’s kind of like a teddy bear.
-But he was telling me how, at one point in his teenage years, that his father sat him down, and very seriously told him that he’s going to be treated differently. That simply because of his skin color, he’s going to have to live with the baggage of the stereotype that existed. He was going to have a difficult time with police, he’s going to intimidate people, and so on.
-Brothers and sisters, if we’re going to strive for deeper unity–if we’re truly going to accept one another in love, we must understand the lives that our brothers and sisters live. We have to understand the privilege we might have of not worrying how the police might treat us or not worrying that we might intimidate some lady that we’re passing on the street.
-We can’t just understand these things, but we have to be advocates to put these things away. We have to advocate for not just equality in treatment, but equality in privilege.
-Friends, this won’t be easy. It takes a lot of effort.
-Therefore I, the prisoner for the Lord, urge you to walk worthy of the calling you have received, with all humility and gentleness, with patience accepting one another in love, diligently keeping the unity of the Spirit with the peace that binds us. [Ephesians 4:1-3]
-Paul front-loads this command with a lot of phrases. He mentions, humility, gentleness, patience, and diligence.
-Brothers and sisters, this labor will be long and hard, but as unified members of God’s household, this labor is worth it.
-Christ did not leave us divide. He sought His people, died for them on the cross, and reconciling both to God in one body. A body that now exists in part, on earth today. If we are to follow our Lord, we must cherish our unified hope, and seek deeper unity.
-But let me remind you, we will not have perfect unity on this earth. Our hope is heaven where, as Revelation 7 tells, us,
-After this I looked, and there was a vast multitude from every nation, tribe, people, and language, which no one could number, standing before the throne and before the Lamb. They were robed in white with palm branches in their hands. And they cried out in a loud voice:
-Salvation belongs to our God, who is seated on the throne, and to the Lamb!
-[Revelation 7:9-10]
-Let’s pray.
-Closing Prayer
-GREAT GOD,
-You created the heavens and the earth. We come before You, thanking You for Your Word. May we now respond with our lives.
-We long for the day when we will be gathered with the diverse multitude and declare: Salvation belongs to our God, who is seated on the throne, and to the Lamb.
-Until then, may we seek unity amidst racial diversity in our communities, but especially in the Church, Your body, Your bride.
-We know we cannot do this on our own, so we humble petition You. May it be so.
-We ask in Christ’s name, Amen.
+<h2>Unity Amidst Diversity</h2>
+<p>I remember that one of the first times I could drive after I got my license, I was going to a friend's birthday party. It was fun, and I was headed home around 8 o'clock or so because I had a curfew. But, being that late on a November night, it was pretty dark outside. In fact, if I remember correctly, it might have started to rain.</p>
+<p>Another friend of mine that was leaving about the same time still only had his permit, so his dad was going to make him take some backroads home just so he'd get the experience. I've always been a fan of taking backroads when I'm the one driving, so, naturally, I followed them.</p>
+<p>After a while, I realized how long it was going to take, so I decide that I'd just cut back over to the main road. This was my first mistake. What I did wrong, was assume I knew which way the main road was. I made a turn, followed it to a dead end, and realized I was in trouble.</p>
+<p>Now you may think, "Oh, that's no big deal. You can just look up the directions on your phone." The problem with that was that my phone was dead and I didn't have a charger. So, there I was, a sixteen year old kid, in the middle of somewhere I'd never been, pitch black outside, raining, with no idea where I was. At that point, I realized just how important it is to know where you've been, and how you got to where you are.</p>
+<p>I think a similar thing can be said of history. It's important to know where we were before and how we got to the point we're at now, so that we can know how to get to where we're headed.</p>
+<p>Today, with the topic of "God and Race" in mind, we find ourselves in a passage where Paul is explaining to the members of the Ephesian church where they were, where they're at, and where they're headed.</p>
+<p>So, with that in outline in mind, I invite you to look with me at Ephesians chapter 2 verse 11.</p>
+<p>If you will, let's stand in honor of the reading of God's Word. Ephesians chapter 2 verse 11,</p>
+<p>So then, remember that at one time you were Gentiles in the flesh–called "the uncircumcised" by those called "the circumcised," which is done in the flesh by human hands. At that time you were without the Messiah, excluded from the citizenship of Israel, and foreigners to the covenants of promise, without hope and without God in this world. But now in Christ Jesus, you who were far away have been brought near by the blood of the Messiah. For He is our peace, who made both groups one and tore down the dividing wall of hostility. In His flesh He made of no effect the law consisting of commands and expressed in regulations, so that He might create in Himself one new man from the two, resulting in peace. He did this so that He might reconcile both to God in one body through the cross and put hostility to death by it. When the Messiah came, He proclaimed the good news of peace to those who were far away and peace to those who were near. For through Him we both have access by one Spirit to the Father. So then, you are no longer foreigners and strangers, but fellow citizens with the saints and members of God's household, built on the foundation of the apostles and prophets with Christ Jesus Himself as the cornerstone. The whole building being put together by Him, grows into a holy sanctuary in the Lord. You are also being built together for God's dwelling in the Spirit. [Ephesians 2:11-22]</p>
+<p>This is the Word of God; thanks be to Him. You may be seated.</p>
+<p>In this passage of Scripture, Paul is telling us our history as the people of God.</p>
+<p>His main point in writing this letter to the Ephesian church, is unity. This is the key, if you will, that Paul is playing in throughout the entire letter.</p>
+<p>In fact, Paul greets the church in chapter 1 verse 2 with the standard greeting of both Greeks and Jews when he says, "Grace and peace." Then, in his farewell in chapter 6, Paul reverses the order when he says, "peace and grace." From beginning to end, Unity is the central idea. But how do we have unity? Who exactly has this unity? And how does this have anything to do with race?</p>
+<p>The point Paul is making is that true unity is only found in the people of God, who have been unified by God's saving work. This includes every social class, every language, every political party, and every race.</p>
+<p>So, with unity in mind, this passage we're looking at has three main parts of our history. First, in verses 11 through 12, Paul tells us of the division that existed between the Jews and the Gentiles. Then, in verses 13 through 18, Paul tells us of Christ's unifying work. Finally, in verses 19 through 22, Paul tells us of the unity that we now have in Christ.</p>
+<h3>Our Divided Past (v.11-12)</h3>
+<p>So, Paul's first section of our history is our divided past. Specifically, he's discussing the division between Jews and Gentiles. Look with me at verse 11 again,</p>
+<p>So then, remember that at one time you were Gentiles in the flesh–called "the uncircumcised" by those called "the circumcised," [Ephesians 2:11a]</p>
+<p>Here, Paul is reminding the Gentile Christians of their past, and of the division that was between them and the Jews. Paul reminds them of the label that they were frequently known by, "the uncircumcised." Who called them this? The circumcised Jews of the day.</p>
+<p>Right away, Paul's drawing the picture of division between the Jews and the Gentiles with the distinguishing mark of God's people in the Old Testament: circumcision.</p>
+<p>You see, the Jews didn't just practice circumcision for health purposes, this was a sign that was given to them by God to separate themselves from the other nations surrounding them. You can see back in Genesis that as God called Abraham and promised to make a people for Himself, God also commanded that Abraham be circumcised. Circumcision was an outward sign of entrance into the covenant community of God's people.</p>
+<p>The Jews were in this covenant community. Gentiles were outside of this community. And, as verse 11 suggests, the Jews made sure that the Gentiles knew they were excluded because of the circumcision.</p>
+<p>Throughout Israel's history, they still practiced this command of God. It was administered on the 8th day after the birth of a baby boy, so that every male Jew was circumcised.</p>
+<p>However, despite Israel keeping this command, they lost the purpose–the meaning behind the practice. The Jews became prideful in this sign. They placed their faith in their circumcision, not the God who commanded it.</p>
+<p>In fact, they became so obsessed with this sign that it became the single factor in whether they'd consider one a Jew or not. This one act, determined whether a person would be considered favored by God or not. In another letter, Paul refers to these Jews obsessed with circumcision as "dogs,...evil workers,...those who mutilate the flesh..." (Philippians 3:3)</p>
+<p>What are the implications of this division, though? What's the big deal about not being in the group of the Jews? Paul answers this in verse 12,</p>
+<p>At that time, you were without the Messiah, excluded from the citizenship of Israel, and foreigners to the covenants of promise, without hope and without God in the world. [Ephesians 2:12]</p>
+<p>The division between the Jews and Gentiles goes far deeper that simply belonging to a group or not. The Jews had a promise from God that they would be redeemed. God, from the very beginning, promised His people that He would send a Messiah.</p>
+<p>Now, since the Gentiles were excluded from citizenship to Israel, they were considered foreigners to the promises of God. Namely, that they were foreigners to the promise of God's redemption through a Savior.</p>
+<p>But what redemption did God promise? Right before this passage, in verses 1 through 3 of chapter 2, Paul tells us that we are dead in our trespasses and sins and facing God's wrath.</p>
+<p>Friends, we've all affronted God's authority. In our hearts and in our actions, we've rebelled against God's good and perfect commands. And now, we stand before Him, the good and just judge, and rightly deserve punishment. How can a good God allow evil to just be swept away under an eternal rug? If God is to be good, He must condemn evil, and that means condemning our sin.</p>
+<p>The goodness of the gospel, however, is that God is both good, and merciful. In God's goodness, He doesn't just sweep evil under the rug, He deals with it. But God, in His mercy, Has come in person, taken the sins of His people on Himself, and offered Himself as a sacrifice for them.</p>
+<p>But these Gentiles didn't have the promise of a redeeming Messiah, and therefore, they had no hope to which they could look forward. And without this hope, they were without God. They could not know Him. Not that God was entirely disinterested with them, but that they couldn't call God their Father. The only way they could know God was as the Holy King of the Universe against which they rebelled. The only way they could know God was the Good and Perfect Judge who would one day condemn all evil, which included them.</p>
+<p>Friends, this is our history. We've all rebelled against God. Not one of us has kept His commandments. This is why we need the hope of the gospel.</p>
+<p>If you're a non-Christian here today. I'm going to risk offending you by telling you that this is also you, right now. Even if you've been to church your entire life. Unless we turn from our sin, from our rebellion against God, and trust in His saving work on the cross, you face this wrath. You are without hope and without God.</p>
+<h3>Christ's Unifying Work</h3>
+<p>The next section of our history that Paul's describes in verses 13 through 18 is Christ's unifying work.</p>
+<p>We already saw the division Paul pictured in verses 11 and 12, but Paul addresses the resolution to this problem. Verse 13 says,</p>
+<p>But now, in Christ Jesus, you who were far away have been brought near by the blood of the Messiah. [Ephesians 2:13]</p>
+<p>How is this division resolved? Through Christ's blood of the cross. This large chasm between the Jews and the Gentiles, between God's people, and those not has now been closed by Christ's blood.</p>
+<p>But what's so special about Christ's blood? Why is this important for making unity? Earlier in this letter Paul wrote,</p>
+<p>We have redemption in Him, through His blood, the forgiveness of our trespasses. [Ephesians 1:7]</p>
+<p>Friend, through Christ's blood alone, do we have forgiveness of our trespasses. Christ's sacrifice on the cross was not limited to only Jews. God didn't only redeem people from Israel, but from every nation.</p>
+<p>Not only are the far away Gentiles brought near, but we see that Christ has made the two groups one. The Gentiles, who were excluded from the members of God's people, far away from God's people, were brought into the circle of God's people.</p>
+<p>We are now unified in Christ, who is our peace. How did Christ do this though? How did He unify both Jews and Gentiles? Paul gives us two answers: the first is that Christ tore down the dividing wall of hostility. In verse 14, he says,</p>
+<p>For He is our peace, who made both groups one and tore down the dividing wall of hostility... [Ephesians 2:14]</p>
+<p>What Paul means is that Christ died for both Jews and Gentiles on the Cross. He grouped them both together in His sacrifice. Christ's death on the cross outed all of us as equal before God. That may sound like good news, but, at least to some degree, that's tragic news. Just think, we are all so sinful that we needed the incarnate God to die in our place. One Puritan meditated on it this way,</p>
+<p>Thy blood is the blood of incarnate God, its worth infinite, its value beyond all thought. Infinite must be the evil and guilt that demands such a price.</p>
+<p>[The Precious Blood – Valley of Vision]</p>
+<p>If our sin was so wicked and evil that it demanded the blood of God's only Son, we can see that we all are equal before God, but that our equality is our deserving hell. Indeed, Christ tore down this dividing wall by revealing our common need for salvation.</p>
+<p>Look with me at the end of verse 14 though. Paul continues,</p>
+<p>In His flesh, He made of no effect the law consisting of commands and expressed in regulations, so that He might create one new man from the two, resulting in peace. [Ephesians 2:14b-15a]</p>
+<p>The second answer Paul gives us as to how Christ made both groups one is that Christ made the law of no effect. It's paid. It's fulfilled. We no longer have the guilt of our disobedience hanging over our heads because Christ came and lived in perfect obedience to the law, and now offers us that perfection through faith.</p>
+<p>Again, in verse 16, Paul makes it doubly clear what Christ's intentions were,</p>
+<p>He did this so that He might reconcile both the God in one body through the cross and put hostility to death by it. [Ephesians 2:16]</p>
+<p>We all owed a common debt, and Christ paid our common debt. We all stood equally guilty before God, but now, for those in Him, we stand equally in our faith in Christ's salvation. He's put hostility between the earthly races to death by unifying us in Christ's death and resurrection.</p>
+<p>Friend, that's great news! We deserved death, but Christ took our death in our place. This great divide and hostility between the Jews and Gentiles was put to death. Our common need for a Savior was exposed by God coming in the flesh to pay for our sins, and He's provided a common bond for His people in their salvation through faith in Him.</p>
+<p>If you're a non-Christian here today, I wonder how you think about this? You might ask, "can these two groups really be brought together?", "Could this really happen today?" The answer scripture gives us is an emphatic YES!</p>
+<p>You see, when God exposed our need for a Savior, He showed the deepest core of each person. Namely, that we were rebels against our very Creator. He showed the evil thoughts and intention in each of our hearts. These may not come across as what we imagine as evil. We might think, "Oh, a little lie isn't evil," but, friends, by lying we're telling God that we think we know better than Him, and that means holding up what is false instead of what is true, so that we can gain. You see, our deepest selves, have the tendency to disregard God's authority. That's our evil.</p>
+<p>Now, since our deepest need is a Savior, they our greatest joy must be if that Savior is provided. This is how we are unified. God's people are unified by their common, deepest joy in Christ.</p>
+<p>Now, non-Christian, I don't mean to exclude you–in fact, I invite to join, to repent and believe in Christ–but this unity is only offered through faith in Christ. So I urge you this morning to consider your rebellion from God, consider your inability to be keep God's perfect and good law, and trust in Christ who offers us His perfect life.</p>
+<p>Moving on, this news isn't just available to all, it is to be proclaimed to all, look at verse 17. Paul writes,</p>
+<p>When the Messiah came, He proclaimed the good news of peace to you who were far away, and peace to those who were near. [Ephesians 2:17]</p>
+<p>This peace that Christ made through the cross, He proclaimed to all people. Jew and Gentile, rich and poor. Every social class, every language, every political position, and every race. Christ has unified all of His people, and as His followers, we're follow Him in this.</p>
+<p>This is why we're commanded to take the gospel to areas of the world where they've never heard it. Christ has offered them salvation but they've never heard. This is why we pray fervently for God to send people to them, and labor at home to teach the gospel in our communities.
+<p>Keep going to verse 18,</p>
+<p>For through Him we both have access by one Spirit to the Father. [Ephesians 2:18]</p>
+<p>We have salvation through a single Christ, by a single Spirit and a single Father. There's not a salvation for Jews here, and a salvation for Gentiles here. We both, as a new people of God, have access to God by a single sacrifice, which is God Himself.</p>
+<h3>Unity Created</h3>
+<p>So Paul has shown us our divided past, and Paul has shown us Christ's unifying work. Now, the final section of our history that Paul mentions is the unity that Christ has created. Paul uses three images to describe our unity that we have in Christ.</p>
+<p>The first image Paul uses to describe our unity in Christ is fellow citizens of a divine kingdom. In verse 19 Paul says,</p>
+<p>So then, you are no longer foreigners and strangers, but fellow citizens with the saints... [Ephesians 2:19]</p>
+<p>This reminiscent of the issue Paul brought up earlier in our text. In verse 12 Paul said,</p>
+<p>...you were without the messiah, excluded from the citizenship of Israel, and foreigners to the covenants of promise... [Ephesians 2:12]</p>
+<p>Paul's reminding the Gentiles that they are no longer aliens to God's kingdom, but that they have been brought into God's divine kingdom, granted full citizenship, and lavished with all the benefits of their heavenly home.</p>
+<p>Another way Paul gives us to think about our unity in Christ is as members of God's family. The last part of verse 19 says,</p>
+<p>...And members of God's household... [Ephesians 2:19b]</p>
+<p>Earlier in this letter, Paul wrote,</p>
+<p>He predestined us to be adopted through Jesus Christ for Himself, according to His favor and will... [Ephesians 1:5]</p>
+<p>In Paul's letter to the Romans, he wrote,</p>
+<p>For you did not receive a spirit of slavery to fall back into fear, but you received the Spirit of adoption, by whom we cry out, "Abba, Father!" [Romans 8:15]</p>
+<p>For those who have trusted in Christ, God has saved us, and adopted us into His family. He is no longer the judge sure to deliver His wrath to us, but that wrath has been delivered to Christ and now we who made ourselves enemies of God are now adopted as His children.</p>
+<p>The final image Paul gives us to understand our unity in Christ is as building blocks of God's temple. Verses 20 through 22 say,</p>
+<p>Built on the foundation of the apostles and prophets, with Christ Jesus Himself as the cornerstone. The whole building, being put together by Him, grows into a holy sanctuary in the Lord. You are also being built together for God's dwelling in the Spirit. [Ephesians 2:20-22]</p>
+<p>The picture that Paul's painting here is similar to how we'd build a Lincoln Log cabin. First, you need a solid foundation to build on. That's Christ. Then we have the little flat pieces that start off the building with. That's the apostles and prophets. Then there's the rest of the pieces that get added on top.</p>
+<p>In the same way, God is building a people for Himself. They're all knitted and locked together. Firmly situated on Christ.</p>
+<p>So, just as fellow citizens in a nation, and just as members of a family, and just as building blocks of a building, for those of us in Christ–that is, for those who turn from our sin and trust in God for salvation–we now stand unified.</p>
+<h3>Implications of this Unity</h3>
+<p>So what does this mean for us? For us who, by faith, are members of God's people now, what does it mean for us to be unified? There are numerous implications, but let me submit just one to you this morning. Look with me to chapter 4 verse 1.</p>
+<p>Therefore I, the prisoner for the Lord, urge you to walk worthy of the calling you have received, with all humility and gentleness, with patience accepting one another in love, diligently keeping the unity of the Spirit with the peace that binds us. [Ephesians 4:1-3]
+<p>For us who are unified in Christ, we are commanded to strive for deeper unity.</p>
+<p>We are called to labor for this peace. Specifically regarding racial tension, this means recognizing inequality around us. It means recognizing privileges that one group might have over another.</p>
+<p>Brothers and sisters, we cannot simply be color-blind. Now, here me. I am by no means saying that we should hold stigmas or stereotypes against people. What I'm saying is that, in order for us to follow this command to keep unity and accept one another in love, we have to recognize the lives of our brothers and sisters who are of a different race.</p>
+<p>For example, I have an African-American friend–one of the friendliest guys you'll ever meet. He served in the Marines, so he's this really big, tough-looking guy, but he's also in band and he wants to be a weather man, so he's kind of like a teddy bear.</p>
+<p>But he was telling me how, at one point in his teenage years, that his father sat him down, and very seriously told him that he's going to be treated differently. That simply because of his skin color, he's going to have to live with the baggage of the stereotype that existed. He was going to have a difficult time with police, he's going to intimidate people, and so on.</p>
+<p>Brothers and sisters, if we're going to strive for deeper unity–if we're truly going to accept one another in love, we must understand the lives that our brothers and sisters live. We have to understand the privilege we might have of not worrying how the police might treat us or not worrying that we might intimidate some lady that we're passing on the street.</p>
+<p>We can't just understand these things, but we have to be advocates to put these things away. We have to advocate for not just equality in treatment, but equality in privilege.</p>
+<p>Friends, this won't be easy. It takes a lot of effort.</p>
+<p>Therefore I, the prisoner for the Lord, urge you to walk worthy of the calling you have received, with all humility and gentleness, with patience accepting one another in love, diligently keeping the unity of the Spirit with the peace that binds us. [Ephesians 4:1-3]</p>
+<p>Paul front-loads this command with a lot of phrases. He mentions, humility, gentleness, patience, and diligence.</p>
+<p>Brothers and sisters, this labor will be long and hard, but as unified members of God's household, this labor is worth it.</p>
+<p>Christ did not leave us divide. He sought His people, died for them on the cross, and reconciling both to God in one body. A body that now exists in part, on earth today. If we are to follow our Lord, we must cherish our unified hope, and seek deeper unity.</p>
+<p>But let me remind you, we will not have perfect unity on this earth. Our hope is heaven where, as Revelation 7 tells, us,</p>
+<p class="quote">After this I looked, and there was a vast multitude from every nation, tribe, people, and language, which no one could number, standing before the throne and before the Lamb. They were robed in white with palm branches in their hands. And they cried out in a loud voice:</p>
+<p class="quote">Salvation belongs to our God, who is seated on the throne, and to the Lamb!</p>
+<p class="quote">[Revelation 7:9-10]</p>
