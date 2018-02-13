@@ -103,6 +103,12 @@
       });
     }
   });
+  $('.search-tag').click(function() {
+    var current = $('#search').val();
+    console.log(current);
+    if(current != '') { current += ', '; }
+    $('#search').val(current + $(this).data('tag'));
+  });
 
   /* Share Functions */
   $('.share-btn').click(function() {
