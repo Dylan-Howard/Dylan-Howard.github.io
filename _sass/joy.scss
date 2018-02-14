@@ -375,6 +375,11 @@ header.masthead {
   .article-box.article-box-md > img {
     display: block;
     width: 100%; }
+  // .col-lg-4 > .article-box {
+  //   overflow: hidden; }
+  //   .col-lg-4 > .article-box > img {
+  //     height: auto;
+  //     width: auto; }
   .article-box.article-box-sm > img {
     display: none;
     width: 35%; }
@@ -455,6 +460,7 @@ header.masthead {
         display: block; }
       .article-box.article-box-sm > .category {
         display: block; }
+      // .article-box > .description,
       .article-box.article-box-md > .description {
         color: #fff;
         position: absolute;
@@ -488,6 +494,7 @@ header.masthead {
     top: 1px;
     left: 1px; }
   .search-tags {
+    cursor: pointer;
     display: flex;
     justify-content: space-around;
     padding: 6px 8px; }
