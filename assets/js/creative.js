@@ -106,14 +106,15 @@
   };
   // Search on key up
   $('#search').keyup( search() );
-  // Search on tag click
-  $('.search-tag')click( search() );
 
   $('.search-tag').click(function() {
     var current = $('#search').val();
     console.log(current);
     if(current != '') { current += ', '; }
     $('#search').val(current + $(this).data('tag'));
+    
+    // Search on tag click
+    search()
   });
 
   /* Share Functions */
