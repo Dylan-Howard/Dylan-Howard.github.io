@@ -1,0 +1,60 @@
+header.masthead {
+  /* background-color: #2A2A2A; */
+  padding: 4rem 0;
+  height: 100vh;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+header.masthead .head__bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  background-position: center;
+  background-size: cover;
+
+  opacity: .9;
+}
+header.masthead .container {
+  width: calc(100% - 4rem);
+}
+header.masthead hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+header.masthead h1 {
+  font-family: 'Mont', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 3.8rem;
+}
+header.masthead p {
+  font-family: 'Mont', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.8rem;
+  margin-top: 2rem;
+}
+header.masthead .arrow {
+  display: block;
+
+  position: absolute;
+  bottom: 1.2rem;
+  left: calc(50% - 1.3rem);
+  color: #FFF;
+  font-size: 3.6rem;
+  line-height: 3.6rem;
+
+  height: 3.6rem;
+  width: 3.6rem;
+}
+@media (min-width: 768px) { header.masthead p { font-size: 1.15rem; } }
+@media (min-width: 992px) {
+  header.masthead {
+    height: 100vh;
+    min-height: 650px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  header.masthead h1 { font-size: 3rem; }
+}
+@media (min-width: 1200px) { header.masthead h1 { font-size: 4rem; } }

@@ -1,0 +1,60 @@
+    <!-- <div class="row">
+      <div class="col-lg-6">
+        <a class="project-card text-white" style="background-image: url('assets/img/portfolio/thumbnails/0.jpg')">
+          <div class="project-card-text">
+            <h3>Jaycie</h3>
+            <p class="sub-title light">Portrait</p>
+            <div class="btn btn-primary btn-xl">See More</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-6 card-sr">
+        <a class="project-card text-white" style="background-image: url('assets/img/portfolio/thumbnails/1.jpg')">
+          <div class="project-card-text">
+            <h3>Back Down South</h3>
+            <p class="sub-title light">Portrait</p>
+            <div class="btn btn-primary btn-xl">See More</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-4 text card-sr">
+        <a class="project-card project-card-tall project-card-bg-left text-white" style="background-image: url('assets/img/portfolio/thumbnails/17.jpg')">
+          <div class="project-card-text">
+            <h3>Red Fody</h3>
+            <p class="sub-title light">Travel</p>
+            <div class="btn btn-primary btn-xl">See More</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-6 text card-sr">
+        <a class="project-card text-white" style="background-image: url('assets/img/portfolio/thumbnails/2.jpg')">
+          <div class="project-card-text">
+            <h3>Anosy</h3>
+            <p class="sub-title light">Portrait</p>
+            <div class="btn btn-primary btn-xl">See More</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-6 text card-sr">
+        <a class="project-card text-white" style="background-image: url('assets/img/portfolio/thumbnails/3.jpg')">
+          <div class="project-card-text">
+            <h3>Justin</h3>
+            <p class="sub-title light">Portrait</p>
+            <div class="btn btn-primary btn-xl">See More</div>
+          </div>
+        </a>
+      </div>
+    </div> -->
+
+<div class="row">
+  <div class="col-lg-6" *ngFor="let project of projects">
+    <a class="project-card text-white" routerLink="/project/{{ project.title }}" [ngStyle]="{'background-image': 'url(' + project.background + ')'}">
+    <!-- <a class="project-card text-white" routerLink="/project" [ngStyle]="{'background-image': 'url(' + project.background + ')'}"> -->
+      <div class="project-card-text">
+        <h3>{{project.title}}</h3>
+        <p class="sub-title light">{{project.type}}</p>
+        <div class="btn btn-primary btn-xl">See More</div>
+      </div>
+    </a>
+  </div>
+</div>
