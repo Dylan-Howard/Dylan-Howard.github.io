@@ -1,60 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DylanPortfolio</title>
+  <base href="http://dylanhoward.me">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
 
-  <head>
+<link rel="stylesheet" href="styles.34c57ab7888ec1573f9c.css"></head>
+<body>
+  <app-root></app-root>
+<script type="text/javascript" src="runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="polyfills.2f4a59095805af02bd79.js"></script><script type="text/javascript" src="main.a1c3d064fe5180950db0.js"></script></body>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Dylan Howard">
+<style>
+  body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    width: 100%;
+  }
+  section {
+    background: linear-gradient(#fafafa, #efefef);
+    box-sizing: border-box;
+    display: flex;
+    padding: 0 20%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+  }
+  section .hero-content {
+    margin: auto;
+  }
+  footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3rem;
+  }
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: auto;
+    padding: .5rem 0;
+  }
+  li {
+    padding: 0 1rem;
+  }
+  li a {
+    padding: 0;
+  }
+  svg {
+    height: 2rem;
+    width: 2rem;
+  }
+  .dribble path { fill: #4669B2; }
+  .mail path, .mail rect { fill: transparent; }
+  p, a {
+    display: inline-block;
+    padding: .8rem 0;
+    margin-right: .5rem;
+    vertical-align: middle;
+  }
+  /* .btn {
+    background: #4669B2;
+    border-radius: 2rem;
+    color: #fff;
+    text-decoration: none;
+    padding: .8rem 1rem;
+    box-shadow: 0 5px 7px rgba(0,0,0,0);
 
-    <base href="dylanhoward.me">
-    <title>Dylan Howard - Portfolio: Web Design and Photography</title>
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    transition: all .25s;
+  }
+  .btn:hover {
+    box-shadow: 0 5px 7px rgba(0,0,0,0.25);
+    -webkit-transform: translate3d(0,-3px,0);
+    -moz-transform: translate3d(0,-3px,0);
+    transform: translate3d(0,-3px,0);
+  } */
 
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+  .btn {
+    color: #4669B2;
+    text-decoration: none;
+    padding: .8rem 0;
+    box-shadow: 0 5px 7px rgba(0,0,0,0);
+    position: relative;
+    overflow: hidden;
 
-    <!-- Custom styles for this template -->
-    <!-- <link href="css/dylan.css" rel="stylesheet"> -->
+    -webkit-transition: all .25s;
+    -moz-transition: all .25s;
+    transition: all .25s;
+  }
+  .btn::after {
+    background: #4669B2;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    box-shadow: 0 5px 7px rgba(0,0,0,0.25);
 
-  <link rel="stylesheet" href="styles.d20f2857d69503a56838.css"></head>
+    -webkit-transform: translate3d(0,100%,0);
+    -moz-transform: translate3d(0,100%,0);
+    transform: translate3d(0,100%,0);
 
-  <body id="page-top">
+    -webkit-transition: -webkit-transform .25s;
+    -moz-transition: -moz-transform .25s;
+    transition: transform .25s;
+  }
+  .btn:hover { color: #fff; }
+  .btn:hover:after {
+    box-shadow: 0 5px 7px rgba(0,0,0,0.25);
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+  /* .btn:hover {
+    box-shadow: 0 5px 7px rgba(0,0,0,0.25);
+    -webkit-transform: translate3d(0,-3px,0);
+    -moz-transform: translate3d(0,-3px,0);
+    transform: translate3d(0,-3px,0);
+  } */
 
-    <app-root></app-root>
-
-    <footer class="bg-dark">
-      <div class="section__bg bg-dark"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-7 tag mx-auto text-white">
-            <h2 class="text-center mb-4">Dylan Howard</h2>
-            <!-- <ul class="soc-links">
-              <li><a class="fa fa-facebook" href="#"></a></li>
-              <li><a class="fa fa-instagram" href="#"></a></li>
-              <li><a class="fa fa-twitter" href="#"></a></li>
-            </ul> -->
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Custom fonts for this template -->
-    <!-- <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- Bootstrap core JavaScript -->
-    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
-    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-
-    <!-- Plugin JavaScript -->
-    <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
-    <!-- <script src="vendor/scrollreveal/scrollreveal.min.js"></script> -->
-    <!-- <script src="assets/vendor/typed/typed.min.js"></script> -->
-
-    <!-- Custom script -->
-    <!-- <script src="assets/js/dylan.js"></script> -->
-
-  <script type="text/javascript" src="runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="polyfills.e3633a42d1123afc5fc9.js"></script><script type="text/javascript" src="scripts.46b9d9d4fdbdefe5854d.js"></script><script type="text/javascript" src="main.9415ae90dbaaf21696ca.js"></script></body>
-
+</style>
 </html>
