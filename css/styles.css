@@ -6,8 +6,11 @@
   --color-primary-3: #2C3B4E;
   --color-primary-4: #001E3C;
   --color-accent-gradient-1: #4CC9F0;
-  --color-accent-gradient-2: #4361EE;
-  --color-accent-gradient-3: #3A0CA3;
+  --color-accent-gradient-2: #0894FF;
+  --color-accent-gradient-3: #FF2E54;
+  --color-accent-gradient-4: #FF9004;
+
+  /* --gradient: linear-gradient(108deg, #, # 34%, # 68%, #); */
   
   --tile-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .14);
   --tile-shadow-hover: 0 0 2px rgba(0, 0, 0, .12), 0 8px 16px rgba(0, 0, 0, .14);
@@ -43,6 +46,7 @@ body {
   font-size: 1.1rem;
   margin: 0;
   background: var(--background-primary);
+  color: var(--text-neutral-1);
 }
 
 .stack {
@@ -54,6 +58,15 @@ body {
 .stack.space-between { justify-content: space-between; }
 .stack.row { flex-direction: row; }
 .stack.column { flex-direction: column; }
+
+.gradient-text {
+  background: #1d1d1f;
+  background-clip: text;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: linear-gradient(108deg, var(--color-accent-gradient-1), var(--color-accent-gradient-2) 34%, var(--color-accent-gradient-3) 68%, var(--color-accent-gradient-4));
+}
 
 a {
   color: var(--color-primary-1);
