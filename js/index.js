@@ -5,7 +5,6 @@ const prefersLight = () => window.matchMedia("(prefers-color-scheme: light)").ma
 let currentThemeSetting = prefersLight() ? 'light' : 'dark';
 
 const setTheme = (mode) => {
-  console.log(mode);
   const html = document.getElementsByTagName('html')[0];
   if (!html) {
     return;
