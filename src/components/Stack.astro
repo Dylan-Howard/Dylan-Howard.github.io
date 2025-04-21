@@ -1,0 +1,16 @@
+
+<div class="stack row space-between">
+    <slot />
+</div>
+
+<style>
+    .stack {
+        display: flex !important;
+        justify-content: flex-start;
+        padding: 0;
+    }
+    .stack.center { justify-content: center; }
+    .stack.space-between { justify-content: space-between; }
+    .stack.row { flex-direction: row; }
+    .stack.column { flex-direction: column; }
+</style>

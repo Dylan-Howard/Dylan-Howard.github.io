@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="keywords" content="Dylan, Howard, Software, Engineer, Bowling Green, Development, React, TypeScript, JavaScript, C#, .NET, Go, Azure, Data">
+        <meta name="generator" content={Astro.generator} />
+        <!-- <link rel="icon" type="image/x-icon" href="./img/ui/logo.svg"> -->
+        <title>Dylan Howard</title>
+
+        <style is:global>
+            @import '../styles/global.css';
+        </style>
+    </head>
+    <body data-theme="light">
+        <slot />
+    </body>
+
+    <style>
+        body {
+            background: var(--color-surface);
+            color: var(--color-on-surface);
+            font-family: "Noto Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings: "wdth" 100;
+            margin: 0 auto;
+            max-width: 450px;
+            width: 90%;
+        }
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- <script src="./js/index.js"></script> -->
+</html>
+

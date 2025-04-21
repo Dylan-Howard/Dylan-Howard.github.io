@@ -1,0 +1,77 @@
+---
+import Button from '../components/Button.astro';
+---
+
+<form id="interest-form">
+    <div class="input-container">
+        <input type="text" id="name" name="name" placeholder="Name" required>
+    </div>
+    <div class="input-container">
+    <input type="text" id="email" name="email" placeholder="Email" required>
+    </div>
+    <Button type="submit">Submit</Button>
+</form>
+
+<style>
+    .input-container {
+        display: block;
+        position: relative;
+
+        /* width: 360px; */
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        background-color: transparent;
+        border: 1px solid var(--color-outline);
+        border-radius: 4px;
+        box-sizing: border-box;
+        caret-color: var(--color-primary);
+        color: var(--color-on-surface);
+        display: block;
+        font-size: 16px;
+        font-weight: 400;
+        height: 56px;
+        letter-spacing: 0.5pt;
+        line-height: 24px;
+        outline: none;
+        padding: 0 16px;
+        position: relative;
+        margin: 0 0 8px 0;
+        width: 100%;
+    }
+    ::-webkit-input-placeholder,
+    ::-moz-placeholder,
+    ::-ms-placeholder,
+    ::placeholder {
+        color: var(--color-on-surface-variant);
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.5pt;
+        line-height: 24px;
+    }
+
+    /* .input-container::before {
+    content: "";
+    display: block;
+    height: calc(100% - (var(--shape-border-width) * 2));
+    width: calc(100% - (var(--shape-border-width) * 2));
+    opacity: 1;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    border-radius: 4px;
+    border: solid var(--shape-border-width) transparent;
+    background: conic-gradient(from 45deg, var(--color-accent-gradient-1), var(--color-accent-gradient-2), var(--color-accent-gradient-3), var(--color-accent-gradient-1)) border-box;
+
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    transition: opacity var(--motion-easing-standard) var(--motion-duration-medium);
+    }
+    .input-container:after { opacity: 1; } */
+</style>
