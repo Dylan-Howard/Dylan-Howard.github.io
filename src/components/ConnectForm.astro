@@ -23,11 +23,11 @@ import Button from '../components/Button.astro';
     input[type="text"],
     input[type="email"] {
         background-color: transparent;
-        border: 1px solid var(--color-outline);
+        border: 1px solid var(--dlh-theme-color-outline);
         border-radius: 4px;
         box-sizing: border-box;
-        caret-color: var(--color-primary);
-        color: var(--color-on-surface);
+        caret-color: var(--dlh-theme-color-primary);
+        color: var(--dlh-theme-color-on-surface);
         display: block;
         font-size: 16px;
         font-weight: 400;
@@ -44,7 +44,7 @@ import Button from '../components/Button.astro';
     ::-moz-placeholder,
     ::-ms-placeholder,
     ::placeholder {
-        color: var(--color-on-surface-variant);
+        color: var(--dlh-theme-color-on-surface-variant);
         font-size: 16px;
         font-weight: 400;
         letter-spacing: 0.5pt;
@@ -54,8 +54,8 @@ import Button from '../components/Button.astro';
     /* .input-container::before {
     content: "";
     display: block;
-    height: calc(100% - (var(--shape-border-width) * 2));
-    width: calc(100% - (var(--shape-border-width) * 2));
+    height: calc(100% - (var(--dlh-theme-shape-border-width) * 2));
+    width: calc(100% - (var(--dlh-theme-shape-border-width) * 2));
     opacity: 1;
 
     position: absolute;
@@ -63,15 +63,15 @@ import Button from '../components/Button.astro';
     left: 0;
 
     border-radius: 4px;
-    border: solid var(--shape-border-width) transparent;
-    background: conic-gradient(from 45deg, var(--color-accent-gradient-1), var(--color-accent-gradient-2), var(--color-accent-gradient-3), var(--color-accent-gradient-1)) border-box;
+    border: solid var(--dlh-theme-shape-border-width) transparent;
+    background: conic-gradient(from 45deg, var(--dlh-theme-color-accent-gradient-1), var(--dlh-theme-color-accent-gradient-2), var(--dlh-theme-color-accent-gradient-3), var(--dlh-theme-color-accent-gradient-1)) border-box;
 
     -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
 
-    transition: opacity var(--motion-easing-standard) var(--motion-duration-medium);
+    transition: opacity var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-standard);
     }
     .input-container:after { opacity: 1; } */
 </style>

@@ -26,13 +26,13 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: var(--color-on-surface-variant);
+        background-color: var(--dlh-theme-color-on-surface-variant);
         border-radius: 34px;
         height: 24px;
         width: 48px;
 
-        -webkit-transition: var(--motion-easing-standard) var(--motion-duration-short);
-        transition: var(--motion-easing-standard) var(--motion-duration-short);
+        -webkit-transition: var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
+        transition: var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
     }
 
     #color-mode-switch .slider:before {
@@ -48,18 +48,18 @@
         background-repeat: no-repeat;
         background-position: center center;
         background-size: 20px;
-        background-color: var(--color-tertiary);
-        background-image: var(--color-mode-switch-icon);
+        background-color: var(--dlh-theme-color-tertiary);
+        background-image: var(--dlh-theme-color-mode-switch-icon);
 
         -webkit-transition:
-            background-image var(--motion-easing-standard) var(--motion-duration-short),
-            transform var(--motion-easing-standard) var(--motion-duration-short);
+            background-image var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short),
+            transform var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
         transition:
-            background-image var(--motion-easing-standard) var(--motion-duration-short),
-            transform var(--motion-easing-standard) var(--motion-duration-short);
+            background-image var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short),
+            transform var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
     }
 
-    #color-mode-switch .slider::before svg { fill: var(--color-surface); }
+    #color-mode-switch .slider::before svg { fill: var(--dlh-theme-color-surface); }
     #color-mode-switch input:checked + .slider { background-color: #ccc; }
     #color-mode-switch input:focus + .slider { box-shadow: 0 0 1px #ccc; }
     #color-mode-switch input:checked + .slider:before {
