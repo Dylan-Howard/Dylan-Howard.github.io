@@ -9,12 +9,14 @@
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:eslint-comments/recommended",
     "plugin:regexp/recommended",
+    "plugin:astro/jsx-a11y-strict",
     "prettier"
   ],
-  "plugins": ["simple-import-sort"],
+  "plugins": ["simple-import-sort", "jsx-a11y"],
   "parserOptions": {
     "project": true,
-    "extraFileExtensions": [".astro"]
+    "extraFileExtensions": [".astro"],
+    "ecmaVersion": "latest"
   },
   "settings": {
     "import/resolver": {

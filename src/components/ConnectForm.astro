@@ -65,33 +65,33 @@ import Button from "@components/Button.astro";
 
   input[type="text"],
   input[type="email"] {
-    background-color: transparent;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0 0 8px 0;
+    outline: none;
     border: 1px solid var(--dlh-theme-color-outline);
     border-radius: 4px;
-    box-sizing: border-box;
-    caret-color: var(--dlh-theme-color-primary);
-    color: var(--dlh-theme-color-on-surface);
-    display: block;
-    font-size: 16px;
-    font-weight: 400;
-    height: 56px;
-    letter-spacing: 0.5pt;
-    line-height: 24px;
-    outline: none;
+    background-color: transparent;
     padding: 0 16px;
-    position: relative;
-    margin: 0 0 8px 0;
     width: 100%;
+    height: 56px;
+    color: var(--dlh-theme-color-on-surface);
+    caret-color: var(--dlh-theme-color-primary);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5pt;
   }
   ::-webkit-input-placeholder,
   ::-moz-placeholder,
   ::-ms-placeholder,
   ::placeholder {
     color: var(--dlh-theme-color-on-surface-variant);
-    font-size: 16px;
     font-weight: 400;
-    letter-spacing: 0.5pt;
+    font-size: 16px;
     line-height: 24px;
+    letter-spacing: 0.5pt;
   }
 
   /* .input-container::before {

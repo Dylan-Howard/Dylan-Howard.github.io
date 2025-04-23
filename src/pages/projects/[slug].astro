@@ -11,7 +11,6 @@ export async function getStaticPaths() {
   }));
 }
 
-const { slug } = Astro.params;
 const { project } = Astro.props;
 ---
 
@@ -19,11 +18,7 @@ const { project } = Astro.props;
   <article aria-label={project.data.title} transition:name={project.slug}>
     {
       project.data.image && (
-        <img
-          src={project.data.image.src}
-          alt={project.data.image.alt}
-          transition:name={slug}
-        />
+        <img src={project.data.image.src} alt={project.data.image.alt} />
       )
     }
     <h1>{project.data.title}</h1>

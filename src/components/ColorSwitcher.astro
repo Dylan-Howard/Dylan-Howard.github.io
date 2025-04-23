@@ -44,8 +44,8 @@
 <style>
   /* Color Mode Switch */
   #color-mode-switch {
-    position: relative;
     display: inline-block;
+    position: relative;
     width: 60px;
     height: 34px;
   }
@@ -58,40 +58,26 @@
 
   #color-mode-switch .slider {
     position: absolute;
-    cursor: pointer;
     top: 0;
-    left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--dlh-theme-color-on-surface-variant);
-    border-radius: 34px;
-    height: 24px;
-    width: 48px;
+    left: 0;
 
     -webkit-transition: var(--dlh-theme-motion-easing-standard)
       var(--dlh-theme-motion-duration-short);
     transition: var(--dlh-theme-motion-easing-standard)
       var(--dlh-theme-motion-duration-short);
+    cursor: pointer;
+    border-radius: 34px;
+    background-color: var(--dlh-theme-color-on-surface-variant);
+    width: 48px;
+    height: 24px;
   }
 
   #color-mode-switch .slider:before {
     position: absolute;
-    content: "";
-    height: 32px;
-    width: 32px;
-    left: -1px;
     bottom: -4px;
-    border-radius: 50%;
-    box-shadow:
-      rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
-      rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
-      rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
-
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 20px;
-    background-color: var(--dlh-theme-color-tertiary);
-    background-image: var(--dlh-theme-color-mode-switch-icon);
+    left: -1px;
 
     -webkit-transition:
       background-image var(--dlh-theme-motion-easing-standard)
@@ -103,6 +89,20 @@
         var(--dlh-theme-motion-duration-short),
       transform var(--dlh-theme-motion-easing-standard)
         var(--dlh-theme-motion-duration-short);
+    box-shadow:
+      rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+      rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+      rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+    border-radius: 50%;
+    background-image: var(--dlh-theme-color-mode-switch-icon);
+    background-position: center center;
+    background-size: 20px;
+
+    background-repeat: no-repeat;
+    background-color: var(--dlh-theme-color-tertiary);
+    width: 32px;
+    height: 32px;
+    content: "";
   }
 
   #color-mode-switch .slider::before svg {
