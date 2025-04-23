@@ -12,6 +12,40 @@ import Button from '../components/Button.astro';
     <Button type="submit">Submit</Button>
 </form>
 
+<script>
+    const interestFormSubmit = document.getElementById('interest-form-submit') as HTMLFormElement | null;
+    if (interestFormSubmit) {
+        interestFormSubmit.addEventListener('submit', (event: SubmitEvent) => {
+        event.preventDefault(); // Prevent default form submission
+
+        const nameInput = document.getElementById('name') as HTMLInputElement | null;
+        const emailInput = document.getElementById('email') as HTMLInputElement | null;
+
+        const name = nameInput?.value || '';
+        const email = emailInput?.value || '';
+
+        // Send the data to your Google Apps Script Web App
+        fetch("https://script.google.com/macros/s/AKfycbzgcp7xdbWVFjB3CZHm0G_mTBTWR0Ma-x-KPhTETEYd_2x9E9GgII6S79eeeTBsMxQX_g/exec", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data?.result === 'success') {
+                    interestFormSubmit.reset(); //Clear the form
+                }
+            })
+            .catch((error: Error) => {
+                console.error('Error:', error);
+                alert('An unexpected error occurred.');
+            });
+        });
+    }
+</script>
+
 <style>
     .input-container {
         display: block;

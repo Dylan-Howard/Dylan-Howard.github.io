@@ -1,8 +1,42 @@
 
-<label id="color-mode-switch" aria-label="Toggle color theme">
+<label id="color-mode-switch" aria-label="Toggle color theme" transition:persist>
     <input type="checkbox">
     <span class="slider"></span>
 </label>
+
+<script>
+    function colorMode() {
+        const themeToggle = document.getElementById('color-mode-switch');
+    
+        const body = document.body;
+        const localStorageKey = 'theme';
+    
+        function setTheme(theme: 'light' | 'dark') {
+            body.dataset.theme = theme;
+            localStorage.setItem(localStorageKey, theme);
+        }
+    
+        // Get stored theme on load
+        const storedTheme = localStorage.getItem(localStorageKey);
+        if (storedTheme && (storedTheme === 'light' || storedTheme === 'dark')) {
+            setTheme(storedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+    
+        if (themeToggle) {
+            themeToggle.addEventListener('change', () => {
+                const currentTheme = body.dataset.theme;
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
+    }
+
+    document.addEventListener('astro:page-load', colorMode);
+</script>
 
 <style>
     /* Color Mode Switch */
