@@ -1,18 +1,17 @@
 {
   "root": true,
   "extends": [
-    "plugin:astro/recommended",
-    "plugin:astro/jsx-a11y-recommended",
     "airbnb-base",
     "airbnb-typescript/base",
     "plugin:@typescript-eslint/strict",
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:eslint-comments/recommended",
     "plugin:regexp/recommended",
+    "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-strict",
     "prettier"
   ],
-  "plugins": ["simple-import-sort", "jsx-a11y"],
+  "plugins": ["simple-import-sort", "astro", "jsx-a11y"],
   "parserOptions": {
     "project": true,
     "extraFileExtensions": [".astro"],
