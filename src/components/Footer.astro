@@ -1,0 +1,29 @@
+---
+import Divider from "./Divider.astro";
+import Section from "./Section.astro";
+import SocialLinks from "./SocialLinks.astro";
+import Stack from "./Stack.astro";
+import Typography from "./Typography.astro";
+---
+
+<Section component="footer">
+    <div class="footer-container">
+        <Divider />
+        <Stack direction="row" justifyContent="space-between">
+            <Typography>
+                &copy; {new Date().getFullYear()} Dylan Howard 
+                · 
+                <a href="/sitemap-index.xml">Sitemap</a> 
+                · 
+                Built with Astro
+            </Typography>
+            <SocialLinks />
+        </Stack>
+    </div>
+</Section>
+
+<style>
+    .footer-container {
+        margin-bottom: var(--dlh-theme-shape-margin-large);
+    }
+</style>
