@@ -1,78 +1,43 @@
 ---
-import Layout from "../layouts/layout.astro"
-import Header from "../components/Header.astro";
-import Navigation from "../components/Navigation.astro";
-import Section from "../components/Section.astro";
+import { getCollection } from "astro:content";
+
+import Layout from "../layouts/Layout.astro"
 import Card from "../components/Card.astro";
 import ConnectForm from "../components/ConnectForm.astro";
 import Grid from "../components/Grid.astro";
+import Header from "../components/Header.astro";
+import Section from "../components/Section.astro";
+
+const projects = await getCollection('projects');
+projects.sort((a, b) =>  new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 ---
 <Layout>
-    <Navigation />
     <Header title="Dylan Howard" subtitle="Software Engineer" />
     <Section id="my-work" title="My Work">
         <Grid>
-            <Card
-                description="A comprehensive application designed to provide granular visibility and control over user identities across multiple systems."
-                imgSource="./img/person-icon.svg"
-                imgAlt="Prognosis: Identity & Access Monitor"
-                link="https://github.com/Dylan-Howard/Identity-Systems-Monitor"
-                supportingText="React • C# • .NET • SQL"
-                title="Identity & Access Monitor"
-            />
-            <Card
-                description="Ancient Greek learning platform providing interactive tools to enhance comprehension and vocabulary acquisition."
-                imgSource="./img/koine-logo.png"
-                imgAlt="Koine: Ancent Greek Learning Platform"
-                link="https://github.com/Dylan-Howard/Greek-Learning-App"
-                supportingText="React • .NET • Go • Azure Cloud • SQL • NoSQL"
-                title="Ancient Greek Learning Platform"
-            />
-            <Card
-                description="Separates addresses received from Warren County Zoning and Planning into individual rows based on user-defined patterns."
-                imgSource="./img/project-2.jpeg"
-                imgAlt="Analuo: Address Data Processor"
-                link="https://github.com/Dylan-Howard/Address-Destructuring-App"
-                supportingText="React • Go • SQL"
-                title="Address Data Processor"
-            />
-            <Card
-                description="A variety of open-sourced scripts and utilities for administrators of K12 Google Workspace environments."
-                imgSource="./img/google-demo.gif"
-                imgAlt="K12 Google Workspace Toolkit"
-                link="https://github.com/Dylan-Howard/Google-Management-Utilities"
-                supportingText="TypeScript • Go"
-                title="K12 Google Workspace Toolkit"
-            />
-            <Card
-                description="A variety of open-sourced scripts and utilities for administrators of K12 Google Workspace environments."
-                imgSource="./img/person-icon.svg"
-                imgAlt="K12 Google Workspace Toolkit"
-                link="https://github.com/Dylan-Howard/Google-Management-Utilities"
-                supportingText="TypeScript • Go"
-                title="K12 Google Workspace Toolkit"
-            />
-            <Card
-                description="This script is designed to assist students in organizing their schoolwork and managing their time more effectively within macOS. It addresses the limitation of macOS, which lacks a built-in way to import reminders or create bulk reminders."
-                imgSource="./img/reminders-icon.svg"
-                imgAlt="Bulk Import Mac OS Reminders"
-                link="https://github.com/Dylan-Howard/AutomatedMacosReminders"
-                supportingText="AppleScript"
-                title="Import for Mac OS Reminders"
-            />
+            {
+                projects.map((prj) => (
+                    <Card
+                        description={prj.data.description}
+                        id={prj.slug}
+                        imgSource={prj.data.image.src}
+                        imgAlt={prj.data.image.alt}
+                        link={`projects/${prj.slug}`}
+                        supportingText={
+                            prj.data.tags.join(' • ')
+                        }
+                        title={prj.data.title}
+                    />
+                ))
+            }
         </Grid>
     </Section>
     <Section id="interest-form" title="Connect">
         <ConnectForm />
     </Section>
-    <Section variant="aside">
+    <Section component="aside">
         <img src="./assets/LightIcons.svg" alt="Icons" />
     </Section>
 </Layout>
-
-<style>
-    aside { margin: 2rem; }
-    aside > img { height: 40px; }
-</style>
     
