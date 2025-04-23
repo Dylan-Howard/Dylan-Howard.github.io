@@ -7,18 +7,19 @@ const { type } = Astro.props;
 ---
 
 
-<button type={type}>
-    <span class="button-label">
+<button aria-label="" type={type}>
+    <span class="label">
         <slot />
     </span>
 </button>
-
 <style>
     button {
-        background-color: var(--color-primary);
+        background-color: var(--dlh-theme-color-primary);
+        /* background: var(--dlh-theme-color-primary-gradient, --color-primary); */
         border: none;
-        border-radius: var(--shape-corner-full);
-        color: var(--color-on-primary);
+        border-radius: var(--dlh-theme-shape-corner-small);
+        /* border-radius: var(--dlh-theme-shape-corner-full); */
+        color: var(--dlh-theme-color-on-primary);
         cursor: pointer;
         display: block;
         font-size: 14px;
@@ -30,14 +31,15 @@ const { type } = Astro.props;
         position: relative;
         margin-top: 16px;
     }
-    button.button-label {
+    button .label {
         display: block;
         position: relative;
         z-index: 1;
     }
     button::after {
-        background-color: var(--color-on-surface);
-        border-radius: var(--shape-corner-full);
+        background-color: var(--dlh-theme-color-on-surface);
+        border-radius: var(--dlh-theme-shape-corner-small);
+        /* border-radius: var(--dlh-theme-shape-corner-full); */
         content: '';
         display: block;
         height: 100%;
@@ -47,7 +49,7 @@ const { type } = Astro.props;
         opacity: 0;
         width: 100%;
 
-        transition: opacity var(--motion-easing-standard) var(--motion-duration-short);
+        transition: opacity var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
     }
     button:hover::after {
         opacity: 0.12;
