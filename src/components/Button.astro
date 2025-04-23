@@ -1,57 +1,56 @@
 ---
 interface Props {
-    type: 'button' | 'submit';
+  type: "button" | "submit";
 }
 
 const { type } = Astro.props;
 ---
 
-
-<button aria-label="" type={type}>
-    <span class="label">
-        <slot />
-    </span>
+<button type={type}>
+  <span class="label">
+    <slot />
+  </span>
 </button>
 <style>
-    button {
-        background-color: var(--dlh-theme-color-primary);
-        /* background: var(--dlh-theme-color-primary-gradient, --color-primary); */
-        border: none;
-        border-radius: var(--dlh-theme-shape-corner-small);
-        /* border-radius: var(--dlh-theme-shape-corner-full); */
-        color: var(--dlh-theme-color-on-primary);
-        cursor: pointer;
-        display: block;
-        font-size: 14px;
-        font-weight: 500;
-        height: 40px;
-        letter-spacing: .01pt;
-        line-height: 20px;
-        padding: 0 16px;
-        position: relative;
-        margin-top: 16px;
-    }
-    button .label {
-        display: block;
-        position: relative;
-        z-index: 1;
-    }
-    button::after {
-        background-color: var(--dlh-theme-color-on-surface);
-        border-radius: var(--dlh-theme-shape-corner-small);
-        /* border-radius: var(--dlh-theme-shape-corner-full); */
-        content: '';
-        display: block;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        width: 100%;
+  button {
+    background-color: var(--dlh-theme-color-primary);
+    /* background: var(--dlh-theme-color-primary-gradient, --color-primary); */
+    border: none;
+    border-radius: var(--dlh-theme-shape-corner-small);
+    color: var(--dlh-theme-color-on-primary);
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    letter-spacing: 0.01pt;
+    line-height: 20px;
+    padding: 0 16px;
+    position: relative;
+    margin-top: 16px;
+  }
+  button .label {
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+  button::after {
+    background-color: var(--dlh-theme-color-on-surface);
+    border-radius: var(--dlh-theme-shape-corner-small);
+    /* border-radius: var(--dlh-theme-shape-corner-full); */
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
 
-        transition: opacity var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
-    }
-    button:hover::after {
-        opacity: 0.12;
-    }
+    transition: opacity var(--dlh-theme-motion-easing-standard)
+      var(--dlh-theme-motion-duration-short);
+  }
+  button:hover::after {
+    opacity: 0.12;
+  }
 </style>

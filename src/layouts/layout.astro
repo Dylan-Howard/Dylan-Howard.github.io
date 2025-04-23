@@ -1,44 +1,48 @@
 ---
 import { ClientRouter } from "astro:transitions";
 
-import Footer from '../components/Footer.astro';
-import Navigation from '../components/Navigation.astro';
-import '../styles/global.css';
+import Footer from "../components/Footer.astro";
+import Navigation from "../components/Navigation.astro";
+import "../styles/global.css";
 ---
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="keywords" content="Dylan, Howard, Software, Engineer, Bowling Green, Development, React, TypeScript, JavaScript, C#, .NET, Go, Azure, Data">
-        <meta name="generator" content={Astro.generator} />
-        <link rel="sitemap" href="/sitemap-index.xml" />
-        <title>Dylan Howard</title>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="keywords"
+      content="Dylan, Howard, Software, Engineer, Bowling Green, Development, React, TypeScript, JavaScript, C#, .NET, Go, Azure, Data"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <title>Dylan Howard</title>
 
-        <style is:global>
-            @import '../styles/global.css';
-        </style>
-        <ClientRouter />
-    </head>
-    <body data-theme="light">
-        <Navigation />
-        <slot />
-        <Footer />
-    </body>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap" rel="stylesheet">
-</html>
-
-<style is:global>
-    body {
+    <style is:global>
+      @import "../styles/global.css";
+    </style>
+    <ClientRouter />
+  </head>
+  <body data-theme="light">
+    <Navigation />
+    <slot />
+    <Footer />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      body {
         background: var(--dlh-theme-color-surface);
         color: var(--dlh-theme-color-on-surface);
         font-family: "Noto Sans", sans-serif;
         margin: 0 auto;
         max-width: 550px;
         width: calc(100% - (var(--dlh-theme-shape-margin-large) * 2));
-    }
-</style>
+      }
+    </style>
+  </body>
+</html>

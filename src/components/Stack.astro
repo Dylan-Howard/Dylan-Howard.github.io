@@ -1,27 +1,51 @@
 ---
 interface Props {
-    direction?: 'column' | 'row';
-    gap?: 'small' | 'medium' | 'large';
-    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-around' | 'space-between';
+  direction?: "column" | "row";
+  gap?: "small" | "medium" | "large";
+  justifyContent?:
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-around"
+    | "space-between";
 }
-const { direction = 'column', gap = "small", justifyContent = 'flex-start'} = Astro.props;
+const {
+  direction = "column",
+  gap = "small",
+  justifyContent = "flex-start",
+} = Astro.props;
 ---
+
 <div class={`stack ${direction} ${justifyContent} gap-${gap}`}>
-    <slot />
+  <slot />
 </div>
 
 <style>
-    .stack {
-        display: flex !important;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 0;
-    }
-    .stack.center { justify-content: center; }
-    .stack.space-between { justify-content: space-between; }
-    .stack.row { flex-direction: row; }
-    .stack.column { flex-direction: column; }
-    .gap-small { gap: var(--dlh-theme-shape-margin-small); }
-    .gap-medium { gap: var(--dlh-theme-shape-margin-medium); }
-    .gap-large { gap: var(--dlh-theme-shape-margin-large); }
+  .stack {
+    display: flex !important;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+  }
+  .stack.center {
+    justify-content: center;
+  }
+  .stack.space-between {
+    justify-content: space-between;
+  }
+  .stack.row {
+    flex-direction: row;
+  }
+  .stack.column {
+    flex-direction: column;
+  }
+  .gap-small {
+    gap: var(--dlh-theme-shape-margin-small);
+  }
+  .gap-medium {
+    gap: var(--dlh-theme-shape-margin-medium);
+  }
+  .gap-large {
+    gap: var(--dlh-theme-shape-margin-large);
+  }
 </style>

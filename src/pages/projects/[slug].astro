@@ -1,68 +1,58 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-    const projects = await getCollection('projects');
-    return projects.map((project) => ({
-        params: { slug: project.slug },
-        props: { project }, // Pass the project data as props to the page
-    }));
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
 }
 
 const { slug } = Astro.params;
 const { project } = Astro.props;
-
-const animation = {
-  old: {
-    name: "hero",
-    duration: "0.5s",
-    easing: "ease-in",
-    direction: "reverse",
-  },
-  new: {
-    name: "hero",
-    duration: "0.5s",
-    easing: "ease-in-out",
-  },
-};
-
-const heroTransition = {
-  forwards: animation,
-  backwards: animation,
-};
 ---
 
 <Layout title={project.data.title}>
-    <article aria-label={project.data.title} transition:name={project.slug}>
-        {project.data.image && (
-            <img src={project.data.image.src} alt={project.data.image.alt} transition:animate={heroTransition} />
-        )}
-        <h1>{project.data.title}</h1>
-        <p>{project.data.description}</p>
-    
-  
-      <ul>
-        {project.data.tags.map((tag) => (
-          <li>{tag}</li>
-        ))}
-      </ul>
-  
-      {project.data.link && (
+  <article aria-label={project.data.title} transition:name={project.slug}>
+    {
+      project.data.image && (
+        <img
+          src={project.data.image.src}
+          alt={project.data.image.alt}
+          transition:name={slug}
+        />
+      )
+    }
+    <h1>{project.data.title}</h1>
+    <p>{project.data.description}</p>
+
+    <ul>
+      {project.data.tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+
+    {
+      project.data.link && (
         <a href={project.data.link} target="_blank" rel="noopener noreferrer">
           View Project
         </a>
-      )}
-  
-      <div class="content">
-        <slot /> {/* This is where the Markdown/MDX content of the project will be rendered */}
-      </div>
-    </article>
-  </Layout>
-  
-  <style>
-    /* Add your styling here */
-    .content {
-        margin-top: 2rem;
+      )
     }
-  </style>
+
+    <div class="content">
+      <slot />
+      {
+        /* This is where the Markdown/MDX content of the project will be rendered */
+      }
+    </div>
+  </article>
+</Layout>
+
+<style>
+  /* Add your styling here */
+  .content {
+    margin-top: 2rem;
+  }
+</style>

@@ -1,14 +1,16 @@
 ---
-title: 'Ancient Greek Learning Platform'
-date: '2023-11-01'
-description: 'Ancient Greek learning platform providing interactive tools to enhance comprehension and vocabulary acquisition.'
-link: 'https://github.com/Dylan-Howard/Greek-Learning-App'
+title: "Ancient Greek Learning Platform"
+date: "2023-11-01"
+description: "Ancient Greek learning platform providing interactive tools to enhance comprehension and vocabulary acquisition."
+link: "https://github.com/Dylan-Howard/Greek-Learning-App"
 image:
-    src: '/img/koine-logo.png'
-    alt: 'Koine: Ancent Greek Learning Platform'
+  src: "/img/koine-logo.png"
+  alt: "Koine: Ancent Greek Learning Platform"
 tags: ["React", ".NET", "Go", "Azure Cloud", "SQL", "NoSQL"]
 ---
+
 <!-- • -->
+
 # My First Blog Post
 
 Published on: 2022-07-01

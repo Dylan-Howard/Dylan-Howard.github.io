@@ -1,25 +1,41 @@
 ---
-import Typography from './Typography.astro';
+import Typography from "@components/Typography.astro";
 
 interface Props {
-    component?: 'aside' | 'footer' | 'section';
-    id?: string;
-    title?: string;
+  component?: "aside" | "footer" | "section";
+  id?: string;
+  title?: string;
 }
-const { component = 'section', id, title } = Astro.props;
+const { component = "section", id, title } = Astro.props;
 const Component = component;
 ---
+
 <Component id={id}>
-    {
-        title
-            ? <Typography component="h2" size="large" variant="title" bottomGutter="medium">{title}</Typography>
-            : null
-    }
-    <slot />
+  {
+    title ? (
+      <Typography
+        component="h2"
+        size="large"
+        variant="title"
+        bottomGutter="medium"
+      >
+        {title}
+      </Typography>
+    ) : null
+  }
+  <slot />
 </Component>
 
 <style>
-    section { margin: var(--dlh-theme-shape-margin-small) auto var(--dlh-theme-shape-margin-large); }
-    aside { margin: 0 auto var(--dlh-theme-shape-margin-large); }
-    footer { margin: var(--dlh-theme-shape-margin-small) auto var(--dlh-theme-shape-margin-xl);}
+  section {
+    margin: var(--dlh-theme-shape-margin-small) auto
+      var(--dlh-theme-shape-margin-large);
+  }
+  aside {
+    margin: 0 auto var(--dlh-theme-shape-margin-large);
+  }
+  footer {
+    margin: var(--dlh-theme-shape-margin-small) auto
+      var(--dlh-theme-shape-margin-xl);
+  }
 </style>

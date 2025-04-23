@@ -1,104 +1,122 @@
-
-<label id="color-mode-switch" aria-label="Toggle color theme" transition:persist>
-    <input type="checkbox">
-    <span class="slider"></span>
+<label
+  id="color-mode-switch"
+  aria-label="Toggle color theme"
+  transition:persist
+>
+  <input type="checkbox" />
+  <span class="slider"></span>
 </label>
 
 <script>
-    function colorMode() {
-        const themeToggle = document.getElementById('color-mode-switch');
-    
-        const body = document.body;
-        const localStorageKey = 'theme';
-    
-        function setTheme(theme: 'light' | 'dark') {
-            body.dataset.theme = theme;
-            localStorage.setItem(localStorageKey, theme);
-        }
-    
-        // Get stored theme on load
-        const storedTheme = localStorage.getItem(localStorageKey);
-        if (storedTheme && (storedTheme === 'light' || storedTheme === 'dark')) {
-            setTheme(storedTheme);
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setTheme('dark');
-        } else {
-            setTheme('light');
-        }
-    
-        if (themeToggle) {
-            themeToggle.addEventListener('change', () => {
-                const currentTheme = body.dataset.theme;
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                setTheme(newTheme);
-            });
-        }
+  function colorMode() {
+    const themeToggle = document.getElementById("color-mode-switch");
+
+    const body = document.body;
+    const localStorageKey = "theme";
+
+    function setTheme(theme: "light" | "dark") {
+      body.dataset.theme = theme;
+      localStorage.setItem(localStorageKey, theme);
     }
 
-    document.addEventListener('astro:page-load', colorMode);
+    // Get stored theme on load
+    const storedTheme = localStorage.getItem(localStorageKey);
+    if (storedTheme && (storedTheme === "light" || storedTheme === "dark")) {
+      setTheme(storedTheme);
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener("change", () => {
+        const currentTheme = body.dataset.theme;
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        setTheme(newTheme);
+      });
+    }
+  }
+
+  document.addEventListener("astro:page-load", colorMode);
 </script>
 
 <style>
-    /* Color Mode Switch */
-    #color-mode-switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-    }
+  /* Color Mode Switch */
+  #color-mode-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
 
-    #color-mode-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
+  #color-mode-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-    #color-mode-switch .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: var(--dlh-theme-color-on-surface-variant);
-        border-radius: 34px;
-        height: 24px;
-        width: 48px;
+  #color-mode-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--dlh-theme-color-on-surface-variant);
+    border-radius: 34px;
+    height: 24px;
+    width: 48px;
 
-        -webkit-transition: var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
-        transition: var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
-    }
+    -webkit-transition: var(--dlh-theme-motion-easing-standard)
+      var(--dlh-theme-motion-duration-short);
+    transition: var(--dlh-theme-motion-easing-standard)
+      var(--dlh-theme-motion-duration-short);
+  }
 
-    #color-mode-switch .slider:before {
-        position: absolute;
-        content: "";
-        height: 32px;
-        width: 32px;
-        left: -1px;
-        bottom: -4px;
-        border-radius: 50%;
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  #color-mode-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 32px;
+    width: 32px;
+    left: -1px;
+    bottom: -4px;
+    border-radius: 50%;
+    box-shadow:
+      rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+      rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+      rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 20px;
-        background-color: var(--dlh-theme-color-tertiary);
-        background-image: var(--dlh-theme-color-mode-switch-icon);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 20px;
+    background-color: var(--dlh-theme-color-tertiary);
+    background-image: var(--dlh-theme-color-mode-switch-icon);
 
-        -webkit-transition:
-            background-image var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short),
-            transform var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
-        transition:
-            background-image var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short),
-            transform var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
-    }
+    -webkit-transition:
+      background-image var(--dlh-theme-motion-easing-standard)
+        var(--dlh-theme-motion-duration-short),
+      transform var(--dlh-theme-motion-easing-standard)
+        var(--dlh-theme-motion-duration-short);
+    transition:
+      background-image var(--dlh-theme-motion-easing-standard)
+        var(--dlh-theme-motion-duration-short),
+      transform var(--dlh-theme-motion-easing-standard)
+        var(--dlh-theme-motion-duration-short);
+  }
 
-    #color-mode-switch .slider::before svg { fill: var(--dlh-theme-color-surface); }
-    #color-mode-switch input:checked + .slider { background-color: #ccc; }
-    #color-mode-switch input:focus + .slider { box-shadow: 0 0 1px #ccc; }
-    #color-mode-switch input:checked + .slider:before {
-        -webkit-transform: translateX(17px);
-        -ms-transform: translateX(17px);
-        transform: translateX(17px);
-    }
+  #color-mode-switch .slider::before svg {
+    fill: var(--dlh-theme-color-surface);
+  }
+  #color-mode-switch input:checked + .slider {
+    background-color: #ccc;
+  }
+  #color-mode-switch input:focus + .slider {
+    box-shadow: 0 0 1px #ccc;
+  }
+  #color-mode-switch input:checked + .slider:before {
+    -webkit-transform: translateX(17px);
+    -ms-transform: translateX(17px);
+    transform: translateX(17px);
+  }
 </style>

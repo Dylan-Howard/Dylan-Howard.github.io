@@ -1,14 +1,16 @@
 ---
 title: Identity & Access Monitor
 date: 2024-03-01
-description: 'A comprehensive application designed to provide granular visibility and control over user identities across multiple systems.'
+description: "A comprehensive application designed to provide granular visibility and control over user identities across multiple systems."
 link: https://github.com/Dylan-Howard/Identity-Systems-Monitor
 image:
-    src: '/img/person-icon.svg'
-    alt: 'Prognosis: Identity & Access Monitor.'
+  src: "/img/person-icon.svg"
+  alt: "Prognosis: Identity & Access Monitor."
 tags: ["React", "C#", ".NET", "SQL"]
 ---
+
 <!-- • -->
+
 # My First Blog Post
 
 Published on: 2022-07-01

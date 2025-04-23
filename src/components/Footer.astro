@@ -1,29 +1,27 @@
 ---
-import Divider from "./Divider.astro";
-import Section from "./Section.astro";
-import SocialLinks from "./SocialLinks.astro";
-import Stack from "./Stack.astro";
-import Typography from "./Typography.astro";
+import Divider from "@components/Divider.astro";
+import Section from "@components/Section.astro";
+import SocialLinks from "@components/SocialLinks.astro";
+import Stack from "@components/Stack.astro";
+import Typography from "@components/Typography.astro";
 ---
 
 <Section component="footer">
-    <div class="footer-container">
-        <Divider />
-        <Stack direction="row" justifyContent="space-between">
-            <Typography>
-                &copy; {new Date().getFullYear()} Dylan Howard 
-                · 
-                <a href="/sitemap-index.xml">Sitemap</a> 
-                · 
-                Built with Astro
-            </Typography>
-            <SocialLinks />
-        </Stack>
-    </div>
+  <div class="footer-container">
+    <Divider />
+    <Stack direction="row" justifyContent="space-between">
+      <Typography>
+        &copy; {new Date().getFullYear()} Dylan Howard ·
+        <a href="/sitemap-index.xml">Sitemap</a>
+         · Built with Astro
+      </Typography>
+      <SocialLinks />
+    </Stack>
+  </div>
 </Section>
 
 <style>
-    .footer-container {
-        margin-bottom: var(--dlh-theme-shape-margin-large);
-    }
+  .footer-container {
+    margin-bottom: var(--dlh-theme-shape-margin-large);
+  }
 </style>

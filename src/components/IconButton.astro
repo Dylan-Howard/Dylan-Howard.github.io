@@ -1,46 +1,48 @@
 ---
 interface Props {
-    link: string;
+  link: string;
 }
 const { link } = Astro.props;
 ---
 
 <a href={link} class="fab-xs">
-    <slot />
+  <slot />
 </a>
 
 <style>
-    a {
-        box-sizing: border-box;
-        border-radius: var(--dlh-theme-shape-corner-full);
-        cursor: pointer;
-        display: block;
-        fill: var(--dlh-theme-color-on-surface-variant);
-        height: 36px;
-        margin: 4px;
-        overflow: hidden;   
-        padding: 8px;
-        position: relative;
-        width: 36px;
+  a {
+    box-sizing: border-box;
+    border-radius: var(--dlh-theme-shape-corner-full);
+    cursor: pointer;
+    display: block;
+    fill: var(--dlh-theme-color-on-surface-variant);
+    height: 36px;
+    margin: 4px;
+    overflow: hidden;
+    padding: 8px;
+    position: relative;
+    width: 36px;
 
-        transition: fill var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-standard);
-    }
-    a:hover {
-        fill: var(--dlh-theme-color-primary);
-    }
-    a::before {
-        background-color: var(--dlh-theme-color-on-surface-variant);
-        content: '';
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        opacity: 0;
-        width: 100%;
+    transition: fill var(--dlh-theme-motion-easing-standard)
+      var(--dlh-theme-motion-duration-standard);
+  }
+  a:hover {
+    fill: var(--dlh-theme-color-primary);
+  }
+  a::before {
+    background-color: var(--dlh-theme-color-on-surface-variant);
+    content: "";
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
 
-        transition: opacity var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-standard);
-    }
-    a:hover::before {
-        opacity: 0.08;
-    }
+    transition: opacity var(--dlh-theme-motion-easing-standard)
+      var(--dlh-theme-motion-duration-standard);
+  }
+  a:hover::before {
+    opacity: 0.08;
+  }
 </style>

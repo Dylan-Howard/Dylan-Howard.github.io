@@ -1,37 +1,46 @@
 ---
-import ColorSwitcher from "./ColorSwitcher.astro";
-import Stack from "./Stack.astro";
+import ColorSwitcher from "@components/ColorSwitcher.astro";
+import Stack from "@components/Stack.astro";
 ---
 
 <nav class="container stack row space-between">
-    <Stack direction="row" justifyContent="space-between">
-        <a href="/">
-            <svg viewBox="0 0 414.49 512.2"><path d="m0,0h151.3c156.02,0,263.19,72.5,263.19,253.74s-107.17,258.46-255.31,258.46H0V0Zm143.42,403.46c74.07,0,132.38-29.94,132.38-149.72s-58.31-144.99-132.38-144.99h-7.88v294.71h7.88Z" style="stroke-width:0px;"/></svg>
-        </a>
-        <ColorSwitcher />
-    </Stack>
+  <Stack direction="row" justifyContent="space-between">
+    <a href="/">
+      <svg viewBox="0 0 414.49 512.2"
+        ><path
+          d="m0,0h151.3c156.02,0,263.19,72.5,263.19,253.74s-107.17,258.46-255.31,258.46H0V0Zm143.42,403.46c74.07,0,132.38-29.94,132.38-149.72s-58.31-144.99-132.38-144.99h-7.88v294.71h7.88Z"
+          style="stroke-width:0px;"></path></svg
+      >
+    </a>
+    <ColorSwitcher />
+  </Stack>
 </nav>
 
 <style>
-    nav {
-        height: 48px;
-        margin: 16px auto 0;
-    }
+  nav {
+    height: 48px;
+    margin: 16px auto 0;
+  }
 
-    nav a {
-        display: block;
-        height: 32px;
-        width: 32px;
-        fill: var(--dlh-theme-color-on-surface-variant);
+  nav a {
+    display: block;
+    height: 32px;
+    width: 32px;
+    fill: var(--dlh-theme-color-on-surface-variant);
 
-        transition: fill var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-standard);;
-    }
-    nav a:hover { fill: var(--dlh-theme-color-on-surface); }
+    transition: fill var(--dlh-theme-motion-easing-standard)
+      var(--dlh-theme-motion-duration-standard);
+  }
+  nav a:hover {
+    fill: var(--dlh-theme-color-on-surface);
+  }
 
-    nav > ul { margin: 0; }
+  nav > ul {
+    margin: 0;
+  }
 
-    nav > ul > li {
-        padding: 0;
-        list-style: none;
-    }
+  nav > ul > li {
+    padding: 0;
+    list-style: none;
+  }
 </style>

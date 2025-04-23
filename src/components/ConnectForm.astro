@@ -1,91 +1,100 @@
 ---
-import Button from '../components/Button.astro';
+import Button from "@components/Button.astro";
 ---
 
 <form id="interest-form">
-    <div class="input-container">
-        <input type="text" id="name" name="name" placeholder="Name" required>
-    </div>
-    <div class="input-container">
-    <input type="text" id="email" name="email" placeholder="Email" required>
-    </div>
-    <Button type="submit">Submit</Button>
+  <div class="input-container">
+    <input type="text" id="name" name="name" placeholder="Name" required />
+  </div>
+  <div class="input-container">
+    <input type="text" id="email" name="email" placeholder="Email" required />
+  </div>
+  <Button type="submit">Submit</Button>
 </form>
 
 <script>
-    const interestFormSubmit = document.getElementById('interest-form-submit') as HTMLFormElement | null;
-    if (interestFormSubmit) {
-        interestFormSubmit.addEventListener('submit', (event: SubmitEvent) => {
-        event.preventDefault(); // Prevent default form submission
+  const interestFormSubmit = document.getElementById(
+    "interest-form-submit",
+  ) as HTMLFormElement | null;
+  if (interestFormSubmit) {
+    interestFormSubmit.addEventListener("submit", (event: SubmitEvent) => {
+      event.preventDefault(); // Prevent default form submission
 
-        const nameInput = document.getElementById('name') as HTMLInputElement | null;
-        const emailInput = document.getElementById('email') as HTMLInputElement | null;
+      const nameInput = document.getElementById(
+        "name",
+      ) as HTMLInputElement | null;
+      const emailInput = document.getElementById(
+        "email",
+      ) as HTMLInputElement | null;
 
-        const name = nameInput?.value || '';
-        const email = emailInput?.value || '';
+      const name = nameInput?.value || "";
+      const email = emailInput?.value || "";
 
-        // Send the data to your Google Apps Script Web App
-        fetch("https://script.google.com/macros/s/AKfycbzgcp7xdbWVFjB3CZHm0G_mTBTWR0Ma-x-KPhTETEYd_2x9E9GgII6S79eeeTBsMxQX_g/exec", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name, email }),
+      // Send the data to your Google Apps Script Web App
+      fetch(
+        "https://script.google.com/macros/s/AKfycbzgcp7xdbWVFjB3CZHm0G_mTBTWR0Ma-x-KPhTETEYd_2x9E9GgII6S79eeeTBsMxQX_g/exec",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email }),
+        },
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data?.result === "success") {
+            interestFormSubmit.reset(); //Clear the form
+          }
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data?.result === 'success') {
-                    interestFormSubmit.reset(); //Clear the form
-                }
-            })
-            .catch((error: Error) => {
-                console.error('Error:', error);
-                alert('An unexpected error occurred.');
-            });
+        .catch((error: Error) => {
+          console.error("Error:", error);
+          alert("An unexpected error occurred.");
         });
-    }
+    });
+  }
 </script>
 
 <style>
-    .input-container {
-        display: block;
-        position: relative;
+  .input-container {
+    display: block;
+    position: relative;
 
-        /* width: 360px; */
-    }
+    /* width: 360px; */
+  }
 
-    input[type="text"],
-    input[type="email"] {
-        background-color: transparent;
-        border: 1px solid var(--dlh-theme-color-outline);
-        border-radius: 4px;
-        box-sizing: border-box;
-        caret-color: var(--dlh-theme-color-primary);
-        color: var(--dlh-theme-color-on-surface);
-        display: block;
-        font-size: 16px;
-        font-weight: 400;
-        height: 56px;
-        letter-spacing: 0.5pt;
-        line-height: 24px;
-        outline: none;
-        padding: 0 16px;
-        position: relative;
-        margin: 0 0 8px 0;
-        width: 100%;
-    }
-    ::-webkit-input-placeholder,
-    ::-moz-placeholder,
-    ::-ms-placeholder,
-    ::placeholder {
-        color: var(--dlh-theme-color-on-surface-variant);
-        font-size: 16px;
-        font-weight: 400;
-        letter-spacing: 0.5pt;
-        line-height: 24px;
-    }
+  input[type="text"],
+  input[type="email"] {
+    background-color: transparent;
+    border: 1px solid var(--dlh-theme-color-outline);
+    border-radius: 4px;
+    box-sizing: border-box;
+    caret-color: var(--dlh-theme-color-primary);
+    color: var(--dlh-theme-color-on-surface);
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    height: 56px;
+    letter-spacing: 0.5pt;
+    line-height: 24px;
+    outline: none;
+    padding: 0 16px;
+    position: relative;
+    margin: 0 0 8px 0;
+    width: 100%;
+  }
+  ::-webkit-input-placeholder,
+  ::-moz-placeholder,
+  ::-ms-placeholder,
+  ::placeholder {
+    color: var(--dlh-theme-color-on-surface-variant);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.5pt;
+    line-height: 24px;
+  }
 
-    /* .input-container::before {
+  /* .input-container::before {
     content: "";
     display: block;
     height: calc(100% - (var(--dlh-theme-shape-border-width) * 2));
