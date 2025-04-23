@@ -1,0 +1,23 @@
+---
+interface Props {
+    variant?: 'full' | 'inset'
+}
+const { variant = 'full' } = Astro.props;
+---
+
+
+<hr class={variant} />
+
+<style>
+    hr {
+        border: none;
+        border-top: 1px solid var(--dlh-theme-color-outline-variant);
+    }
+    .full {
+        margin: 0 0 var(--dlh-theme-shape-margin-small) 0;
+    }
+    .inset {
+        margin: 0 var(--dlh-theme-shape-margin-medium) var(--dlh-theme-shape-margin-small);
+    }
+
+</style>
