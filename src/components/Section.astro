@@ -1,21 +1,22 @@
 ---
+import Typography from './Typography.astro';
+
 interface Props {
+    component?: 'aside' | 'footer' | 'section';
+    id?: string;
     title?: string;
-    variant?: 'section' | 'aside';
 }
-const { title, variant = 'section' } = Astro.props;
-
-const containerTag = variant === 'aside' ? 'aside' : 'section';
-
+const { component = 'section', id, title } = Astro.props;
+const Component = component;
 ---
-<section>
-    { title ? <h2>{title}</h2> : null }
+<Component id={id}>
+    {
+        title
+            ? <Typography component="h2" size="large" variant="title" bottomGutter="medium">{title}</Typography>
+            : null
+    }
     <slot />
-</section>
-<!-- <Fragment set:html={containerTag} class="container mb-2">
-    { title ? <h2>{title}</h2> : null }
-    <slot />
-</Fragment> -->
+</Component>
 
 <style>
     section { margin: var(--dlh-theme-shape-margin-small) auto var(--dlh-theme-shape-margin-large); }
