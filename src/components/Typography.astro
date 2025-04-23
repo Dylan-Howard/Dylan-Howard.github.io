@@ -1,0 +1,161 @@
+---
+interface Props {
+    bottomGutter?: 'small' | 'medium';
+    color?: 'emphasis' | 'on-surface' | 'on-surface-variant' | 'primary';
+    component?: 'h1' | 'h2' | 'h3' | 'span' | 'p';
+    size?: 'extra-large' | 'large' | 'medium' | 'small';
+    variant?: 'display' | 'title' | 'headline' | 'body' | 'label';
+}
+
+const {
+    bottomGutter,
+    color = 'on-surface',
+    component = 'p',
+    size = 'medium',
+    variant = 'body',
+} = Astro.props;
+const Component = component;
+---
+
+<Component class={`${variant}-${size} ${color} ${bottomGutter ? 'bottom-gutter-'+bottomGutter : ''}`}>
+    <slot />
+</Component>
+
+<style>
+    h1, h2, h3, p, span { margin: 0; }
+    .bottom-gutter-small { margin-bottom: var(--dlh-theme-shape-margin-small); }
+    .bottom-gutter-medium { margin-bottom: var(--dlh-theme-shape-margin-medium); }
+    span.bottom-gutter-small,
+    span.bottom-gutter-medium
+    {
+        display: block;
+    }
+    .emphasis {
+        background: #1d1d1f;
+        background-clip: text;
+        -webkit-text-fill-color: rgba(0, 0, 0, 0);
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+        background-image: linear-gradient(
+            108deg,
+            var(--dlh-theme-color-accent-gradient-1),
+            var(--dlh-theme-color-accent-gradient-2) 34%,
+            var(--dlh-theme-color-accent-gradient-3) 68%,
+            var(--dlh-theme-color-accent-gradient-4)
+        );
+    }
+    .on-surface { color: var(--dlh-theme-color-on-surface); }
+    .on-surface-variant { color: var(--dlh-theme-color-on-surface-variant); }
+    .primary { color: var(--dlh-theme-color-primary); }
+    
+    .title-large {
+        font-size: var(--dlh-theme-typescale-title-l-font-size);
+        font-weight: var(--dlh-theme-typescale-title-l-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-title-l-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-title-l-font-variation-opsz);
+        letter-spacing: var(--dlh-theme-typescale-title-l-letter-spacing);
+        line-height: var(--dlh-theme-typescale-title-l-line-height);
+    }
+    .title-medium {
+        font-size: var(--dlh-theme-typescale-title-m-font-size);
+        font-weight: var(--dlh-theme-typescale-title-m-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-title-m-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-title-m-font-variation-opsz);
+        letter-spacing: var(--dlh-theme-typescale-title-m-letter-spacing);
+        line-height: var(--dlh-theme-typescale-title-m-line-height);
+    }
+    .title-small {
+        font-size: var(--dlh-theme-typescale-title-s-font-size);
+        font-weight: var(--dlh-theme-typescale-title-s-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-title-s-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-title-s-font-variation-opsz);
+        letter-spacing: var(--dlh-theme-typescale-title-s-letter-spacing);
+        line-height: var(--dlh-theme-typescale-title-s-line-height);
+    }
+    .headline-large {
+        font-size: var(--dlh-theme-typescale-headline-l-font-size);
+        font-weight: var(--dlh-theme-typescale-headline-l-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-headline-l-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-headline-l-font-variation-opsz);
+        letter-spacing: var(--dlh-theme-typescale-headline-l-letter-spacing);
+        line-height: var(--dlh-theme-typescale-headline-l-line-height);
+    }
+    .headline-medium {
+        font-size: var(--dlh-theme-typescale-headline-m-font-size);
+        font-weight: var(--dlh-theme-typescale-headline-m-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-headline-m-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-headline-m-font-variation-opsz);
+        letter-spacing: var(--dlh-theme-typescale-headline-m-letter-spacing);
+        line-height: var(--dlh-theme-typescale-headline-m-line-height);
+    }
+    .headline-small {
+        font-size: var(--dlh-theme-typescale-headline-s-font-size);
+        font-weight: var(--dlh-theme-typescale-headline-s-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-headline-s-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-headline-s-font-variation-opsz);
+        letter-spacing: var(--dlh-theme-typescale-headline-s-letter-spacing);
+        line-height: var(--dlh-theme-typescale-headline-s-line-height);
+    }
+
+    .body-large {
+        font-size: var(--dlh-theme-typescale-body-l-font-size);
+        font-weight: var(--dlh-theme-typescale-body-l-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-body-l-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-body-l-font-variation-opsz);
+        line-height: var(--dlh-theme-typescale-body-l-line-height);
+        letter-spacing: var(--dlh-theme-typescale-body-l-letter-spacing);
+    }
+    .body-medium {
+        font-size: var(--dlh-theme-typescale-body-m-font-size);
+        font-weight: var(--dlh-theme-typescale-body-m-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-body-m-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-body-m-font-variation-opsz);
+        line-height: var(--dlh-theme-typescale-body-m-line-height);
+        letter-spacing: var(--dlh-theme-typescale-body-m-letter-spacing);
+    }
+    .body-small {
+        font-size: var(--dlh-theme-typescale-body-s-font-size);
+        font-weight: var(--dlh-theme-typescale-body-s-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-body-s-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-body-s-font-variation-opsz);
+        line-height: var(--dlh-theme-typescale-body-s-line-height);
+        letter-spacing: var(--dlh-theme-typescale-body-s-letter-spacing);
+    }
+    .label-large {
+        font-size: var(--dlh-theme-typescale-label-l-font-size);
+        font-weight: var(--dlh-theme-typescale-label-l-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-label-l-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-label-l-font-variation-opsz);
+        line-height: var(--dlh-theme-typescale-label-l-line-height);
+        letter-spacing: var(--dlh-theme-typescale-label-l-letter-spacing);
+    }
+    .label-medium {
+        font-size: var(--dlh-theme-typescale-label-m-font-size);
+        font-weight: var(--dlh-theme-typescale-label-m-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-label-m-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-label-m-font-variation-opsz);
+        line-height: var(--dlh-theme-typescale-label-m-line-height);
+        letter-spacing: var(--dlh-theme-typescale-label-m-letter-spacing);
+    }
+    .label-small {
+        font-size: var(--dlh-theme-typescale-label-s-font-size);
+        font-weight: var(--dlh-theme-typescale-label-s-font-weight);
+        font-variation-settings:
+            "GRAD": var(--dlh-theme-typescale-label-s-font-variation-GRAD),
+            "opsz": var(--dlh-theme-typescale-label-s-font-variation-opsz);
+        line-height: var(--dlh-theme-typescale-label-s-line-height);
+        letter-spacing: var(--dlh-theme-typescale-label-s-letter-spacing);
+    }
+    
+</style>
