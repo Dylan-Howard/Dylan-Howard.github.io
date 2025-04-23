@@ -1,20 +1,44 @@
 ---
+import Divider from "./Divider.astro";
+import Typography from "./Typography.astro";
+
+interface Props {
+    description: string;
+    link: string;
+    id: string;
+    imgSource: string;
+    imgAlt: string;
+    title: string;
+    supportingText: string;
+}
+
 const {
     description,
     link,
+    id,
     imgSource,
     imgAlt,
     title,
     supportingText,
 } = Astro.props;
+
 ---
 
-<a class="card br-xl" href={link}>
-    <img class="fill-bg" src={imgSource} alt={imgAlt} />
-    <h3>{title}</h3>
-    <p>{description}</p>
-    <p class="supporting-text">{supportingText}</p>
-</a>
+<article aria-label={title} class="card" transition:name={id}>
+    <a href={link}>
+        <span class="card-main">
+            <img class="fill-bg" src={imgSource} alt={imgAlt} />
+            <span class="card-content">
+                <Typography component="h3" size="medium" variant="title" bottomGutter="small">{title}</Typography>
+                <Typography>{description}</Typography>
+            </span>
+        </span>
+        <span class="card-footer">
+            <Divider />
+            <Typography color="on-surface-variant">{supportingText}</Typography>
+        </span>
+    </a>
+</article>
 
 <style>
     .card {
