@@ -1,4 +1,5 @@
 ---
+import Typography from "@components/Typography.astro";
 import { getCollection } from "astro:content";
 
 import Layout from "../../layouts/Layout.astro";
@@ -12,17 +13,34 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const { Content } = await project.render(); // Render the Markdown content
 ---
 
 <Layout title={project.data.title}>
-  <article aria-label={project.data.title} transition:name={project.slug}>
+  <article
+    aria-label={project.data.title}
+    class="page"
+    transition:name={`${project.slug}-container`}
+  >
     {
       project.data.image && (
-        <img src={project.data.image.src} alt={project.data.image.alt} />
+        <img
+          src={project.data.image.src}
+          alt={project.data.image.alt}
+          transition:name={`${project.slug}-img`}
+        />
       )
     }
-    <h1>{project.data.title}</h1>
-    <p>{project.data.description}</p>
+    <Typography
+      component="h1"
+      size="large"
+      variant="title"
+      bottomGutter="small"
+      transitionName={`${project.slug}-title`}
+    >
+      {project.data.title}
+    </Typography>
+    <Typography size="large" variant="body" transitionName={`${project.slug}-description`}>{project.data.description}</Typography>
 
     <ul>
       {project.data.tags.map((tag) => <li>{tag}</li>)}
@@ -41,13 +59,60 @@ const { project } = Astro.props;
       {
         /* This is where the Markdown/MDX content of the project will be rendered */
       }
+      <Content />
     </div>
   </article>
 </Layout>
 
 <style>
-  /* Add your styling here */
   .content {
     margin-top: 2rem;
   }
+  .page {
+    box-sizing: content-box;
+    border-radius: var(--dlh-theme-shape-corner-medium);
+    background: var(--dlh-theme-color-surface-container);
+    padding: 0 var(--dlh-theme-shape-margin-large);
+  }
 </style>
+
+
+<!-- components={{
+  h1: (props: object) => (
+    <Typography
+      component="h1"
+      size="large"
+      variant="title"
+      bottomGutter="medium"
+      {...props}
+    />
+  ),
+  h2: (props: object) => (
+    <Typography
+      component="h2"
+      size="medium"
+      variant="title"
+      bottomGutter="medium"
+      {...props}
+    />
+  ),
+  h3: (props: object) => (
+    <Typography
+      component="h3"
+      size="small"
+      variant="title"
+      bottomGutter="medium"
+      {...props}
+    />
+  ),
+  p: (props: object) => (
+    <Typography
+      bottomGutter="medium"
+      {...props}
+    />
+  ),
+  // ul: (props) => <ul class="list-disc list-inside" {...props} />,
+  // ol: (props) => <ol class="list-decimal list-inside" {...props} />,
+  // Add more mappings for other Markdown elements as needed
+}}
+/> -->

@@ -5,6 +5,7 @@ interface Props {
   component?: "h1" | "h2" | "h3" | "span" | "p";
   size?: "extra-large" | "large" | "medium" | "small";
   variant?: "display" | "title" | "headline" | "body" | "label";
+  transitionName?: string;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   component = "p",
   size = "medium",
   variant = "body",
+  transitionName,
 } = Astro.props;
 const Component = component;
 ---
@@ -21,6 +23,7 @@ const Component = component;
   class={`${variant}-${size} ${color} ${
     bottomGutter ? `bottom-gutter-${bottomGutter}` : ""
   }`}
+  transition:name={transitionName}
 >
   <slot />
 </Component>

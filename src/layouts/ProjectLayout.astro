@@ -40,19 +40,9 @@ import Navigation from "../components/Navigation.astro";
         margin: 0 auto;
         background: var(--dlh-theme-color-surface);
         width: calc(100% - (var(--dlh-theme-shape-margin-large) * 2));
-        max-width: 550px;
         color: var(--dlh-theme-color-on-surface);
         font-family: "Noto Sans", sans-serif;
       }
-
-      ::view-transition-group(*),
-      ::view-transition-old(*),
-      ::view-transition-new(*)
-      {
-        animation-duration: 500ms;
-        animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
-      }
-      
     </style>
   </body>
 </html>

@@ -16,20 +16,21 @@ const { description, link, id, imgSource, imgAlt, title, supportingText } =
   Astro.props;
 ---
 
-<article aria-label={title} class="card" transition:name={id}>
+<article aria-label={title} class="card" transition:name={`${id}-container`}>
   <a href={link}>
     <span class="card-main">
-      <img class="fill-bg" src={imgSource} alt={imgAlt} />
+      <img class="fill-bg" src={imgSource} alt={imgAlt} transition:name={`${id}-img`} />
       <span class="card-content">
         <Typography
           component="h3"
           size="medium"
           variant="title"
           bottomGutter="small"
+          transitionName={`${id}-title`}
         >
           {title}
         </Typography>
-        <Typography>{description}</Typography>
+        <Typography transitionName={`${id}-description`}>{description}</Typography>
       </span>
     </span>
     <span class="card-footer">

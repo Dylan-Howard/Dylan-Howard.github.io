@@ -4,12 +4,10 @@ date: 2024-03-01
 description: "A comprehensive application designed to provide granular visibility and control over user identities across multiple systems."
 link: https://github.com/Dylan-Howard/Identity-Systems-Monitor
 image:
-  src: "/img/person-icon.svg"
+  src: "/assets/img/person-icon.svg"
   alt: "Prognosis: Identity & Access Monitor."
 tags: ["React", "C#", ".NET", "SQL"]
 ---
-
-<!-- • -->
 
 # My First Blog Post
 
