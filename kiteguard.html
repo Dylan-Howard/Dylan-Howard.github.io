@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KiteGuard: Franchise Financial Security</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+      :root {
+        --sys-typescale-font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
+        --sys-typescale-display-large-line-height: 52px;
+        --sys-typescale-display-large-size: 40px;
+        --sys-typescale-display-large-tracking: -0.25px;
+        --sys-typescale-display-large-weight: 600;
+
+        --sys-typescale-display-medium-line-height: 36pt;
+        --sys-typescale-display-medium-size: 28pt;
+        --sys-typescale-display-medium-tracking: 0pt;
+        --sys-typescale-display-medium-weight: 600;
+
+        --sys-typescale-display-small-line-height: 32px;
+        --sys-typescale-display-small-size: 24px;
+        --sys-typescale-display-small-tracking: 0pt;
+        --sys-typescale-display-small-weight: 600;
+
+        --sys-shape-corner-full: 999em;
+        --sys-shape-corner-large: 16px;
+        --sys-shape-corner-medium: 12px;
+        --sys-shape-corner-small: 4px;
+
+        --sys-motion-easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
+        --sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+        --sys-motion-duration-medium: 300ms;
+        --sys-motion-duration-short: 250ms;
+
+        --sys-typescale-body-large-line-height: 24pt;
+        --sys-typescale-body-large-size: 16pt;
+        --sys-typescale-body-large-tracking: 0.5pt;
+        --sys-typescale-body-large-weight: 400;
+
+        --sys-typescale-body-medium-line-height: 16pt;
+        --sys-typescale-body-medium-size: 12pt;
+        --sys-typescale-body-medium-tracking: 0.1pt;
+        --sys-typescale-body-medium-weight: 400;
+
+        --sys-typescale-body-small-line-height: 14pt;
+        --sys-typescale-body-small-size: 11pt;
+        --sys-typescale-body-small-tracking: 0.1pt;
+        --sys-typescale-body-small-weight: 400;
+
+        --sys-typescale-label-medium-line-height: 20px;
+        --sys-typescale-label-medium-size: 14px;
+        --sys-typescale-label-medium-tracking: 0.5px;
+        --sys-typescale-label-medium-weight: 500;
+
+        --sys-typescale-label-small-line-height: 16px;
+        --sys-typescale-label-small-size: 12px;
+        --sys-typescale-label-small-tracking: 0.5px;
+        --sys-typescale-label-small-weight: 500;
+
+        --sys-color-primary: rgb(104 84 142);
+        --sys-color-surface-tint: rgb(104 84 142);
+        --sys-color-on-primary: rgb(255 255 255);
+        --sys-color-primary-container: rgb(235 221 255);
+        --sys-color-on-primary-container: rgb(80 61 116);
+        --sys-color-secondary: rgb(99 91 112);
+        --sys-color-on-secondary: rgb(255 255 255);
+        --sys-color-secondary-container: rgb(233 222 248);
+        --sys-color-on-secondary-container: rgb(75 67 88);
+        --sys-color-tertiary: rgb(127 82 93);
+        --sys-color-on-tertiary: rgb(255 255 255);
+        --sys-color-tertiary-container: rgb(255 217 225);
+        --sys-color-on-tertiary-container: rgb(100 59 70);
+        --sys-color-error: rgb(186 26 26);
+        --sys-color-on-error: rgb(255 255 255);
+        --sys-color-error-container: rgb(255 218 214);
+        --sys-color-on-error-container: rgb(147 0 10);
+        --sys-color-background: rgb(254 247 255);
+        --sys-color-on-background: rgb(29 27 32);
+        --sys-color-surface: rgb(254 247 255);
+        --sys-color-on-surface: rgb(29 27 32);
+        --sys-color-surface-variant: rgb(231 224 235);
+        --sys-color-on-surface-variant: rgb(73 69 78);
+        --sys-color-outline: rgb(122 117 127);
+        --sys-color-outline-variant: rgb(203 196 207);
+        --sys-color-shadow: rgb(0 0 0);
+        --sys-color-scrim: rgb(0 0 0);
+        --sys-color-inverse-surface: rgb(50 47 53);
+        --sys-color-inverse-on-surface: rgb(245 239 247);
+        --sys-color-inverse-primary: rgb(211 188 253);
+        --sys-color-primary-fixed: rgb(235 221 255);
+        --sys-color-on-primary-fixed: rgb(35 15 70);
+        --sys-color-primary-fixed-dim: rgb(211 188 253);
+        --sys-color-on-primary-fixed-variant: rgb(80 61 116);
+        --sys-color-secondary-fixed: rgb(233 222 248);
+        --sys-color-on-secondary-fixed: rgb(31 24 43);
+        --sys-color-secondary-fixed-dim: rgb(205 194 219);
+        --sys-color-on-secondary-fixed-variant: rgb(75 67 88);
+        --sys-color-tertiary-fixed: rgb(255 217 225);
+        --sys-color-on-tertiary-fixed: rgb(49 16 27);
+        --sys-color-tertiary-fixed-dim: rgb(240 183 197);
+        --sys-color-on-tertiary-fixed-variant: rgb(100 59 70);
+        --sys-color-surface-dim: rgb(222 216 224);
+        --sys-color-surface-bright: rgb(254 247 255);
+        --sys-color-surface-container-lowest: rgb(255 255 255);
+        --sys-color-surface-container-low: rgb(248 241 250);
+        --sys-color-surface-container: rgb(242 236 244);
+        --sys-color-surface-container-high: rgb(237 230 238);
+        --sys-color-surface-container-highest: rgb(231 224 232);
+      }
+
+      body {
+        font-family: var(--sys-typescale-font-family);
+        margin: 0;
+        padding: 0;
+        background-color: var(--sys-color-surface);
+        color: var(--sys-color-on-surface);
+      }
+
+      p {
+        color: var(--sys-color-on-surface);
+        font-size: var(--sys-typescale-body-small-size);
+        font-weight: var(--sys-typescale-body-small-weight);
+        letter-spacing: var(--sys-typescale-body-small-tracking);
+        line-height: var(--sys-typescale-body-small-line-height);
+      }
+
+      .container {
+        box-sizing: border-box;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        padding: 24px 0;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--sys-color-primary);
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+      }
+
+      nav li {
+        margin-left: 20px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #757575;
+        font-weight: 500;
+      }
+
+      .hero {
+        padding: 80px 0;
+        text-align: center;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .hero-title {
+        color: var(--sys-color-on-surface);
+        font-size: var(--sys-typescale-display-large-size);
+        font-weight: var(--sys-typescale-display-large-weight);
+        letter-spacing: var(--sys-typescale-display-large-tracking);
+        line-height: var(--sys-typescale-display-large-line-height);
+        margin-bottom: 24px;
+      }
+
+      .hero-subtitle {
+        color: var(--sys-color-on-surface);
+        font-size: var(--sys-typescale-body-medium-size);
+        font-weight: var(--sys-typescale-body-medium-weight);
+        letter-spacing: var(--sys-typescale-body-medium-tracking);
+        line-height: var(--sys-typescale-body-medium-line-height);
+        margin-bottom: 48px;
+      }
+
+      .button {
+        position: relative;
+        display: inline-block;
+        background-color: var(--sys-color-primary-container);
+        color: var(--sys-color-on-primary-container);
+        border: none;
+        border-radius: 8px;
+        padding: 0 24px;
+        font-size: var(--sys-typescale-label-medium-size);
+        font-weight: var(--sys-typescale-label-medium-weight);
+        letter-spacing: var(--sys-typescale-label-medium-tracking);
+        line-height: 38px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        height: 40px;
+        margin: 8px 0;
+        transition: background-color 0.3s ease;
+      }
+
+      .button::before {
+        background-color: var(--sys-color-on-primary);
+        border-radius: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+
+        transition:
+          background-color var(--sys-motion-duration-short)
+            var(--sys-motion-easing-standard),
+          opacity var(--sys-motion-duration-short)
+            var(--sys-motion-easing-standard);
+        border-radius: var(--sys-shape-corner-full);
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        content: "";
+      }
+      .button:hover:not(:disabled)::before {
+        opacity: 0.08;
+      }
+
+      .section {
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: var(--sys-typescale-display-medium-size);
+        font-weight: var(--sys-typescale-display-medium-weight);
+        letter-spacing: var(--sys-typescale-display-medium-tracking);
+        line-height: var(--sys-typescale-display-medium-line-height);
+        color: #212121;
+        margin-bottom: 48px;
+      }
+
+      .section-content {
+        max-width: 900px;
+        margin: 0 auto;
+        margin-bottom: 40px;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-bottom: 48px;
+      }
+
+      .feature {
+        padding: 20px;
+        background-color: var(--sys-color-surface-container);
+        border-radius: var(--sys-shape-corner-medium);
+        color: var(--sys-color-on-surface);
+      }
+
+      .feature h3 {
+        font-size: var(--sys-typescale-body-large-size);
+        font-weight: var(--sys-typescale-body-large-weight);
+        letter-spacing: var(--sys-typescale-body-large-tracking);
+        line-height: var(--sys-typescale-body-large-line-height);
+        
+        margin-bottom: 10px;
+      }
+
+      .photo-placeholder {
+        background-color: #e0e0e0;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #9e9e9e;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .contact-form-section {
+        background-color: var(--sys-color-surface-container);
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        border-radius: 8px;
+      }
+
+      /* .form-group {
+        margin-bottom: 20px;
+      } */
+
+      /* .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #212121;
+        font-weight: 500;
+      } */
+
+      .form-group input[type="email"] {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #bdbdbd; /* Light grey border */
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      .md-text-field {
+        position: relative;
+        background-color: var(--sys-color-surface-container-high);
+        display: inline-block;
+        width: 300px;
+        margin-bottom: 24px;
+      }
+
+      .md-text-field input {
+        border: none;
+        box-sizing: border-box;
+        padding: 8px 16px 8px 16px;
+        display: block;
+        height: 56px;
+        width: 100%;
+        font-size: 1rem;
+        font-family: 'Roboto', sans-serif; /* Use a standard sans-serif or your preferred font */
+        color: var(--sys-color-on-surface);
+        background-color: transparent;
+      }
+
+      .md-text-field input:focus {
+        outline: none;
+        border-bottom: 2px solid var(--sys-color-primary);
+      }
+
+      .md-label {
+        position: absolute;
+        left: 16px;
+        top: 18px;
+        color: var(--sys-color-on-surface-variant);
+        font-size: var(--sys-typescale-body-medium-size);
+        font-weight: var(--sys-typescale-body-medium-weight);
+        letter-spacing: var(--sys-typescale-body-medium-tracking);
+        line-height: var(--sys-typescale-body-medium-line-height);
+        pointer-events: none;
+
+        transition: 
+          color var(--sys-motion-duration-short) var(--sys-motion-easing-standard),
+          transform var(--sys-motion-duration-short) var(--sys-motion-easing-standard);
+      }
+
+      .md-text-field input:focus + .md-label,
+      .md-text-field input:valid + .md-label {
+        color: var(--sys-color-primary);
+        transform: translate(-8px, -16px) scale(.7);
+      }
+
+      .md-line-ripple {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: transparent;
+      }
+
+      .md-text-field input:focus ~ .md-line-ripple {
+        background-color: var(--sys-color-primary);
+        transform: scaleX(1);
+        transition: transform var(--sys-motion-duration-short) var(--sys-motion-easing-standard)
+      }
+
+      .md-line-ripple::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0%;
+        height: 2px;
+        background-color: #6200EE;
+        transform: translateX(-50%) scaleX(0);
+        transition: transform var(--sys-motion-duration-short) var(--sys-motion-easing-standard)
+      }
+
+      .md-text-field input:focus ~ .md-line-ripple::before {
+        transform: translateX(-50%) scaleX(1);
+      }
+
+      footer {
+        text-align: center;
+        padding: 24px 0;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <nav>
+        <div class="logo">KiteGuard</div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="container hero-content">
+        <h1 class="hero-title">Stop Franchise Financial Losses Before They Happen</h1>
+        <p class="hero-subtitle">Automatic bank account monitoring designed for franchise operations. Protect your revenue from kiting schemes and ensure every deposit is accounted for.</p>
+        <a href="#contact" class="button">Request a demo</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">The Challenge: Unseen Financial Risks in Franchising</h2>
+        <div class="section-content">
+          <p>Managing multiple franchise locations comes with unique financial complexities. Verifying the consistent and accurate deposit of funds, especially with varied cash handling processes and third-party services, can be a significant blind spot. Traditional methods are often manual, time-consuming, and prone to error, leaving you vulnerable to sophisticated kiting schemes and simple discrepancies alike.</p>
+        </div>
+        <div class="photo-placeholder" alt="Scene depicting a frustrated franchise owner reviewing financial reports with discrepancies.">Financial Oversight Challenges</div>
+        <a href="#contact" class="button">Learn how we help</a>
+      </div>
+    </section>
+
+    <section class="section" style="background-color: #fff;">
+      <div class="container">
+        <h2 class="section-title">Introducing KiteGuard: Your Automated Financial Guardian</h2>
+        <div class="section-content">
+          <p>KiteGuard provides a seamless, automated solution to monitor the bank accounts of all your franchise locations. By continuously analyzing transaction data, KiteGuard identifies anomalies and potential kiting activities in real-time, alerting you to discrepancies before they escalate into significant financial losses. Gain unprecedented visibility and control over your franchise network's financial health.</p>
+        </div>
+        <div class="photo-placeholder" alt="Scene showing a clean, intuitive dashboard displaying real-time bank account monitoring data.">KiteGuard Dashboard Overview</div>
+        <a href="#contact" class="button">See KiteGuard in Action</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Key Features Designed for Franchise Protection</h2>
+        <div class="feature-grid">
+          <div class="feature">
+            <h3>Automated Transaction Monitoring</h3>
+            <p>Continuous, real-time analysis of all bank account transactions across your franchise network.</p>
+          </div>
+          <div class="feature">
+            <h3>Anomaly Detection & Alerts</h3>
+            <p>Intelligent algorithms identify unusual patterns and potential kiting activities, sending immediate notifications.</p>
+          </div>
+          <div class="feature">
+            <h3>Centralized Dashboard</h3>
+            <p>A clear, unified view of the financial status of all your franchise locations.</p>
+          </div>
+          <div class="feature">
+            <h3>Customizable Reporting</h3>
+            <p>Generate detailed reports on transaction history and potential risks for each franchise.</p>
+          </div>
+          <div class="feature">
+            <h3>Secure Data Handling</h3>
+            <p>Bank-level security protocols to ensure the confidentiality and integrity of your financial data.</p>
+          </div>
+          <div class="feature">
+            <h3>Easy Integration</h3>
+            <p>Seamless integration with existing banking systems and franchise management platforms.</p>
+          </div>
+        </div>
+        <a href="#contact" class="button">Request a Feature Breakdown</a>
+      </div>
+    </section>
+
+    <section class="contact-form-section" id="contact">
+      <div class="container">
+        <h2 class="section-title">Ready to Safeguard Your Franchise Finances?</h2>
+        <div class="section-content">
+          <p>Get in touch for a personalized demo and discover how KiteGuard can protect your bottom line.</p>
+        </div>
+        <div class="contact-form">
+          <form id="interest-form-submit">
+            <div class="form-group">
+              <div class="md-text-field">
+                <input type="text" id="name" required>
+                <label for="name" class="md-label">Name</label>
+                <div class="md-line-ripple"></div>
+              </div>
+              <div class="md-text-field">
+                <input type="text" id="email" required>
+                <label for="email" class="md-label">Email</label>
+                <div class="md-line-ripple"></div>
+              </div>
+            </div>
+            <button type="submit" class="button">Request Information</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 KiteGuard. All rights reserved.</p>
+        </div>
+    </footer>
+  </body>
+  <script src="./js/index.js"></script>
+</html>
