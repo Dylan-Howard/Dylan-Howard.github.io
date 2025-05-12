@@ -36,13 +36,34 @@ import Navigation from "../components/Navigation.astro";
       rel="stylesheet"
     />
     <style is:global>
+      html {
+        position: relative;
+      }
       body {
-        margin: 0 auto;
         background: var(--dlh-theme-color-surface);
-        width: calc(100% - (var(--dlh-theme-shape-margin-large) * 2));
-        max-width: 550px;
         color: var(--dlh-theme-color-on-surface);
         font-family: "Noto Sans", sans-serif;
+        margin: 0 auto;
+        max-width: 560px;
+        width: calc(100% - (var(--dlh-theme-shape-margin-large) * 2));
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+
+        background-image: radial-gradient(var(--dlh-theme-color-outline-variant) 1px, transparent 0);
+        background-size: 16px 16px;
+        background-position: 16px 16px;
+
+        mask-image: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.38) 20%);
+        mask-size: 100% 100%;
+        mask-repeat: no-repeat;
       }
 
       ::view-transition-group(*),
