@@ -1,6 +1,6 @@
 ---
-import Divider from "@components/Divider.astro";
-import Typography from "@components/Typography.astro";
+import Divider from '@components/Divider.astro';
+import Typography from '@components/Typography.astro';
 
 interface Props {
   description: string;
@@ -12,30 +12,36 @@ interface Props {
   supportingText: string;
 }
 
-const { description, link, id, imgSource, imgAlt, title, supportingText } =
-  Astro.props;
+const {
+  description,
+  link,
+  id,
+  imgSource,
+  imgAlt,
+  title,
+  supportingText,
+} = Astro.props;
 ---
 
-<article aria-label={title} class="card" transition:name={`${id}-container`}>
-  <a href={link}>
+<article aria-label={ title } class="card" transition:name={ `${ id }-container` }>
+  <a href={ link }>
     <span class="card-main">
-      <img class="fill-bg" src={imgSource} alt={imgAlt} transition:name={`${id}-img`} />
+      <img class="fill-bg" src={ imgSource } alt={ imgAlt } transition:name={ `${ id }-img` } />
       <span class="card-content">
         <Typography
           component="h3"
           size="medium"
           variant="title"
           bottomGutter="small"
-          transitionName={`${id}-title`}
         >
-          {title}
+          { title }
         </Typography>
-        <Typography transitionName={`${id}-description`}>{description}</Typography>
+        <Typography>{ description }</Typography>
       </span>
     </span>
     <span class="card-footer">
       <Divider />
-      <Typography color="on-surface-variant">{supportingText}</Typography>
+      <Typography color="on-surface-variant">{ supportingText }</Typography>
     </span>
   </a>
 </article>
@@ -43,8 +49,7 @@ const { description, link, id, imgSource, imgAlt, title, supportingText } =
 <style>
   .card {
     position: relative;
-    transition: box-shadow var(--dlh-theme-motion-easing-standard)
-      var(--dlh-theme-motion-duration-long);
+    transition: box-shadow var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-long);
     cursor: pointer;
     box-sizing: border-box;
     box-shadow: var(--dlh-theme-tile-shadow);
@@ -54,6 +59,7 @@ const { description, link, id, imgSource, imgAlt, title, supportingText } =
     overflow: hidden;
     text-decoration: none;
   }
+
   .card:hover {
     box-shadow: var(--dlh-theme-tile-shadow-hover);
   }
@@ -64,37 +70,7 @@ const { description, link, id, imgSource, imgAlt, title, supportingText } =
     justify-content: space-between;
     height: 100%;
   }
-  a::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
 
-    -webkit-mask:
-      linear-gradient(#fff 0 0) padding-box,
-      linear-gradient(#fff 0 0);
-    mask:
-      linear-gradient(#fff 0 0) padding-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-
-    transition: opacity var(--dlh-theme-motion-easing-standard)
-      var(--dlh-theme-motion-duration-long);
-    border: solid var(--dlh-theme-shape-border-width) transparent;
-    border-radius: var(--dlh-theme-shape-corner-medium);
-    background: conic-gradient(
-        from 45deg,
-        var(--dlh-theme-color-accent-gradient-1),
-        var(--dlh-theme-color-accent-gradient-2),
-        var(--dlh-theme-color-accent-gradient-3),
-        var(--dlh-theme-color-accent-gradient-1)
-      )
-      border-box;
-    width: calc(100% - (var(--dlh-theme-shape-border-width) * 2));
-    height: calc(100% - (var(--dlh-theme-shape-border-width) * 2));
-    content: "";
-  }
   a:hover::after {
     opacity: 1;
   }
@@ -103,6 +79,7 @@ const { description, link, id, imgSource, imgAlt, title, supportingText } =
     display: block;
     padding: var(--dlh-theme-shape-margin-medium);
   }
+
   .card-footer {
     padding: var(--dlh-theme-shape-margin-medium);
     padding-top: 0;
@@ -111,8 +88,7 @@ const { description, link, id, imgSource, imgAlt, title, supportingText } =
   .card img {
     box-sizing: border-box;
     margin-bottom: var(--dlh-theme-shape-margin-xs);
-    border-radius: 0 0 var(--dlh-theme-shape-corner-medium)
-      var(--dlh-theme-shape-corner-medium);
+    border-radius: 0 0 var(--dlh-theme-shape-corner-medium) var(--dlh-theme-shape-corner-medium);
     width: 100%;
     height: auto;
   }

@@ -9,11 +9,7 @@ image:
 tags: [ "React", ".NET", "Go", "Azure Cloud", "SQL", "NoSQL" ]
 ---
 
-<!-- • -->
-
-# My First Blog Post
-
-Published on: 2022-07-01
+![koine-demo.gif](../../../public/assets/img/koine-demo.gif)
 
 Welcome to my _new blog_ about learning Astro! Here, I will share my learning journey as I build a new website.
 

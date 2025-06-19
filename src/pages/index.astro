@@ -1,14 +1,14 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
 
-import Card from "../components/Card.astro";
-import ConnectForm from "../components/ConnectForm.astro";
-import Grid from "../components/Grid.astro";
-import Header from "../components/Header.astro";
-import Section from "../components/Section.astro";
-import Layout from "../layouts/Layout.astro";
+import Card from '../components/Card.astro';
+import ConnectForm from '../components/ConnectForm.astro';
+import Grid from '../components/Grid.astro';
+import Header from '../components/Header.astro';
+import Section from '../components/Section.astro';
+import Layout from '../layouts/Layout.astro';
 
-const projects = await getCollection("projects");
+const projects = await getCollection('projects');
 projects.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
@@ -21,13 +21,13 @@ projects.sort(
       {
         projects.map((prj) => (
           <Card
-            description={prj.data.description}
-            id={prj.slug}
-            imgSource={prj.data.image.src}
-            imgAlt={prj.data.image.alt}
-            link={`projects/${prj.slug}`}
-            supportingText={prj.data.tags.join(" • ")}
-            title={prj.data.title}
+            description={ prj.data.description }
+            id={ prj.slug }
+            imgSource={ prj.data.image.src }
+            imgAlt={ prj.data.image.alt }
+            link={ `projects/${ prj.slug }` }
+            supportingText={ prj.data.tags.join(' • ') }
+            title={ prj.data.title }
           />
         ))
       }
@@ -35,8 +35,5 @@ projects.sort(
   </Section>
   <Section id="interest-form" title="Connect">
     <ConnectForm />
-  </Section>
-  <Section component="aside">
-    <img src="./assets/LightIcons.svg" alt="Icons" />
   </Section>
 </Layout>

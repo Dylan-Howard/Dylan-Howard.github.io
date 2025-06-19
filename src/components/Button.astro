@@ -1,12 +1,12 @@
 ---
 interface Props {
-  type: "button" | "submit";
+  type: 'button' | 'submit';
 }
 
 const { type } = Astro.props;
 ---
 
-<button type={type}>
+<button type={ type }>
   <span class="label">
     <slot />
   </span>
@@ -24,16 +24,18 @@ const { type } = Astro.props;
     padding: 0 16px;
     height: 40px;
     color: var(--dlh-theme-color-on-primary);
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.01pt;
+    font-weight: var(--dlh-theme-typescale-body-l-font-weight);
+    font-size: var(--dlh-theme-typescale-body-l-font-size);
+    line-height: var(--dlh-theme-typescale-body-l-font-height);
+    letter-spacing: var(--dlh-theme-typescale-body-l-font-tracking);
   }
+
   button .label {
     display: block;
     position: relative;
     z-index: 1;
   }
+
   button::after {
     display: block;
     position: absolute;
@@ -41,8 +43,7 @@ const { type } = Astro.props;
     left: 0;
     opacity: 0;
 
-    transition: opacity var(--dlh-theme-motion-easing-standard)
-      var(--dlh-theme-motion-duration-short);
+    transition: opacity var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-short);
     border-radius: var(--dlh-theme-shape-corner-small);
     background-color: var(--dlh-theme-color-on-surface);
     width: 100%;
@@ -50,6 +51,7 @@ const { type } = Astro.props;
     /* border-radius: var(--dlh-theme-shape-corner-full); */
     content: "";
   }
+
   button:hover::after {
     opacity: 0.12;
   }
