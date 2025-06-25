@@ -1,106 +1,112 @@
 ---
 import Typography from '@components/Typography.astro';
-import { getCollection } from 'astro:content';
+import {getCollection} from 'astro:content';
 
 import Layout from '@layouts/Layout.astro';
 import Tag from '../../components/Tag.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
-  return projects.map((project) => ({
-    params: { slug: project.slug },
-    props: { project },
-  }));
+    const projects = await getCollection('projects');
+    return projects.map((project) => ({
+        params: {slug: project.slug},
+        props: {project},
+    }));
 }
 
-const { project } = Astro.props;
-const { Content } = await project.render(); // Render the Markdown content
+const {project} = Astro.props;
+const {Content} = await project.render(); // Render the Markdown content
 ---
 
-<Layout title={ project.data.title }>
-  <article
-    aria-label={ project.data.title }
-    class="page"
-  >
-    {
-      project.data.image && (
-        <div class="page-hero">
-          <img
-            src={ project.data.image.src }
-            alt={ project.data.image.alt }
-          />
-        </div>
-      )
-    }
-    <div class="page-content">
-      <Typography
-        component="h1"
-        size="large"
-        variant="title"
-        bottomGutter="small"
-      >
-        { project.data.title }
-      </Typography>
-      <Typography size="large" variant="body">{ project.data.description }</Typography>
-
-      <ul class="tag-list">
-        { project.data.tags.map((tag) =>
-          <li class="tag-list-item">
-            <Tag type={ tag }>{ tag }</Tag>
-          </li>) }
-      </ul>
-
-      {
-        project.data.link && (
-          <a href={ project.data.link } target="_blank" rel="noopener noreferrer">
-            View Project
-          </a>
-        )
-      }
-
-      <div class="content">
-        <slot />
+<Layout title={project.data.title}>
+    <article
+            aria-label={project.data.title}
+            class="page"
+    >
         {
-          /* This is where the Markdown/MDX content of the project will be rendered */
+            project.data.image && (
+                        <div class="page-hero">
+                            <img
+                                    src={project.data.image.src}
+                                    alt={project.data.image.alt}
+                            />
+                        </div>
+            )
         }
-        <Content />
-      </div>
-    </div>
-  </article>
+        <div class="page-content">
+            <Typography
+                    component="h1"
+                    size="large"
+                    variant="title"
+                    bottomGutter="small"
+            >
+                {project.data.title}
+            </Typography>
+            <Typography size="large" variant="body">{project.data.description}</Typography>
+
+            <ul class="tag-list">
+                {project.data.tags.map((tag) =>
+                        <li class="tag-list-item">
+                            <Tag type={tag}>{tag}</Tag>
+                        </li>)}
+            </ul>
+
+            {
+                project.data.link && (
+                            <a href={project.data.link} target="_blank" rel="noopener noreferrer">
+                                View Project
+                            </a>
+                )
+            }
+
+            <div class="content">
+                <slot/>
+                <Content/>
+            </div>
+        </div>
+    </article>
 </Layout>
 
 <style>
-  .content {
-    margin-top: 2rem;
-  }
+    .page {
+        box-sizing: content-box;
+        border-radius: var(--dlh-theme-shape-corner-medium);
+        background: var(--dlh-theme-color-surface-container);
+        padding: 0;
+        margin-top: 48px;
+        overflow: hidden;
+    }
 
-  .page {
-    box-sizing: content-box;
-    border-radius: var(--dlh-theme-shape-corner-medium);
-    background: var(--dlh-theme-color-surface-container);
-    padding: 0;
-    margin-top: 48px;
-    overflow: hidden;
-  }
+    .page-hero {
+        margin-bottom: 32px;
+    }
 
-  .page-hero {
-    margin-bottom: 32px;
-  }
+    .page-content {
+        padding: 0 var(--dlh-theme-shape-margin-large) var(--dlh-theme-shape-margin-large);
+    }
 
-  .page-content {
-    padding: 0 var(--dlh-theme-shape-margin-large) var(--dlh-theme-shape-margin-large);
-  }
+    .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 16px;
+        padding: 0;
+        list-style: none;
+    }
 
-  .tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 16px;
-    padding: 0;
-    list-style: none;
-  }
+    .tag-list-item {
+        margin-right: 8px;
+        margin-bottom: 8px;
+    }
 
-  .tag-list-item {
-    margin-right: 8px;
-    margin-bottom: 8px;
-  }
+    .content {
+        margin-top: 2rem;
+        color: var(--dlh-theme-color-on-surface);
+        font-size: var(--dlh-theme-typescale-body-l-font-size);
+        font-weight: var(--dlh-theme-typescale-body-l-font-weight);
+        letter-spacing: var(--dlh-theme-typescale-body-l-font-tracking);
+        line-height: var(--dlh-theme-typescale-body-l-font-height);
+    }
+
+    .content p {
+        margin: 0 0 8px;
+    }
 </style>
