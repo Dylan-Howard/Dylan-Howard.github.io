@@ -3,20 +3,77 @@ import '../styles/global.css';
 
 import Footer from '../components/Footer.astro';
 import Navigation from '../components/Navigation.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+}
+
+const { 
+  title = "Dylan Howard - Software Engineer",
+  description = "Full-stack software engineer specializing in identity management systems, educational technology, and enterprise applications. Expert in React, .NET, and cloud technologies.",
+  image = "/assets/img/og-image.jpg",
+  type = "website"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
   <meta
     name="keywords"
-    content="Dylan, Howard, Software, Engineer, Bowling Green, Development, React, TypeScript, JavaScript, C#, .NET, Go, Azure, Data"
+    content="Dylan Howard, Software Engineer, Full-Stack Developer, React, TypeScript, C#, .NET, Azure, Identity Management, Educational Technology, Enterprise Applications"
   />
-  <meta name="generator" content={ Astro.generator } />
+  <meta name="author" content="Dylan Howard" />
+  <meta name="generator" content={Astro.generator} />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href={canonicalURL} />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image, Astro.url)} />
+  <meta property="og:site_name" content="Dylan Howard Portfolio" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalURL} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={new URL(image, Astro.url)} />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Dylan Howard",
+      "jobTitle": "Software Engineer",
+      "description": "Full-stack software engineer specializing in identity management systems and educational technology",
+      "url": "https://dylan-howard.github.io",
+      "sameAs": [
+        "https://github.com/Dylan-Howard",
+        "https://linkedin.com/in/dylan-howard"
+      ],
+      "knowsAbout": [
+        "React", "TypeScript", "C#", ".NET", "Azure", "Identity Management", 
+        "Educational Technology", "Enterprise Applications", "Full-Stack Development"
+      ]
+    }
+  </script>
+  
   <link rel="sitemap" href="/sitemap-index.xml" />
-  <title>Dylan Howard</title>
+  <title>{title}</title>
 
   <style is:global>
     @import "../styles/global.css";

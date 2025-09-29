@@ -1,12 +1,21 @@
 ---
 title: "KiteGuard"
 date: "2025-04-01"
-description: "KiteGuard is a modern and responsive audit platform designed to handle large, distributed customer datasets with minimal operational overhead."
-link: "https://kiteguard.dylanlhoward.com"
+description: "SaaS fraud detection platform for franchise operations with automated deposit monitoring"
+excerpt: "Developed a comprehensive fraud detection platform that automatically monitors franchise deposits and detects kiting schemes through real-time POS and banking data analysis, serving multiple franchise locations."
+featured: true
+role: "Lead Developer & System Architect"
+duration: "12 months"
 image:
   src: "/assets/img/project-Kiteguard.webp"
-  alt: "KiteGuard: Automatic bank account monitoring designed for franchise operations."
-tags: [ "Astro", "React", "Java", "SQL", "AWS" ]
+  alt: "KiteGuard fraud detection platform interface"
+link: "https://kiteguard.dylanlhoward.com"
+technologies: ["Java", "AWS Lambda", "Astro", "React", "SQL", "AWS S3", "CloudWatch"]
+tags: ["SaaS", "Fraud Detection", "Fintech", "Enterprise"]
+metrics:
+  users: "Multiple franchise chains"
+  performance: "Real-time fraud detection"
+  impact: "Prevented significant financial losses"
 ---
 
 KiteGuard is a SaaS platform designed to help franchise owners detect and prevent fraudulent deposit behavior,

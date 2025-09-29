@@ -10,6 +10,7 @@ interface Props {
   imgAlt: string;
   title: string;
   supportingText: string;
+  'data-technologies'?: string;
 }
 
 const {
@@ -20,10 +21,16 @@ const {
   imgAlt,
   title,
   supportingText,
+  'data-technologies': dataTechnologies,
 } = Astro.props;
 ---
 
-<article aria-label={ title } class="card" transition:name={ `${ id }-container` }>
+<article 
+  aria-label={title} 
+  class="card" 
+  transition:name={`${id}-container`}
+  data-technologies={dataTechnologies}
+>
   <a href={ link }>
     <span class="card-main">
       <img class="fill-bg" src={ imgSource } alt={ imgAlt } transition:name={ `${ id }-img` } />

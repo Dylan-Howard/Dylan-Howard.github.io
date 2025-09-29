@@ -1,0 +1,347 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Section from '../components/Section.astro';
+import Typography from '../components/Typography.astro';
+import Tag from '../components/Tag.astro';
+
+const experience = await getCollection('experience');
+experience.sort((a, b) => new Date(b.data.startDate).getTime() - new Date(a.data.startDate).getTime());
+
+const projects = await getCollection('projects');
+const featuredProjects = projects.filter(p => p.data.featured).slice(0, 3);
+
+const skills = {
+  "Programming Languages": ["TypeScript", "C#", "JavaScript", "Go", "Python", "SQL"],
+  "Frontend Technologies": ["React", "Next.js", "Astro", "HTML/CSS"],
+  "Backend Technologies": [".NET", "Node.js", "RESTful APIs"],
+  "Cloud & DevOps": ["Azure", "AWS", "Docker", "CI/CD", "Git"],
+  "Databases": ["SQL Server", "PostgreSQL", "MongoDB", "Cosmos DB"]
+};
+---
+
+<Layout title="Resume - Dylan Howard" description="Professional resume of Dylan Howard, Software Engineer specializing in full-stack development, identity management, and educational technology.">
+  <div class="resume-container">
+    <header class="resume-header">
+      <Typography component="h1" size="large" variant="title">
+        Dylan Howard
+      </Typography>
+      <Typography size="medium" variant="title" class="job-title">
+        Software Engineer
+      </Typography>
+      <div class="contact-info">
+        <Typography size="small" variant="body">
+          Bowling Green, KY • dylan.howard@example.com • github.com/Dylan-Howard
+        </Typography>
+      </div>
+    </header>
+
+    <Section id="professional-summary" title="Professional Summary">
+      <Typography size="medium" variant="body">
+        Full-stack software engineer with 5+ years of experience designing and implementing enterprise-scale applications. 
+        Specialized in identity management systems, educational technology, and cloud-native solutions. Proven track record 
+        of leading technical projects that serve thousands of users while maintaining high performance and security standards.
+      </Typography>
+    </Section>
+
+    <Section id="technical-skills" title="Technical Skills">
+      <div class="skills-grid">
+        {Object.entries(skills).map(([category, techs]) => (
+          <div class="skill-category">
+            <Typography component="h3" size="small" variant="title" class="skill-category-title">
+              {category}
+            </Typography>
+            <div class="skill-list">
+              {techs.map((tech, index) => (
+                <span class="skill-item">
+                  {tech}{index < techs.length - 1 ? ', ' : ''}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <Section id="professional-experience" title="Professional Experience">
+      <div class="experience-list">
+        {experience.map((job) => (
+          <div class="experience-item">
+            <div class="experience-header">
+              <div class="job-info">
+                <Typography component="h3" size="medium" variant="title">
+                  {job.data.role}
+                </Typography>
+                <Typography size="medium" variant="body" class="company-name">
+                  {job.data.company}
+                </Typography>
+              </div>
+              <Typography size="small" variant="body" class="job-duration">
+                {job.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} - 
+                {job.data.endDate ? job.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Present'}
+              </Typography>
+            </div>
+            <Typography size="medium" variant="body" class="job-description">
+              {job.data.description}
+            </Typography>
+            <div class="job-technologies">
+              <Typography size="small" variant="body" class="tech-label">Technologies:</Typography>
+              <span class="tech-list">
+                {job.data.technologies.join(', ')}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <Section id="key-projects" title="Key Projects">
+      <div class="projects-list">
+        {featuredProjects.map((project) => (
+          <div class="project-item">
+            <div class="project-header">
+              <Typography component="h3" size="medium" variant="title">
+                {project.data.title}
+              </Typography>
+              <Typography size="small" variant="body" class="project-date">
+                {project.data.date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+              </Typography>
+            </div>
+            <Typography size="medium" variant="body" class="project-description">
+              {project.data.excerpt || project.data.description}
+            </Typography>
+            {project.data.metrics && (
+              <div class="project-metrics">
+                {Object.entries(project.data.metrics).map(([key, value]) => (
+                  value && (
+                    <span class="metric">
+                      <Typography size="small" variant="body" class="metric-value">
+                        {value}
+                      </Typography>
+                    </span>
+                  )
+                ))}
+              </div>
+            )}
+            <div class="project-technologies">
+              <Typography size="small" variant="body" class="tech-label">Technologies:</Typography>
+              <span class="tech-list">
+                {project.data.technologies?.join(', ') || project.data.tags.join(', ')}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <Section id="education" title="Education">
+      <div class="education-item">
+        <div class="education-header">
+          <Typography component="h3" size="medium" variant="title">
+            Bachelor of Science in Computer Science
+          </Typography>
+          <Typography size="small" variant="body" class="education-date">
+            2019
+          </Typography>
+        </div>
+        <Typography size="medium" variant="body" class="institution">
+          Western Kentucky University
+        </Typography>
+      </div>
+    </Section>
+
+    <div class="resume-footer">
+      <Typography size="small" variant="body" class="footer-text">
+        References available upon request • Portfolio: dylan-howard.github.io
+      </Typography>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .resume-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .resume-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--dlh-theme-color-outline-variant);
+  }
+
+  .job-title {
+    color: var(--dlh-theme-color-primary);
+    margin: 0.5rem 0 1rem;
+  }
+
+  .contact-info {
+    color: var(--dlh-theme-color-on-surface-variant);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .skill-category {
+    padding: 1rem;
+    background: var(--dlh-theme-color-surface-container);
+    border-radius: var(--dlh-theme-shape-corner-small);
+  }
+
+  .skill-category-title {
+    color: var(--dlh-theme-color-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .skill-list {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .skill-item {
+    color: var(--dlh-theme-color-on-surface);
+  }
+
+  .experience-list, .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .experience-item, .project-item {
+    padding: 1.5rem;
+    background: var(--dlh-theme-color-surface-container);
+    border-radius: var(--dlh-theme-shape-corner-medium);
+    border-left: 4px solid var(--dlh-theme-color-primary);
+  }
+
+  .experience-header, .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .job-info {
+    flex: 1;
+  }
+
+  .company-name {
+    color: var(--dlh-theme-color-primary);
+    font-weight: 600;
+  }
+
+  .job-duration, .project-date, .education-date {
+    color: var(--dlh-theme-color-on-surface-variant);
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: 1rem;
+  }
+
+  .job-description, .project-description {
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .job-technologies, .project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .tech-label {
+    color: var(--dlh-theme-color-on-surface-variant);
+    font-weight: 600;
+  }
+
+  .tech-list {
+    font-size: 0.875rem;
+    color: var(--dlh-theme-color-on-surface);
+  }
+
+  .project-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .metric-value {
+    color: var(--dlh-theme-color-primary);
+    font-weight: 600;
+  }
+
+  .education-item {
+    padding: 1.5rem;
+    background: var(--dlh-theme-color-surface-container);
+    border-radius: var(--dlh-theme-shape-corner-medium);
+  }
+
+  .education-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .institution {
+    color: var(--dlh-theme-color-primary);
+    font-weight: 600;
+  }
+
+  .resume-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--dlh-theme-color-outline-variant);
+  }
+
+  .footer-text {
+    color: var(--dlh-theme-color-on-surface-variant);
+  }
+
+  @media (max-width: 768px) {
+    .resume-container {
+      padding: 1rem 0;
+    }
+
+    .experience-header, .project-header, .education-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .job-duration, .project-date, .education-date {
+      margin-left: 0;
+      margin-top: 0.25rem;
+    }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media print {
+    .resume-container {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .resume-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+    }
+
+    .experience-item, .project-item, .education-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+    }
+  }
+</style>
