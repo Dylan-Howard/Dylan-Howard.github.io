@@ -1,0 +1,48 @@
+---
+title: "IT Operations Dashboard"
+slug: "it-operations-dashboard"
+description: "A real-time internal dashboard for the district IT team — aggregating system health, active helpdesk queue, device inventory, and identity anomalies into a single, always-on display."
+type: "Internal Tooling"
+year: 2023
+stack: ["React", "TypeScript", "C#", ".NET", "SQL Server", "SignalR"]
+href: null
+featured: false
+order: 7
+---
+
+The WCPS IT team operates across 14 school buildings with a small staff. Before this dashboard existed, monitoring the district's systems meant having 12 browser tabs open, each polling a different admin console. Knowing the current state of things required active effort rather than passive awareness.
+
+The dashboard is a wall-mounted display in the IT office that gives the team instant situational awareness without anyone having to look anything up.
+
+## What it shows
+
+**System health panel** — Connectivity and response-time status for critical systems: the SIS, Google Workspace, Active Directory, the LMS, network switches at each building. Each system shows current status, uptime percentage for the rolling 30 days, and a sparkline of response times.
+
+**Helpdesk queue** — Live count of open tickets by category, building, and priority. Tickets open for more than a configurable SLA threshold are highlighted. The intent is not to replace the ticketing system but to make the queue state visible at a glance.
+
+**Device inventory alerts** — Devices that have not checked in for more than 7 days, devices with storage over 90% full, and devices with stale OS updates. All sourced from the MDM system's API.
+
+**Identity anomalies** — Sourced from the Identity & Access Monitor: accounts flagged for review, recent discrepancies detected, accounts approaching their scheduled review date.
+
+## Technical approach
+
+The backend is a .NET API that aggregates data from each source system on configurable polling intervals. Real-time updates to the React frontend are pushed over SignalR rather than the client polling — this keeps the display responsive without hammering the aggregation service.
+
+```csharp
+// Hub method — clients subscribe to system-specific channels
+public async Task SubscribeToSystem(string systemId)
+{
+    await Groups.AddToGroupAsync(Context.ConnectionId, $"system:{systemId}");
+    // Immediately push current state to the new subscriber
+    var current = await _monitor.GetCurrentStatus(systemId);
+    await Clients.Caller.SendAsync("StatusUpdate", current);
+}
+```
+
+Each panel component in React handles its own loading, error, and stale-data states, so a failure in one data source doesn't blank the entire dashboard.
+
+## Design decisions
+
+The colour palette is deliberately limited: green, amber, red, and grey. No other colours. This is not an aesthetic choice — it is functional. At 3 metres away, the dashboard needs to communicate state in a single glance, and a richer palette would require reading rather than recognition.
+
+The dashboard is not interactive by default. It is optimised for passive consumption, not investigation. Clicking through to the source system is supported for the helpdesk panel, but the primary interaction model is "look up and know."

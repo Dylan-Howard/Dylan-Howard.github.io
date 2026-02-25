@@ -1,0 +1,57 @@
+---
+title: "District Data Quality Reporter"
+slug: "data-quality-reporter"
+description: "A scheduled reporting system that profiles the district's core data assets, scores them against quality dimensions, and delivers actionable reports to the staff responsible for fixing what's wrong."
+type: "Data Engineering"
+year: 2023
+stack: ["Go", "React", "TypeScript", "PostgreSQL", "SQL Server"]
+href: null
+featured: false
+order: 10
+---
+
+Data quality problems in a school district are expensive. Inaccurate student demographics affect funding calculations. Wrong contact information means emergency notifications that never arrive. Duplicate records cause a student's history to be split across two identities. Stale staff records create access control gaps.
+
+Most of these problems exist not because no one cares, but because no one has a clear, current picture of where the problems are and who is responsible for fixing them.
+
+## What the reporter does
+
+The reporter runs a configurable set of data quality checks against the district's primary data assets on a nightly schedule. Checks are organised along four quality dimensions:
+
+- **Completeness** — required fields are populated; no unexpected nulls
+- **Validity** — values conform to expected formats and ranges (dates are dates, phone numbers have 10 digits, zip codes exist)
+- **Consistency** — values agree across systems that should agree (the grade level in Canvas matches the grade level in the SIS)
+- **Timeliness** — records have been updated within the expected interval (a student's contact info should have been verified within the school year)
+
+Each check produces a list of failing records with enough context to fix the problem without needing to investigate further.
+
+```go
+type QualityCheck struct {
+    ID          string
+    Description string
+    Dimension   QualityDimension
+    Owner       string  // who receives the report
+    Severity    Severity
+    Run         func(ctx context.Context, db *sql.DB) ([]FailingRecord, error)
+}
+```
+
+## The reporting layer
+
+Rather than a single report that goes to IT and gets ignored, the system generates targeted reports: the registrar receives completeness failures on student records; building principals receive contact information validity failures for their school; the technology coordinator receives cross-system consistency failures.
+
+Each report is generated as a structured CSV (for people who want to work in spreadsheets) and a summary email with the count and severity breakdown. The React dashboard shows trend lines — is the number of failures in a given check going up or down week-over-week — which makes it possible to tell whether interventions are working.
+
+## The checks that mattered most
+
+Of the 40+ checks currently configured, three have produced the most concrete impact:
+
+**Emergency contact completeness** — 8% of students had no secondary emergency contact listed. The report surfaced this, the schools collected the information, and the gap closed within a quarter.
+
+**Enrollment-to-identity consistency** — The SIS and the identity provider disagreed on the enrollment status of approximately 200 accounts. Half were accounts that should have been deprovisioned; the other half were new students whose provisioning had partially failed. All were resolved.
+
+**Staff account proliferation** — 47 accounts belonging to former staff members were still active. The report included their last login date, making it straightforward to prioritise which to review first.
+
+## Design philosophy
+
+Data quality tooling fails when it generates noise faster than humans can process it. Every check in the reporter was chosen because a specific person asked "can you tell me when this is wrong?" rather than because the check was technically easy to write. Ownership is baked into the check definition — a check without a named owner does not get added.

@@ -1,0 +1,54 @@
+---
+title: "Student Data ETL Pipeline"
+slug: "student-data-etl-pipeline"
+description: "An automated data pipeline that extracts student records from the district's SIS, transforms and validates them against business rules, and loads them into downstream systems — replacing a manual export-and-email workflow that ran on goodwill and spreadsheets."
+type: "Data Engineering"
+year: 2023
+stack: ["Go", "PostgreSQL", "SQL Server", "Azure"]
+href: null
+featured: false
+order: 6
+---
+
+A school district's Student Information System (SIS) is the source of truth for everything that matters: enrollments, demographics, schedules, grades, permissions. A dozen other systems need subsets of that data — the LMS, the identity provider, the food service system, the library catalog, the bus routing tool.
+
+Before this pipeline existed, data moved between them on a mix of scheduled exports, emailed CSVs, and manual re-entry. A student could transfer into the district and spend their first day invisible to half the systems they needed to use.
+
+## What the pipeline does
+
+The pipeline runs on a configurable schedule — typically nightly for full syncs, and on-demand for targeted updates. For each configured downstream system, it:
+
+1. **Extracts** a view of SIS data relevant to that system
+2. **Transforms** it — normalising field names, applying validation rules, computing derived fields (e.g. grade band from graduation year)
+3. **Validates** the transformed records against a schema and business rules, quarantining records that fail
+4. **Diffs** against the last known state to identify additions, changes, and deletions
+5. **Loads** only the delta into the target system via its API or a staging table
+6. **Reports** — a summary of every run is written to a log table and optionally emailed to the data team
+
+```go
+type PipelineRun struct {
+    System      string
+    StartedAt   time.Time
+    RecordsIn   int
+    Additions   int
+    Updates     int
+    Deletions   int
+    Quarantined int
+    Errors      []PipelineError
+}
+```
+
+## The validation layer
+
+This is where the interesting complexity lives. "Validation" for student data is not just type checking — it includes:
+
+- **Business rule validation**: a student cannot be enrolled in more periods than exist in the school day; a date of birth more than 22 years ago is unusual and flagged for review
+- **Referential validation**: a homeroom teacher ID must exist in the staff table
+- **Anomaly detection**: a student who was 10th grade last year and is now 8th grade has likely been miscoded
+- **Duplicate detection**: two records with the same name and date of birth but different IDs are flagged
+
+Records that fail hard validation rules are quarantined with a reason code and held out of the load. Records that trip soft rules are loaded but marked for human review.
+
+## Impact
+
+The pipeline eliminated the manual export workflow entirely for five downstream systems. The average time for a new enrollment to propagate to all connected systems dropped from 24–48 hours to under two hours. The quarantine log has also become a useful data quality feedback loop — patterns in quarantined records have identified systematic data entry errors at specific schools that were then addressed.

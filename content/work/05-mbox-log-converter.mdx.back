@@ -1,0 +1,44 @@
+---
+title: "mbox → Google Log Converter"
+slug: "mbox-google-log-converter"
+description: "A Go utility that parses .mbox email archives and converts them into structured, query-friendly log records — built to support an email migration audit where the source data was tens of gigabytes of raw mbox."
+type: "Data Pipeline"
+year: 2024
+stack: ["Go"]
+href: "https://github.com/Dylan-Howard/mbox-google-log-converter"
+featured: false
+order: 5
+---
+
+When WCPS migrated historical email archives into Google Vault, the compliance team needed to verify that specific message categories had been migrated completely. The source data was a set of `.mbox` files — a format almost as old as email itself — totalling around 60 GB. Google Vault's import logs told us what was received; the mbox files told us what was sent.
+
+Reconciling the two meant parsing every message in the mbox, normalising the headers, and producing a structured output that could be compared against the Vault log. No existing tool did exactly this, and the scale made a scripted approach impractical.
+
+## The parsing problem
+
+mbox is a deceptively simple format: messages are concatenated, separated by a `From ` line. In practice, the format has spawned multiple incompatible variants (mboxo, mboxrd, mboxcl, mboxcl2), and real-world mbox files contain malformed messages, encoding surprises, and headers that technically violate RFC 2822 but were accepted by the mail server anyway.
+
+The parser handles all of this gracefully: it detects the mbox variant from the first message, applies the correct unquoting strategy, and uses a lenient header parser that captures the header value even when the field is technically malformed, noting the violation in the output.
+
+```go
+// Message parsing pipeline
+// Each stage is a pure function: in → (out, []Warning)
+var stages = []Stage{
+    detectVariant,
+    extractHeaders,
+    parseAddresses,
+    normaliseTimestamp,
+    classifyContentType,
+    extractMessageId,
+}
+```
+
+## Output format
+
+Each parsed message produces a JSON record with normalised fields: canonical sender/recipient addresses, a UTC timestamp, Message-ID, subject (for human verification), and a SHA-256 of the raw message for deduplication. A separate manifest file records any messages that were skipped or partially parsed, with the reason.
+
+The converter processed the full 60 GB archive in under 12 minutes on a standard laptop — primarily bounded by disk read speed, not CPU. Go's `bufio.Scanner` with a custom split function was significantly faster than reading the file into memory.
+
+## The outcome
+
+The reconciliation showed a 99.3% match rate between the mbox archive and the Vault import. The remaining 0.7% consisted of messages that the mail server had accepted but never delivered (bounced), messages that predated the migration window, and six genuine gaps that the compliance team then handled manually.

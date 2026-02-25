@@ -1,0 +1,67 @@
+---
+title: "Identity Monitoring & Alerting Platform"
+slug: "identity-monitoring-platform"
+description: "A full-stack operational intelligence system built on top of the district's IAM infrastructure — surfacing anomalies, failed provisions, and policy drift through a diagnostic dashboard that cut average IT resolution time from 1.5 days to 0.6 days."
+type: "Full-Stack Application"
+year: 2023
+stack: ["C#", ".NET", "Entity Framework", "React", "Next.js", "SQL Server"]
+href: "https://github.com/Dylan-Howard/Identity-Systems-Monitor"
+featured: false
+order: 2
+---
+
+Building an IAM system is one problem. Knowing whether it is actually working — for every user, across every system, right now — is a different and harder one.
+
+At Warren County Public Schools, the IAM provisioning layer could successfully create, update, and deprovision accounts across Microsoft Entra ID, Google Workspace, and the SIS. What it could not do, at first, was tell you clearly when something had gone wrong, why, and what to do about it. An IT technician who received a complaint that a student's Google account was not working had to manually check multiple admin consoles, compare data across systems, and piece together the sequence of events from logs that were designed for auditing, not diagnosis.
+
+The monitoring platform exists to make that work unnecessary.
+
+## The UX problem driving the engineering
+
+Before writing a line of code, I spent two weeks reviewing support tickets — specifically the ones tagged "account access" and "provisioning." The patterns were clear:
+
+- Most issues resolved to one of four root causes: a sync delay, a policy conflict, a data mismatch between systems, or a silent provisioning failure
+- The average technician spent 45 minutes per ticket investigating before they could begin resolving
+- The same issues recurred because there was no feedback mechanism to surface systemic patterns
+
+The design goal was not to build a better admin console. It was to build a system that, for any given user and any given complaint, could tell a technician within 30 seconds what was wrong and what to do about it.
+
+## The data model
+
+The platform maintains a continuously updated graph of identity state: for each user, what does each connected system believe about them? This is not a snapshot — it's a live view, updated as events arrive from the IAM layer and as polling confirms the state of systems that don't emit events.
+
+When the state in two systems diverges, the platform records a *discrepancy*: a structured record of what was expected, what was found, when the divergence was first detected, and what provisioning operations are in-flight that might explain it.
+
+```csharp
+public record IdentityDiscrepancy(
+    string UserId,
+    SystemName Source,
+    SystemName Target,
+    string Dimension,      // e.g. "AccountStatus", "GroupMembership", "DisplayName"
+    string ExpectedValue,
+    string ActualValue,
+    DateTimeOffset DetectedAt,
+    DiscrepancyStatus Status,   // Open, Resolving, Resolved, Accepted
+    string? ResolutionNote
+);
+```
+
+An open discrepancy that has existed for longer than a configurable threshold generates an alert. Discrepancies that appear in patterns (same dimension, multiple users, same building) generate an aggregate alert that surfaces possible systemic causes.
+
+## The diagnostic surface
+
+The React/Next.js frontend has two modes. The first is a user-search interface: enter a name, email, or student ID and see a unified view of that person's identity state across all connected systems, a timeline of recent provisioning events, and any open discrepancies with their current status.
+
+The second is an operational dashboard: aggregate metrics (open discrepancies by category, by building, by system), a queue of alerts ordered by age and severity, and trend lines that make systemic problems visible before they accumulate into a wave of support tickets.
+
+The design constraint I enforced throughout: every piece of information shown must either enable an action or explain a status. No decorative metrics. No charts that don't help someone decide what to do.
+
+## The resolution workflow
+
+Surfacing a problem is necessary but not sufficient. The platform includes a lightweight resolution workflow: a technician can acknowledge a discrepancy, record what action they've taken, and mark it resolved with a note. If the underlying data corrects itself (because the IAM layer addressed the root cause), the discrepancy auto-resolves.
+
+This workflow generates a dataset that has become genuinely useful: the history of what kinds of issues occur, how long they take to resolve, and whether specific root causes are recurring. That data drove the two highest-impact changes to the IAM layer in the following quarter — both invisible to users until the problems didn't occur anymore.
+
+## Outcome
+
+Resolution time for identity-related support tickets dropped from an average of 1.5 days to 0.6 days — a 60% reduction. The more meaningful number is the category that went to zero: tickets that required escalation to a senior administrator to diagnose. The monitoring platform made that information available to any technician.

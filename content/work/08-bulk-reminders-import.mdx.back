@@ -1,0 +1,51 @@
+---
+title: "Bulk Import for macOS Reminders"
+slug: "bulk-macos-reminders-import"
+description: "An AppleScript utility that lets students and staff import a semester's worth of assignments and deadlines into macOS Reminders from a CSV — solving a surprisingly sharp pain point with an unusually small amount of code."
+type: "Utility"
+year: 2023
+stack: ["AppleScript"]
+href: "https://github.com/Dylan-Howard/AutomatedMacosReminders"
+featured: false
+order: 8
+---
+
+macOS Reminders is a genuinely good personal task manager — it integrates with Siri, syncs across Apple devices, and lives where students already are. What it lacks is any way to import in bulk. Creating 120 reminders for a semester's assignments one at a time is not a workflow anyone will sustain.
+
+This script closes that gap. It reads a CSV file of tasks (title, due date, notes, list) and creates a corresponding reminder for each row, preserving the date, time, priority, and list assignment.
+
+## Why AppleScript
+
+This is a case where the right tool is the boring one. AppleScript has direct, scriptable access to Reminders via the system events bridge — no API key, no OAuth, no third-party libraries. For a utility that needs to run on any student's Mac with zero installation, that simplicity is the feature.
+
+```applescript
+-- Create a single reminder from a parsed row
+on createReminder(taskTitle, dueDate, noteText, listName)
+    tell application "Reminders"
+        set targetList to first list whose name is listName
+        set newReminder to make new reminder at end of targetList
+        set name of newReminder to taskTitle
+        set due date of newReminder to dueDate
+        if noteText is not "" then
+            set body of newReminder to noteText
+        end if
+    end tell
+end createReminder
+```
+
+## The CSV format
+
+The script expects a simple format that a student can produce from any spreadsheet application:
+
+| Title | Due Date | Due Time | Notes | List |
+|-------|----------|----------|-------|------|
+| Algebra homework | 2024-09-13 | 23:59 | Chapter 4 exercises | School |
+| English essay draft | 2024-09-15 | 08:00 | First draft for peer review | School |
+
+Date parsing handles a few common formats, and the script produces a log of any rows it could not parse rather than silently skipping them.
+
+## Reception
+
+The script was shared in a K–12 Apple deployment forum and downloaded several hundred times. The most common feedback was requests for recurring reminders support, which I added in a later version, and a request for a GUI wrapper — which I judged out of scope for something that is fundamentally a one-time import tool.
+
+The main thing I learned from this project: clear error output matters more than I expected. Early versions that silently skipped malformed rows prompted confused reports of "missing reminders." Adding a log file that named every skipped row and explained why eliminated almost all of those reports.

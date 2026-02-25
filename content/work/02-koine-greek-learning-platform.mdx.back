@@ -1,0 +1,49 @@
+---
+title: "Koine — Ancient Greek Learning Platform"
+slug: "koine-greek-learning-platform"
+description: "An interactive learning platform for Biblical and Classical Greek — built because every existing tool either required a $200 textbook or was abandoned shareware from 2003."
+type: "Full-Stack Application"
+year: 2024
+stack: ["React", "TypeScript", "C#", ".NET", "Go", "Azure", "PostgreSQL", "MongoDB"]
+href: "https://github.com/Dylan-Howard/Greek-Learning-App"
+featured: false
+order: 2
+---
+
+Koine Greek is the dialect in which the New Testament was written. It is also famously difficult to learn, partly due to its inflectional complexity and partly because most learning resources are either prohibitively expensive or built on outdated technology.
+
+I started building Koine as a personal project — I wanted to read primary texts without relying on translations. It became a platform.
+
+## What the platform does
+
+At its core, Koine presents learners with vocabulary drills, parsing exercises, and reading passages with contextual glosses. The interaction model is flashcard-adjacent but smarter: a spaced repetition algorithm surfaces vocabulary based on each learner's forgetting curve, not a fixed deck order.
+
+The reading mode is the piece I'm most proud of. A learner can hover over any word in a passage and see its lexical form, part of speech, full morphological parse, and a definition — all without leaving the text. This required building a morphological analysis layer that correctly parses inflected Greek forms, which is genuinely hard.
+
+```typescript
+// Morphological token shape
+interface GreekToken {
+  surface: string;       // the form as it appears in text
+  lemma: string;         // lexical (dictionary) form
+  pos: PartOfSpeech;
+  parse: MorphParse;     // case, number, gender (nominal) or tense, mood, voice (verbal)
+  gloss: string;
+  strongsNumber?: string;
+}
+```
+
+## Architecture decisions
+
+The backend is split between .NET and Go based on workload type. .NET handles the user-facing API — authentication, progress tracking, content delivery — where the richness of the ecosystem and C#'s expressive type system are valuable. Go handles the morphological analysis pipeline, where raw throughput matters and the workload is embarrassingly parallel.
+
+Content is stored in a split-storage model: structured data (users, progress, lesson metadata) lives in PostgreSQL; the lexical database, with its complex nested structures and flexible schema across different text traditions, lives in MongoDB. Both are hosted on Azure.
+
+## The hard problem: morphological analysis
+
+Greek is a synthetic language, meaning a single word encodes information that English spreads across multiple words. The verb λύσαντος, for example, encodes aorist tense, active voice, participial mood, genitive case, singular number, masculine gender — all in one token. Correctly analysing an arbitrary inflected form requires either a full inflection table (tens of thousands of entries) or a rule-based morphological parser.
+
+I went with a hybrid: a pre-built morphological database for known forms, with a rule-based fallback for forms not in the database. The rule-based layer handles about 12% of tokens in a typical passage and achieves ~91% accuracy on those cases — enough to be useful, clearly flagged when uncertain.
+
+## Where it stands
+
+The platform currently supports vocabulary acquisition and reading in a subset of New Testament texts. Parsing exercises and a full lesson sequence are in development. The spaced repetition backend is live and tracking progress for active users.

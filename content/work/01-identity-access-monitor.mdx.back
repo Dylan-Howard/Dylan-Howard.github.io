@@ -1,0 +1,45 @@
+---
+title: "Identity & Access Monitor"
+slug: "identity-access-monitor"
+description: "A comprehensive visibility and control platform for user identities across multiple systems in a K–12 school district — built to answer the question every IT director dreads: who has access to what, right now?"
+type: "Full-Stack Application"
+year: 2024
+stack: ["React", "TypeScript", "C#", ".NET", "SQL Server"]
+href: "https://github.com/Dylan-Howard/Identity-Systems-Monitor"
+featured: true
+order: 1
+---
+
+School districts run on identity. Every student, teacher, and administrator has accounts scattered across a dozen systems — the SIS, Google Workspace, Canvas, PowerSchool, HVAC dashboards, and more. At Warren County Public Schools, that meant thousands of identities that no single person could see in full.
+
+**The problem I set out to solve:** when a student transfers, do you actually know every system they still have access to? When a staff member leaves, can you confirm their credentials are revoked everywhere within the hour?
+
+The answer, before this project, was no.
+
+## The architecture
+
+The monitor is a .NET backend that polls each connected system on a configurable schedule, normalising the wildly different identity shapes returned by each API into a unified schema. SQL Server holds the canonical identity graph — a live picture of every user, every account, and every permission, with a full audit trail of changes.
+
+The React frontend gives IT staff a single pane of glass: search any user, see every system they exist in, flag discrepancies, and trigger remediation workflows. A discrepancy might be a leaver account still active in Google, a student in Canvas but not in the SIS, or a role assignment that doesn't match the district's policy.
+
+```csharp
+// Normalised identity record assembled from N upstream sources
+public record IdentityAggregate(
+    string CanonicalId,
+    string DisplayName,
+    IdentityStatus Status,
+    IReadOnlyList<SystemAccount> Accounts,
+    IReadOnlyList<PolicyViolation> Violations,
+    DateTimeOffset LastSeen
+);
+```
+
+## The complexity that mattered
+
+The hardest part was not the polling or the UI — it was deciding what "the same person" means across systems. Different systems use different identifiers: email in some, employee number in others, a GUID in a third. The matching layer uses a weighted similarity score across multiple attributes, with manual override when automated matching is uncertain. Getting this wrong means false positives (merging two different people) or false negatives (missing a rogue account).
+
+The second hard problem was performance. With thousands of users across a dozen systems, a naive full sync on every poll would hammer upstream APIs. The monitor uses a change-detection approach: systems that support webhooks push changes; systems that don't are polled at a frequency inversely proportional to how often they change.
+
+## Outcome
+
+The district went from ad-hoc, manual access reviews to a continuous, automated visibility model. The average time to confirm a leaver's accounts were fully revoked dropped from several days to under four hours. Compliance reporting — previously a spreadsheet ordeal — is now a single export.

@@ -1,0 +1,89 @@
+---
+title: "Statewide Identity Platform — Kentucky Dept. of Education"
+slug: "kentucky-iam-platform"
+description: "A production identity and access management system scaled from a single district to 750,000+ users across 171 Kentucky school districts — built with 99.9% uptime, full FERPA and CIPA compliance, and recognised by the state with the Stillwell Award for innovation."
+type: "Platform Engineering"
+year: 2022
+stack: ["Java", "MSSQL", "JavaScript", "Microsoft Entra ID", "Google Workspace", "PowerShell", "REST"]
+href: null
+featured: true
+order: 1
+awards:
+  - "Stillwell Award — Kentucky DOE Office of Educational Technology, 2022"
+  - "Speaker & Panelist — Identity Automation User Group, June 2025"
+---
+
+Identity infrastructure is typically invisible — until it fails. In a school district, a failure means a teacher locked out of their gradebook at 7:45 AM, a student who cannot access a state assessment, a new hire who spends their first week without any of the access they need to do their job. The problem compounds with scale: Warren County Public Schools serves 30,000+ users across multiple systems. The state of Kentucky has 750,000.
+
+This is the story of building a system that had to work — reliably, securely, and at a scale that most engineers never touch — in a domain where the cost of failure is measured in real people's days.
+
+## Where it started
+
+I joined WCPS and inherited a patchwork: Active Directory, Microsoft Entra ID, Google Workspace, and a Student Information System that spoke to none of the others. Provisioning a new account required manual steps in each system. Deprovisioning was even worse — catch-as-catch-can, documented by goodwill, audited by luck.
+
+The first version was a Java-based orchestration layer: it consumed events from the SIS (enrollments, transfers, terminations, role changes) and translated them into idempotent provisioning actions against each downstream platform. It used SQL Server as its coordination store, tracking the intent of each operation separately from its execution, so partial failures could be retried without duplicating work.
+
+```java
+// Idempotent provisioning: the same event can be safely replayed
+@Transactional
+public ProvisioningResult provision(IdentityEvent event) {
+    ProvisioningRecord record = repository.findOrCreate(event.getCorrelationId());
+
+    if (record.isComplete()) {
+        return ProvisioningResult.alreadyComplete(record);
+    }
+
+    List<ProvisioningStep> pending = record.getPendingSteps();
+    for (ProvisioningStep step : pending) {
+        try {
+            step.execute(platformClients);
+            record.markStepComplete(step);
+        } catch (TransientException e) {
+            // Retry later; do not mark failed
+            record.markStepPending(step, e.getRetryAfter());
+        } catch (PermanentException e) {
+            record.markStepFailed(step, e);
+            alertTeam(step, e);
+        }
+    }
+    return ProvisioningResult.of(record);
+}
+```
+
+Within the first year, manual provisioning effort dropped by 80 hours per month and onboarding errors — the kind that create ghost accounts or leave access unclaimed — fell 25%.
+
+## The state partnership
+
+The Kentucky Department of Education saw what we had built and asked a question that changes the scope of any engineering project: *can it scale?*
+
+The answer required rethinking several assumptions. A single-district system could afford to be opinionated — it knew its SIS, its OU structure, its naming conventions. A platform serving 171 districts had to be a framework, not a fixed implementation. Each district has a different SIS, different policies, different legacy configurations that cannot simply be swept away.
+
+The solution was a tenant model with a layered configuration schema. Each district instance inherits a base set of platform defaults — the event contracts, the retry policies, the compliance-oriented audit schema — and overrides only what it needs to. A district running on PowerSchool gets a different SIS connector than one running on Infinite Campus, but they share the same provisioning engine, the same monitoring infrastructure, and the same audit trail.
+
+```java
+// Tenant-scoped configuration with inheritance
+public ProvisioningConfig resolve(TenantId tenant, ConfigKey key) {
+    return configStore.find(tenant, key)
+        .or(() -> configStore.find(tenant.getStateRegion(), key))
+        .or(() -> configStore.find(ConfigKey.STATE_DEFAULT, key))
+        .orElseThrow(() -> new MissingConfigException(tenant, key));
+}
+```
+
+Compliance was a different kind of constraint. FERPA governs student data — what can be transmitted, logged, retained, and to whom. CIPA governs content filtering. The system treats both as first-class concerns: all audit logs are structured to support FERPA access request responses; the provisioning model ensures content filtering policies are always applied before a student account becomes active.
+
+## Operating at 99.9% uptime
+
+The number is not aspirational — it is a contractual obligation to 171 districts and the state's assessment infrastructure. Achieving it required treating reliability as an engineering discipline, not a deployment optimism.
+
+The key decisions were: asynchronous event processing (a slow downstream API does not block the queue for other districts), circuit breakers on every platform integration (a Google Workspace outage does not cascade into Entra), a dead-letter queue with human alerting (nothing is silently dropped), and active-active regional deployment on Azure.
+
+Runbooks are code-reviewed. Every alert has a documented response procedure. On-call rotation was implemented when the platform went state-wide, because a system 171 institutions depend on is not one that can wait until morning.
+
+## Recognition
+
+The Stillwell Award is the Kentucky DOE's recognition for statewide innovation in educational technology. Receiving it for this platform meant something specific: not that the engineering was clever, but that the system was working — that 750,000 students and staff could get to the tools they needed, reliably, every day.
+
+I presented the architecture and lessons learned at the Identity Automation User Group in June 2025, where the discussion that mattered most was not about the technology but about the governance model: how do you maintain consistency across 171 autonomous districts without imposing uniformity that breaks what they've already built?
+
+The answer is: carefully, incrementally, and with an API contract that is as stable as you can make it.

@@ -1,0 +1,50 @@
+---
+title: "Analuo — Address Data Processor"
+slug: "address-data-processor"
+description: "A data-cleaning tool that turns chaotic, concatenated address strings from Warren County Zoning & Planning into structured, row-per-address records — using user-defined split patterns and a Go parsing engine."
+type: "Data Tool"
+year: 2024
+stack: ["React", "TypeScript", "Go", "SQL"]
+href: "https://github.com/Dylan-Howard/Address-Destructuring-App"
+featured: false
+order: 3
+---
+
+Government data is messy. Warren County Zoning & Planning regularly produces address exports where multiple parcels or units are concatenated into a single field — something like `"123 Main St / 125 Main St / 127 Main St"` in one cell, or worse, `"123-127 Main Street (odd)"`.
+
+Before this tool, a staff member would manually split these records by hand — a slow, error-prone process that introduced inconsistencies downstream in every system that consumed the data.
+
+## What the tool does
+
+Analuo (Greek for "to break apart") lets a user define a split pattern for a given data export and run it against a file. The pattern language supports:
+
+- **Delimiter splits** — split on a character or substring (`/`, `&`, `;`)
+- **Range expansion** — `123-127 Main St` → three records for 123, 125, 127 (with configurable step)
+- **Regex patterns** — for imports that are creative about their formatting
+- **Conditional rules** — apply one pattern if a field matches a condition, another otherwise
+
+The React frontend provides a pattern editor with a live preview pane: as the user builds their pattern, they see the first N rows split in real time before committing the run.
+
+```go
+// Pattern evaluation — each rule is tried in order; first match wins
+func (p *PatternSet) Apply(input string) ([]string, error) {
+    for _, rule := range p.Rules {
+        if rule.Condition.Matches(input) {
+            return rule.Splitter.Split(input)
+        }
+    }
+    return []string{input}, nil // passthrough if no rule matches
+}
+```
+
+## The backend
+
+The parsing engine is written in Go, chosen for its performance on file-processing workloads and the simplicity of its concurrency model. Large files are processed in chunks, with each chunk dispatched to a worker goroutine. Results are streamed back to the client over a Server-Sent Events connection rather than waiting for the full file to process.
+
+This meant the user sees progress in real time for a 50,000-row file rather than staring at a spinner for 45 seconds.
+
+## What I learned
+
+Address data is surprisingly nuanced. Ranges are not always arithmetic (`101-109 Main St` might mean only 101, 103, 105, 107, 109 if the road has only odd numbers on that side). Handling corner cases required me to add a "preview and confirm" step to the workflow, rather than just running the transform blindly.
+
+The larger lesson: tools for internal users often get built without enough thought about how those users will discover they've made an error. Adding the live preview was the single highest-impact design decision in the project.

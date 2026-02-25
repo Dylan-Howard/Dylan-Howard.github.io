@@ -1,0 +1,66 @@
+---
+title: "K–12 Google Workspace Toolkit"
+slug: "k12-google-workspace-toolkit"
+description: "An open-source collection of admin utilities for Google Workspace for Education — automating the repetitive, high-volume operations that Google's admin console makes unnecessarily painful."
+type: "Developer Tooling"
+year: 2023
+stack: ["TypeScript", "Go", "Google Admin SDK", "Google Workspace APIs"]
+href: "https://github.com/Dylan-Howard/Google-Management-Utilities"
+featured: false
+order: 4
+---
+
+Managing Google Workspace for a school district at scale exposes the gaps in what Google's built-in admin tools actually let you do. The console is fine for one-off actions. It is not designed for "apply this policy to every student in grades 3–5 who joined after a given date" or "export every shared drive's membership to a spreadsheet, now."
+
+This toolkit is the collection of scripts and utilities I built to fill those gaps at Warren County Public Schools. It is open-sourced because every K–12 district administrator I have talked to has the same problems.
+
+## What's in the toolkit
+
+**Bulk OU Management** — Move users between Organizational Units based on CSV input, SIS export format, or a query. Handles rate-limiting gracefully with exponential backoff and produces a detailed log of every change and every failure.
+
+**Shared Drive Auditor** — Enumerates all Shared Drives in the domain, their members, and their membership roles. Exports to CSV. Useful for access reviews and for finding drives that were created and then abandoned.
+
+**Suspended Account Cleaner** — Identifies accounts that have been suspended for longer than a configurable threshold and, optionally, transfers their Drive content to a holding account before deletion. Includes a dry-run mode.
+
+**Alias Reconciler** — Compares the email aliases in Workspace against a source-of-truth CSV and flags additions, removals, and mismatches. Particularly useful after a student legal name change workflow.
+
+```typescript
+// Rate-limited batch processor — respects Admin SDK quota
+async function processBatch<T, R>(
+  items: T[],
+  handler: (item: T) => Promise<R>,
+  options: { rateLimit: number; retryOn: number[] }
+): Promise<BatchResult<R>> {
+  const limiter = new RateLimiter(options.rateLimit);
+  const results: R[] = [];
+  const errors: BatchError<T>[] = [];
+
+  for (const item of items) {
+    await limiter.acquire();
+    try {
+      results.push(await withRetry(() => handler(item), options.retryOn));
+    } catch (err) {
+      errors.push({ item, error: err });
+    }
+  }
+  return { results, errors };
+}
+```
+
+## The Go CLI
+
+The more complex utilities ship as a Go CLI binary, which makes them easy to deploy on any OS without a Node runtime. The CLI reads a YAML config file specifying credentials, target domain, and operation parameters, which makes it suitable for running in a scheduled job or CI pipeline.
+
+```yaml
+# Example: nightly suspended account cleanup
+operation: suspended-account-cleanup
+domain: "wcps.edu"
+suspension_threshold_days: 90
+dry_run: false
+drive_transfer_target: "it-archive@wcps.edu"
+notify_on_completion: "it-team@wcps.edu"
+```
+
+## Usage beyond WCPS
+
+The toolkit has been used by administrators at several other districts after being shared in a K–12 IT administrators forum. The most common feedback has been requests for more output formats (JSON, Google Sheets direct write) and better error messages when the service account lacks a necessary permission.

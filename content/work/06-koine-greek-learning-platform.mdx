@@ -1,0 +1,65 @@
+---
+title: "Koine — Ancient Greek Learning Platform"
+slug: "koine-greek-learning-platform"
+description: "A personal project turned full-stack platform for learning Biblical and Classical Greek — built because every existing tool was either expensive, abandoned, or pedagogically unsound. Features spaced repetition, morphological parsing, and inline glosses across primary texts."
+type: "Personal Project"
+year: 2024
+stack: ["React", "TypeScript", "C#", ".NET", "Go", "Azure", "PostgreSQL", "MongoDB"]
+href: "https://github.com/Dylan-Howard/Greek-Learning-App"
+featured: false
+order: 6
+---
+
+This project started selfishly. I wanted to read the New Testament in Greek, and I found that every tool designed to help me do so had a fatal flaw: either it required a $200 textbook as a companion, or it was built on pedagogical assumptions I disagreed with, or — most commonly — it hadn't been updated since 2009 and didn't run on anything I owned.
+
+The engineer's response to finding the right tool doesn't exist is to build it. What follows is a more honest account than most project write-ups: what the hard problems actually were, which decisions I would make again, and which I wouldn't.
+
+## The learning model
+
+Koine Greek is a synthetic language. Unlike English, which strings words together to convey grammatical relationships, Greek encodes them into the word itself through inflectional endings. The verb λύσαντος encodes seven pieces of information simultaneously: aorist tense, active voice, participial mood, genitive case, singular number, masculine gender, and a specific semantic root. Reading Greek is not translating word by word — it's parsing as you go.
+
+This changes the pedagogy. Vocabulary alone is insufficient; a learner needs to recognise inflected forms, not just dictionary entries. The platform is built around three modes that address this directly:
+
+**Vocabulary acquisition** — spaced repetition flashcards, but the "answer" for each card includes not just the translation but the full morphological category and paradigm. The algorithm (an adapted version of SM-2) models each user's forgetting curve per word and schedules reviews accordingly.
+
+**Parsing exercises** — given an inflected form, identify its component grammatical features. This is the mechanical skill that makes reading possible, and it is tedious to learn. The exercises are deliberately narrow and drilled.
+
+**Reading mode** — the heart of the application. A learner reads a primary text passage, and hovering over any word reveals its lexical form, full parse, and gloss. The intent is to make reading the primary activity, not a reward for completing enough drills.
+
+## The hard problem: morphological analysis
+
+Providing a parse for any word in a Greek text requires a morphological analysis layer. This is genuinely non-trivial. Greek has hundreds of inflectional paradigms, numerous irregular forms, and a set of phonological rules that produce contracted and augmented forms that look nothing like their dictionary roots.
+
+The approach I chose was a hybrid database-and-rule system. A pre-built morphological database covers the several thousand most common forms across the New Testament corpus — these are matched by lookup. For forms not in the database, a rule-based parser attempts to decompose the form by working backward through known paradigms. The rule-based layer correctly analyses about 91% of forms it encounters; the remainder are marked as uncertain with a best-effort parse displayed.
+
+```typescript
+interface GreekToken {
+  surface:   string;        // the inflected form as it appears
+  lemma:     string;        // dictionary form (λύω, not λύσαντος)
+  pos:       PartOfSpeech;
+  parse:     MorphParse;    // { tense, voice, mood, case, number, gender }
+  gloss:     string;
+  certainty: 'known' | 'inferred' | 'uncertain';
+  strongsId?: string;       // cross-reference to Strong's lexicon
+}
+```
+
+## Architecture decisions I'd make again
+
+**Go for the morphological analysis pipeline.** The analysis runs at parse time as text is loaded, and performance matters. A 500-word passage should be ready to interact with immediately, not after a perceptible delay. Go's throughput and the simplicity of its concurrency model made this straightforward.
+
+**Split storage model.** PostgreSQL for structured relational data — users, progress, session history, lesson metadata. MongoDB for the lexical database, where each entry is a nested document with different shapes across different text traditions and different levels of scholarly annotation. Forcing the lexical data into a relational schema would have produced either a very sparse table or a very complex one.
+
+**Azure hosting for both services.** The .NET API and the Go service run as separate Azure App Services behind a shared API Management layer. This allows independent scaling — the morphological analysis service can scale out during reading sessions without scaling the API server, and vice versa.
+
+## What I'd do differently
+
+The spaced repetition implementation is technically correct but UX-incomplete. The algorithm surfaces the right words at the right times; the interface for seeing your progress and understanding *why* a word is appearing today is underdeveloped. Users who want to understand their own learning model have to trust the system rather than interrogate it. I'd invest more in making the algorithm's reasoning transparent.
+
+I'd also start with a narrower corpus. The platform currently supports reading in a subset of New Testament texts, which is the right scope for a first version, but the decisions I made about text encoding and annotation format early on have made expanding to Classical Greek texts more work than it should be. Abstraction of the corpus layer from day one would have been worth the upfront cost.
+
+## What it is, honestly
+
+This is a well-engineered personal project with real users, not a production SaaS. The morphological analysis works; the spaced repetition works; people use it and find it useful. It is also not finished in any sense that the word "finished" applies to software. It is the kind of project that exists because I wanted to learn Greek and wanted to practice building something with a genuinely hard domain problem at its core.
+
+Both things are true, and both are worth saying.

@@ -1,0 +1,52 @@
+---
+title: "Enrollment Provisioning Automation"
+slug: "enrollment-provisioning"
+description: "An event-driven provisioning system that automatically creates, configures, and removes accounts across 8 connected platforms when a student enrolls in or departs from the district."
+type: "Systems Integration"
+year: 2024
+stack: ["Go", "TypeScript", "SQL Server", "Azure Service Bus", "Google Admin SDK", "Microsoft Graph API"]
+href: null
+featured: false
+order: 9
+---
+
+Every new student who enrolls in Warren County Public Schools needs accounts in eight places: Active Directory, Google Workspace, the LMS (Canvas), PowerSchool, the library system, the food service platform, the device management system, and the district's SSO provider.
+
+Before this system, each of those accounts was created manually — a checklist task for IT staff that happened once per enrollment event. With hundreds of enrollments each semester and a non-trivial transfer rate mid-year, the lag between SIS enrollment and full account readiness was measured in days.
+
+## Architecture: event-driven provisioning
+
+The system is built around an event bus (Azure Service Bus). The SIS publishes enrollment events — `student.enrolled`, `student.transferred`, `student.graduated`, `student.withdrawn` — as messages. Each downstream platform has a dedicated consumer service that handles only the messages relevant to it.
+
+This architecture means:
+
+- Adding a new downstream system requires only a new consumer — the SIS and other consumers are untouched
+- A transient failure in one platform (e.g. the LMS API is down) does not block provisioning in others
+- Each consumer can have its own retry policy appropriate to its upstream API's behaviour
+- The full provisioning history is captured in the message log
+
+```go
+// Each provisioner implements a simple interface
+type Provisioner interface {
+    HandleEnrollment(ctx context.Context, event EnrollmentEvent) error
+    HandleTransfer(ctx context.Context, event TransferEvent) error  
+    HandleWithdrawal(ctx context.Context, event WithdrawalEvent) error
+    SystemName() string
+}
+```
+
+## Timing and sequencing
+
+Some platforms have dependencies: the SSO provider needs Active Directory to exist before it can federate identity. The provisioning orchestrator maintains a dependency graph and ensures ordering, while still parallelising independent provisions.
+
+The sequencing logic uses a simple topological sort at startup to produce an ordered provision plan. Any cycle in the dependency graph (which would indicate a configuration error) is detected and reported immediately rather than manifesting as a deadlock at runtime.
+
+## The rollback problem
+
+Partial provisioning is worse than no provisioning. If a student gets an AD account and a Google account but the LMS provisioning fails, they can log in but cannot access their courses — a confusing state that is harder to diagnose than "not provisioned yet."
+
+The system handles this with a two-phase approach: each provisioner's `HandleEnrollment` first checks whether it can successfully provision (validating inputs, checking for conflicts) before actually doing so. If any provisioner's preflight check fails, none of the provisions proceed. Real-world failures during the actual provisioning step (network errors, rate limits) are retried with exponential backoff before triggering an alert.
+
+## Outcome
+
+Average time from SIS enrollment to all-platforms-ready: 11 minutes. The IT team's manual provisioning checklist was retired. Deprovisioning on withdrawal — previously the most error-prone part of the workflow — is now automated and leaves an audit trail.

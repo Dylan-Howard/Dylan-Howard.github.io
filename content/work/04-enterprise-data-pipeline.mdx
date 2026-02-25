@@ -1,0 +1,62 @@
+---
+title: "Enterprise Data Pipeline Infrastructure"
+slug: "enterprise-data-pipeline"
+description: "A bi- and unidirectional integration layer connecting 40+ educational software systems — built to replace a constellation of point-to-point scripts with a coherent, observable, and operationally manageable data infrastructure. Network utilization down 82%. Server load down 30%."
+type: "Data Engineering"
+year: 2022
+stack: ["Java", "JavaScript", "PowerShell", "SQL Server", "REST APIs", "Azure"]
+href: null
+featured: false
+order: 4
+---
+
+Every school district accumulates software systems the way old buildings accumulate wiring — one system at a time, each installed for a good reason, none of them designed to talk to the others. By the time I inherited the integration picture at Warren County Public Schools, there were 40+ systems with various degrees of overlap, dependency, and antagonism.
+
+The data they held was not independent. The SIS held the ground truth for student identity; the LMS needed students in the right courses; the identity provider needed accounts provisioned before anything else could work; the assessment platform needed rostering from the LMS; the data warehouse needed a coherent extract from all of them. The question was not whether to integrate them — it was how to do it without building a maintenance burden that would outlast every engineer who ever worked on it.
+
+## The problem with point-to-point integrations
+
+The instinct in most organisations is to solve each integration problem individually: write a script that moves data from System A to System B. Then a different script for B to C. Then another for A to C because the A→B→C latency is too high. Within a few years, you have a graph of n² potential connections, each with its own authentication, its own error handling (or lack of it), its own schedule, and its own failure mode.
+
+The 82% reduction in network utilization did not come from optimising individual transfers. It came from replacing a set of redundant, overlapping data movements with a hub-and-spoke model: systems publish to a central coordination layer, which fans out to consumers, deduplicates across redundant paths, and delivers each piece of data once.
+
+```javascript
+// Central event router: one publish, N deliveries
+class EventRouter {
+    async route(event: DataEvent): Promise<RoutingResult> {
+        const consumers = this.registry.getConsumers(event.type, event.sourceSystem);
+        const deliveries = await Promise.allSettled(
+            consumers.map(consumer => this.deliver(event, consumer))
+        );
+        return RoutingResult.fromSettled(deliveries);
+    }
+
+    private async deliver(event: DataEvent, consumer: Consumer) {
+        const payload = consumer.transform(event.payload);
+        await consumer.adapter.send(payload);
+        await this.auditLog.record(event, consumer, 'delivered');
+    }
+}
+```
+
+## Bi-directional sync is a different problem
+
+Unidirectional integration — push data from A to B — is tractable. Bi-directional sync, where both systems can be the authoritative source for different fields (or, worse, the same field at different times), requires deciding what "the truth" is when systems disagree.
+
+The pipeline handles this through a field-level authority model. For each data field that flows between systems, the configuration specifies which system is authoritative and which are consumers. A student's legal name is authoritative in the SIS; the LMS cannot change it. But a student's course enrollment status can flow from the LMS back to the SIS because the LMS is where teachers manage their rosters.
+
+When a bi-directional conflict is detected — the same field changed in both systems since the last sync — the pipeline logs the conflict, applies the authority rule, and alerts the data team. It does not silently pick a winner.
+
+## Observability as a first-class concern
+
+A data pipeline that fails silently is worse than one that fails loudly, because silent failures corrupt downstream data for an unknown period before anyone notices.
+
+Every data movement through the pipeline generates a structured event: source system, destination system, record identifier, operation type (create/update/delete), timestamp, and outcome. These events are queryable. A question like "when did this student's enrollment first appear in the LMS?" has a specific, retrievable answer. A question like "which records failed to sync to the assessment platform in the last 48 hours?" produces a list with enough context to investigate each item.
+
+The 30% reduction in server load came partly from eliminating redundant movements but largely from shifting from polling-based integrations to event-driven ones. Systems that previously polled for changes on fixed intervals now receive events when changes actually occur. The load flattens: instead of each system hammering the SIS API every 15 minutes, events flow continuously at the rate they actually occur.
+
+## The operational model
+
+Infrastructure that 40 systems depend on has to be operable by someone who was not on the team that built it. The pipeline's configuration is declarative — a set of YAML files that describe sources, consumers, field mappings, authority rules, and schedule for each integration. Adding a new system means adding a configuration file and an adapter; it does not require modifying the core routing logic.
+
+Runbooks for common failure modes live alongside the configuration. The most important one: how to safely replay a window of events after a consumer outage, without duplicating data. The answer is idempotent consumer adapters and a replayable event log — both built in from the start, because you will always need them eventually.
