@@ -1,6 +1,6 @@
 ---
-import Divider from '@components/Divider.astro';
-import Typography from '@components/Typography.astro';
+import Divider from "@/components/Divider.astro";
+import Typography from "@/components/Typography.astro";
 
 interface Props {
   description: string;
@@ -10,7 +10,7 @@ interface Props {
   imgAlt: string;
   title: string;
   supportingText: string;
-  'data-technologies'?: string;
+  "data-technologies"?: string;
 }
 
 const {
@@ -21,19 +21,24 @@ const {
   imgAlt,
   title,
   supportingText,
-  'data-technologies': dataTechnologies,
+  "data-technologies": dataTechnologies,
 } = Astro.props;
 ---
 
-<article 
-  aria-label={title} 
-  class="card" 
+<article
+  aria-label={title}
+  class="card"
   transition:name={`${id}-container`}
   data-technologies={dataTechnologies}
 >
-  <a href={ link }>
+  <a href={link}>
     <span class="card-main">
-      <img class="fill-bg" src={ imgSource } alt={ imgAlt } transition:name={ `${ id }-img` } />
+      <img
+        class="fill-bg"
+        src={imgSource}
+        alt={imgAlt}
+        transition:name={`${id}-img`}
+      />
       <span class="card-content">
         <Typography
           component="h3"
@@ -41,14 +46,14 @@ const {
           variant="title"
           bottomGutter="small"
         >
-          { title }
+          {title}
         </Typography>
-        <Typography>{ description }</Typography>
+        <Typography>{description}</Typography>
       </span>
     </span>
     <span class="card-footer">
       <Divider />
-      <Typography color="on-surface-variant">{ supportingText }</Typography>
+      <Typography color="on-surface-variant">{supportingText}</Typography>
     </span>
   </a>
 </article>
@@ -56,7 +61,8 @@ const {
 <style>
   .card {
     position: relative;
-    transition: box-shadow var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-long);
+    transition: box-shadow var(--dlh-theme-motion-easing-standard)
+      var(--dlh-theme-motion-duration-long);
     cursor: pointer;
     box-sizing: border-box;
     box-shadow: var(--dlh-theme-tile-shadow);
@@ -95,7 +101,8 @@ const {
   .card img {
     box-sizing: border-box;
     margin-bottom: var(--dlh-theme-shape-margin-xs);
-    border-radius: 0 0 var(--dlh-theme-shape-corner-medium) var(--dlh-theme-shape-corner-medium);
+    border-radius: 0 0 var(--dlh-theme-shape-corner-medium)
+      var(--dlh-theme-shape-corner-medium);
     width: 100%;
     height: auto;
   }
