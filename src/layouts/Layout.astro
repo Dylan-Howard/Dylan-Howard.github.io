@@ -1,0 +1,131 @@
+---
+import '../styles/global.css';
+
+import Footer from '../components/Footer.astro';
+import Navigation from '../components/Navigation.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+}
+
+const { 
+  title = "Dylan Howard - Software Engineer",
+  description = "Full-stack software engineer specializing in identity management systems, educational technology, and enterprise applications. Expert in React, .NET, and cloud technologies.",
+  image = "/assets/img/og-image.jpg",
+  type = "website"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta
+    name="keywords"
+    content="Dylan Howard, Software Engineer, Full-Stack Developer, React, TypeScript, C#, .NET, Azure, Identity Management, Educational Technology, Enterprise Applications"
+  />
+  <meta name="author" content="Dylan Howard" />
+  <meta name="generator" content={Astro.generator} />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href={canonicalURL} />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(image, Astro.url)} />
+  <meta property="og:site_name" content="Dylan Howard Portfolio" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalURL} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={new URL(image, Astro.url)} />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Dylan Howard",
+      "jobTitle": "Software Engineer",
+      "description": "Full-stack software engineer specializing in identity management systems and educational technology",
+      "url": "https://dylan-howard.github.io",
+      "sameAs": [
+        "https://github.com/Dylan-Howard",
+        "https://linkedin.com/in/dylan-howard"
+      ],
+      "knowsAbout": [
+        "React", "TypeScript", "C#", ".NET", "Azure", "Identity Management", 
+        "Educational Technology", "Enterprise Applications", "Full-Stack Development"
+      ]
+    }
+  </script>
+  
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <title>{title}</title>
+
+  <style is:global>
+    @import "../styles/global.css";
+  </style>
+</head>
+<body data-theme="light">
+  <Navigation />
+  <slot />
+  <Footer />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap"
+    rel="stylesheet"
+  />
+  <style is:global>
+    html {
+      position: relative;
+    }
+
+    body {
+      margin: 0 auto;
+      background: var(--dlh-theme-color-surface);
+      width: calc(100% - (var(--dlh-theme-shape-margin-large) * 2));
+      max-width: 560px;
+      color: var(--dlh-theme-color-on-surface);
+      font-family: "Noto Sans", sans-serif;
+    }
+
+    body::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+
+      mask-image: linear-gradient(
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.38) 20%
+      );
+      mask-size: 100% 100%;
+      mask-repeat: no-repeat;
+
+      background-image: radial-gradient(
+        var(--dlh-theme-color-outline-variant) 1px,
+        transparent 0
+      );
+      background-position: 16px 16px;
+      background-size: 16px 16px;
+      width: 100%;
+      height: 100%;
+      content: "";
+    }
+  </style>
+</body>
+</html>

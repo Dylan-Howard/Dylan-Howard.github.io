@@ -1,0 +1,71 @@
+---
+import ColorSwitcher from '@/components/ColorSwitcher.astro';
+import Stack from '@/components/Stack.astro';
+---
+
+<nav class="container stack row space-between">
+  <Stack direction="row" justifyContent="space-between">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 414.49 512.2">
+        <path
+          d="m0,0h151.3c156.02,0,263.19,72.5,263.19,253.74s-107.17,258.46-255.31,258.46H0V0Zm143.42,403.46c74.07,0,132.38-29.94,132.38-149.72s-58.31-144.99-132.38-144.99h-7.88v294.71h7.88Z"
+          style="stroke-width:0px;"></path>
+      </svg>
+    </a>
+    
+    <div class="nav-links">
+      <a href="/" class="nav-link">Projects</a>
+      <a href="/about" class="nav-link">About</a>
+      <a href="/skills" class="nav-link">Skills</a>
+      <a href="/resume" class="nav-link">Resume</a>
+    </div>
+    <!--<ColorSwitcher />-->
+  </Stack>
+</nav>
+
+<style>
+  nav {
+    margin: 16px auto 0;
+    height: 48px;
+  }
+
+  .logo {
+    display: block;
+    width: 32px;
+    height: 32px;
+    fill: var(--dlh-theme-color-on-surface-variant);
+    transition: fill var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-standard);
+  }
+
+  .logo:hover {
+    fill: var(--dlh-theme-color-on-surface);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    color: var(--dlh-theme-color-on-surface-variant);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color var(--dlh-theme-motion-easing-standard) var(--dlh-theme-motion-duration-standard);
+  }
+
+  .nav-link:hover {
+    color: var(--dlh-theme-color-on-surface);
+  }
+
+  @media (max-width: 480px) {
+    .nav-links {
+      gap: 1rem;
+    }
+    
+    .nav-link {
+      font-size: 0.8rem;
+    }
+  }
+</style>

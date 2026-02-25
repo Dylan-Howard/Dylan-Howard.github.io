@@ -1,0 +1,267 @@
+---
+import Typography from '@/components/Typography.astro';
+import {getCollection} from 'astro:content';
+
+import Layout from '@/layouts/Layout.astro';
+import Tag from '../../components/Tag.astro';
+
+export async function getStaticPaths() {
+    const projects = await getCollection('projects');
+    return projects.map((project) => ({
+        params: {slug: project.slug},
+        props: {project},
+    }));
+}
+
+const {project} = Astro.props;
+const {Content} = await project.render();
+
+const pageTitle = `${project.data.title} - Dylan Howard`;
+const pageDescription = project.data.excerpt || project.data.description;
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  image={project.data.image.src}
+  type="article"
+>
+    <article
+            aria-label={project.data.title}
+            class="page"
+    >
+        {
+            project.data.image && (
+                        <div class="page-hero">
+                            <img
+                                    src={project.data.image.src}
+                                    alt={project.data.image.alt}
+                            />
+                        </div>
+            )
+        }
+        <div class="page-content">
+            <div class="project-header">
+                <Typography
+                        component="h1"
+                        size="large"
+                        variant="title"
+                        bottomGutter="small"
+                >
+                    {project.data.title}
+                </Typography>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <Typography size="small" variant="body" class="meta-label">Role:</Typography>
+                        <Typography size="small" variant="body">{project.data.role}</Typography>
+                    </div>
+                    <div class="meta-item">
+                        <Typography size="small" variant="body" class="meta-label">Duration:</Typography>
+                        <Typography size="small" variant="body">{project.data.duration}</Typography>
+                    </div>
+                    <div class="meta-item">
+                        <Typography size="small" variant="body" class="meta-label">Date:</Typography>
+                        <Typography size="small" variant="body">
+                            {project.data.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                        </Typography>
+                    </div>
+                </div>
+                
+                <Typography size="large" variant="body" class="project-description">
+                    {project.data.excerpt || project.data.description}
+                </Typography>
+            </div>
+
+            <div class="project-technologies">
+                <Typography size="medium" variant="body" class="tech-label">Technologies:</Typography>
+                <ul class="tag-list">
+                    {(project.data.technologies || project.data.tags).map((tech) =>
+                            <li class="tag-list-item">
+                                <Tag type={tech}>{tech}</Tag>
+                            </li>)}
+                </ul>
+            </div>
+
+            {project.data.metrics && (
+                <div class="project-metrics">
+                    <Typography size="medium" variant="title" bottomGutter="small">Key Metrics</Typography>
+                    <div class="metrics-grid">
+                        {project.data.metrics.users && (
+                            <div class="metric-item">
+                                <Typography size="large" variant="title" class="metric-value">
+                                    {project.data.metrics.users}
+                                </Typography>
+                                <Typography size="small" variant="body" class="metric-label">Users Served</Typography>
+                            </div>
+                        )}
+                        {project.data.metrics.performance && (
+                            <div class="metric-item">
+                                <Typography size="large" variant="title" class="metric-value">
+                                    {project.data.metrics.performance}
+                                </Typography>
+                                <Typography size="small" variant="body" class="metric-label">Performance Improvement</Typography>
+                            </div>
+                        )}
+                        {project.data.metrics.impact && (
+                            <div class="metric-item">
+                                <Typography size="large" variant="title" class="metric-value">
+                                    {project.data.metrics.impact}
+                                </Typography>
+                                <Typography size="small" variant="body" class="metric-label">Business Impact</Typography>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {
+                project.data.link && (
+                            <div class="project-links">
+                                <a href={project.data.link} target="_blank" rel="noopener noreferrer" class="project-link">
+                                    View Project on GitHub
+                                </a>
+                            </div>
+                )
+            }
+
+            <div class="content">
+                <slot/>
+                <Content/>
+            </div>
+        </div>
+    </article>
+</Layout>
+
+<style>
+    .page {
+        box-sizing: content-box;
+        border-radius: var(--dlh-theme-shape-corner-medium);
+        background: var(--dlh-theme-color-surface-container);
+        padding: 0;
+        margin-top: 48px;
+        overflow: hidden;
+    }
+
+    .page-hero {
+        margin-bottom: 32px;
+    }
+
+    .page-content {
+        padding: 0 var(--dlh-theme-shape-margin-large) var(--dlh-theme-shape-margin-large);
+    }
+
+    .project-header {
+        margin-bottom: 2rem;
+    }
+
+    .project-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: var(--dlh-theme-color-surface-variant);
+        border-radius: var(--dlh-theme-shape-corner-small);
+    }
+
+    .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .meta-label {
+        color: var(--dlh-theme-color-on-surface-variant);
+        font-weight: 600;
+    }
+
+    .project-description {
+        margin-top: 1rem;
+        font-weight: 500;
+    }
+
+    .project-technologies {
+        margin-bottom: 2rem;
+    }
+
+    .tech-label {
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--dlh-theme-color-on-surface-variant);
+    }
+
+    .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 8px;
+        padding: 0;
+        list-style: none;
+        gap: 0.5rem;
+    }
+
+    .tag-list-item {
+        margin: 0;
+    }
+
+    .project-metrics {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: var(--dlh-theme-color-surface-container);
+        border-radius: var(--dlh-theme-shape-corner-medium);
+        border: 1px solid var(--dlh-theme-color-outline-variant);
+    }
+
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .metric-item {
+        text-align: center;
+    }
+
+    .metric-value {
+        color: var(--dlh-theme-color-primary);
+        font-weight: 700;
+    }
+
+    .metric-label {
+        color: var(--dlh-theme-color-on-surface-variant);
+        margin-top: 0.25rem;
+    }
+
+    .project-links {
+        margin-bottom: 2rem;
+    }
+
+    .project-link {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: var(--dlh-theme-color-primary);
+        color: var(--dlh-theme-color-on-primary);
+        text-decoration: none;
+        border-radius: var(--dlh-theme-shape-corner-small);
+        font-weight: 600;
+        transition: background-color 0.2s ease;
+    }
+
+    .project-link:hover {
+        background: var(--dlh-theme-color-primary-container);
+        color: var(--dlh-theme-color-on-primary-container);
+    }
+
+    .content {
+        margin-top: 2rem;
+        color: var(--dlh-theme-color-on-surface);
+        font-size: var(--dlh-theme-typescale-body-l-font-size);
+        font-weight: var(--dlh-theme-typescale-body-l-font-weight);
+        letter-spacing: var(--dlh-theme-typescale-body-l-font-tracking);
+        line-height: var(--dlh-theme-typescale-body-l-font-height);
+    }
+
+    .content p {
+        margin: 0 0 8px;
+    }
+</style>

@@ -1,0 +1,70 @@
+---
+// const types = ['React', 'C#', '.NET', 'SQL', 'Go', 'Azure Cloud', 'NoSQL', 'AppleScript'];
+
+interface Props {type: string;}
+
+const { type } = Astro.props;
+
+// const typeIndex = types.findIndex((t) => t === type);
+---
+
+<div class="tag">
+  <span class="tag-primary-text">
+    <slot />
+  </span>
+</div>
+
+<style>
+  .tag {
+    border: 1px solid var(--dlh-theme-color-outline-variant);
+    border-radius: var(--dlh-theme-shape-corner-small);
+    box-sizing: border-box;
+    color: var(--dlh-theme-color-on-surface-variant);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 12px;
+
+    font-size: var(--dlh-theme-typescale-label-l-font-size);
+    font-weight: var(--dlh-theme-typescale-label-l-font-weight);
+    letter-spacing: var(--dlh-theme-typescale-label-l-font-tracking);
+    line-height: var(--dlh-theme-typescale-label-l-font-height);
+  }
+
+  //.type--0 {
+  //  background-color: #20B2AA; /* Teal */
+  //}
+  //
+  //.type--1 {
+  //  background-color: #4B0082; /* Indigo */
+  //}
+  //
+  //.type--2 {
+  //  background-color: #FFD700; /* Gold */
+  //}
+  //
+  //.type--3 {
+  //  background-color: #6A5ACD; /* Slate Blue */
+  //}
+  //
+  //.type--4 {
+  //  background-color: #228B22; /* Forest Green */
+  //}
+  //
+  //.type--5 {
+  //  background-color: #DC143C; /* Crimson */
+  //}
+  //
+  //.type--6 {
+  //  background-color: #FF4500; /* Orange Red */
+  //}
+  //
+  //.type--7 {
+  //  background-color: #C71585; /* Medium Violet Red */
+  //}
+  //
+  //.type--8 {
+  //  background-color: #1E90FF; /* Dodger Blue */
+  //}
+</style>

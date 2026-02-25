@@ -1,0 +1,117 @@
+---
+import Divider from "@/components/Divider.astro";
+import Typography from "@/components/Typography.astro";
+
+interface Props {
+  description: string;
+  link: string;
+  id: string;
+  imgSource: string;
+  imgAlt: string;
+  title: string;
+  supportingText: string;
+  "data-technologies"?: string;
+}
+
+const {
+  description,
+  link,
+  id,
+  imgSource,
+  imgAlt,
+  title,
+  supportingText,
+  "data-technologies": dataTechnologies,
+} = Astro.props;
+---
+
+<article
+  aria-label={title}
+  class="card"
+  transition:name={`${id}-container`}
+  data-technologies={dataTechnologies}
+>
+  <a href={link}>
+    <span class="card-main">
+      <img
+        class="fill-bg"
+        src={imgSource}
+        alt={imgAlt}
+        transition:name={`${id}-img`}
+      />
+      <span class="card-content">
+        <Typography
+          component="h3"
+          size="medium"
+          variant="title"
+          bottomGutter="small"
+        >
+          {title}
+        </Typography>
+        <Typography>{description}</Typography>
+      </span>
+    </span>
+    <span class="card-footer">
+      <Divider />
+      <Typography color="on-surface-variant">{supportingText}</Typography>
+    </span>
+  </a>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    transition: box-shadow var(--dlh-theme-motion-easing-standard)
+      var(--dlh-theme-motion-duration-long);
+    cursor: pointer;
+    box-sizing: border-box;
+    box-shadow: var(--dlh-theme-tile-shadow);
+    border-radius: var(--dlh-theme-shape-corner-medium);
+    background: var(--dlh-theme-color-surface-container);
+    max-width: 320px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  .card:hover {
+    box-shadow: var(--dlh-theme-tile-shadow-hover);
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  a:hover::after {
+    opacity: 1;
+  }
+
+  .card-content {
+    display: block;
+    padding: var(--dlh-theme-shape-margin-medium);
+  }
+
+  .card-footer {
+    padding: var(--dlh-theme-shape-margin-medium);
+    padding-top: 0;
+  }
+
+  .card img {
+    box-sizing: border-box;
+    margin-bottom: var(--dlh-theme-shape-margin-xs);
+    border-radius: 0 0 var(--dlh-theme-shape-corner-medium)
+      var(--dlh-theme-shape-corner-medium);
+    width: 100%;
+    height: auto;
+  }
+
+  .card img.fill-bg {
+    background: var(--dlh-theme-color-tertiary);
+  }
+
+  .card-footer p {
+    color: var(--dlh-theme-color-on-surface-variant);
+  }
+</style>
