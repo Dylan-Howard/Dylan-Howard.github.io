@@ -1,0 +1,44 @@
+---
+// src/pages/work/[slug].astro
+// Generates one static page per MDX work entry.
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import WorkLayout from '@/layouts/WorkLayout.astro';
+
+export async function getStaticPaths() {
+  const entries: CollectionEntry<'work'>[] = await getCollection('work');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props:  { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const {
+  title,
+  description,
+  type,
+  year,
+  stack,
+  href,
+  awards,
+} = entry.data;
+---
+
+<WorkLayout
+  {title}
+  {description}
+  {type}
+  {year}
+  {stack}
+  {href}
+  {awards}
+>
+  <Content />
+</WorkLayout>

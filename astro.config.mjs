@@ -1,15 +1,27 @@
 import sitemap from "@astrojs/sitemap";
-import { defineConfig } from "astro/config";
+import { defineConfig } from 'astro/config';
 import compress from "astro-compress";
+import mdx from '@astrojs/mdx';
 
-// https://astro.build/config
+// Exclude any pages that shouldn't be indexed
+const sitemapConfig = {
+  filter: (page) => !page.includes('/404'),
+}
+
 export default defineConfig({
   compressHTML: true,
   site: "https://dylan-howard.github.io",
-  integrations: [compress(), sitemap()],
-  image: {
-    service: {
-      entrypoint: 'astro/assets/services/sharp'
-    }
-  }
+  integrations: [
+    compress(),
+    sitemap(sitemapConfig),
+    mdx()],
+  output: 'static',
+  // build: {
+  //   inlineStylesheets: 'auto',
+  // },
+  // image: {
+  //   service: {
+  //     entrypoint: 'astro/assets/services/sharp'
+  //   }
+  // }
 });

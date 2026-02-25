@@ -1,0 +1,210 @@
+---
+// src/components/Hero.astro
+import ArrowLink from './ArrowLink.astro';
+import { SITE } from '../config/site';
+---
+
+<section class="hero" aria-label="Introduction">
+  <div class="container hero__inner">
+
+    <!-- Eyebrow -->
+    <div class="hero__eyebrow fade-up">
+      <span class="section-label">Software Engineer</span>
+      <span class="hero__sep" aria-hidden="true">—</span>
+      <span class="section-label">Identity · Data · Full-Stack</span>
+    </div>
+
+    <!-- Heading -->
+    <h1 class="hero__heading fade-up" style="animation-delay: 80ms;">
+      Systems built to<br />
+      <em class="hero__em">hold at scale</em><br />
+      and explain themselves.
+    </h1>
+
+    <!-- Sub -->
+    <p class="hero__sub fade-up" style="animation-delay: 160ms;">
+      I design and build full-stack software and data infrastructure for institutions
+      that cannot afford downtime — from a production IAM platform serving
+      750,000&nbsp;users across 171&nbsp;Kentucky school districts to commercial SaaS
+      processing&nbsp;$18M in transactions. I work where complex domain problems meet
+      the people who need the solution to be correct, observable, and maintainable.
+    </p>
+
+    <!-- Award -->
+    <div class="hero__award fade-up" style="animation-delay: 210ms;" role="note">
+      <span class="hero__award-mark" aria-hidden="true">◆</span>
+      <span class="hero__award-text">
+        Stillwell Award — Kentucky Dept. of Education, Office of Educational Technology, 2022
+      </span>
+    </div>
+
+    <!-- CTAs -->
+    <div class="hero__ctas fade-up" style="animation-delay: 260ms;">
+      <a href="/#work" class="hero__cta-primary">View My Work</a>
+
+      <ArrowLink href={SITE.links.github} label="GitHub" />
+      <ArrowLink href="/#contact" label="Get in touch" />
+    </div>
+
+    <!-- Footer meta bar -->
+    <div class="hero__footer fade-up" style="animation-delay: 340ms;">
+      <hr class="rule" />
+      <div class="hero__meta">
+        <span class="section-label">Java · C# · React · TypeScript · Go · AWS · Azure · SQL</span>
+        <span class="section-label hero__location">Bowling Green, KY</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Decorative initials watermark -->
+  <span class="hero__deco" aria-hidden="true">DH</span>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: clamp(5rem, 14vw, 9rem);
+    padding-bottom: clamp(3rem, 8vw, 6rem);
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Eyebrow */
+  .hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__sep {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--rule);
+  }
+
+  /* Heading */
+  .hero__heading {
+    font-size: clamp(var(--text-4xl), 8vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  /* Sub-line */
+  .hero__sub {
+    font-family: var(--font-body);
+    font-size: clamp(var(--text-base), 1.8vw, var(--text-md));
+    line-height: 1.78;
+    color: var(--ink-soft);
+    max-width: 54ch;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Award badge */
+  .hero__award {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    border: 1px solid var(--accent-dim);
+    background: color-mix(in srgb, var(--accent-dim) 28%, var(--paper));
+    padding: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__award-mark {
+    font-size: 0.8rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .hero__award-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.07em;
+    color: var(--accent);
+  }
+
+  /* CTAs */
+  .hero__ctas {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-12);
+  }
+
+  .hero__cta-primary {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    padding: var(--space-3) var(--space-6);
+    transition:
+      background     var(--dur-fast) var(--ease-in-out),
+      border-color   var(--dur-fast) var(--ease-in-out);
+  }
+
+  .hero__cta-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Meta bar */
+  .hero__footer {
+    margin-top: var(--space-8);
+  }
+
+  .hero__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .hero__location {
+    color: color-mix(in srgb, var(--rule) 80%, var(--ink-muted));
+  }
+
+  /* Decorative watermark */
+  .hero__deco {
+    position: absolute;
+    top: 50%;
+    right: -0.06em;
+    transform: translateY(-50%);
+    font-family: var(--font-display);
+    font-size: clamp(10rem, 24vw, 20rem);
+    font-weight: 300;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--rule);
+    text-stroke: 1px var(--rule);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    opacity: 0.45;
+  }
+
+  @media (max-width: 480px) {
+    .hero__award { flex-direction: column; align-items: flex-start; }
+  }
+</style>

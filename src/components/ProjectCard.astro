@@ -1,0 +1,327 @@
+---
+// src/components/ProjectCard.astro
+import ArrowLink from './ArrowLink.astro';
+
+interface ImpactStat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  type: string;
+  year: number;
+  stack: string[];
+  slug: string;            // links to /work/[slug]
+  href?: string | null;    // external link (GitHub etc.) — optional
+  featured?: boolean;      // dark "hero" card spanning full width
+  index?: number;          // for staggered animation delay
+  impact?: ImpactStat[];   // optional metrics bar
+  award?: string;          // optional award badge text
+  visibility?: string;     // e.g. "Production · Internal" or "Commercial · NDA"
+}
+
+const {
+  title,
+  description,
+  type,
+  year,
+  stack,
+  slug,
+  href,
+  featured  = false,
+  index     = 0,
+  impact    = [],
+  award,
+  visibility,
+} = Astro.props;
+
+const delay = index * 70;
+---
+
+<div
+  class={`card-cell project-cell ${featured ? 'project-cell--full' : ''}`}
+  style={`animation-delay: ${delay}ms`}
+>
+  <!--
+    The outer .card-cell is the layout unit — its size never changes.
+    The inner .card uses transform: scale() on hover so document flow
+    is unaffected. z-index: 2 on hover lets it visually overlap siblings.
+  -->
+  <div class={`card project-card ${featured ? 'project-card--dark' : ''}`}>
+
+    <!-- Invisible full-card link to the detail page -->
+    <a
+      href={`/work/${slug}`}
+      class="project-card__full-link"
+      aria-label={`Read case study: ${title}`}
+    ></a>
+
+    <!-- Header row -->
+    <div class="project-card__header">
+      <div class="project-card__header-left">
+        <span class="section-label">{type} · {year}</span>
+        <h3 class="project-card__title">{title}</h3>
+      </div>
+      {award && (
+        <span class="project-card__award" aria-label={`Award: ${award}`}>◆ {award}</span>
+      )}
+    </div>
+
+    <!-- Description -->
+    <p class="project-card__desc">{description}</p>
+
+    <!-- Impact bar (optional) -->
+    {impact.length > 0 && (
+      <div class="project-card__impact" aria-label="Impact metrics">
+        {impact.map(({ value, label }) => (
+          <div class="impact-stat">
+            <span class="impact-stat__num">{value}</span>
+            <span class="impact-stat__label">{label}</span>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- Footer: stack tags + CTA -->
+    <div class="project-card__footer">
+      <ul class="project-card__stack" aria-label="Technologies used">
+        {stack.map(tech => <li class="stack-tag">{tech}</li>)}
+      </ul>
+
+      <span class="project-card__cta" aria-hidden="true">
+        {href ? (
+          <!-- External link rendered as a styled label; real link is the full-card anchor -->
+          <span class="arrow-link">
+            <span>GitHub</span>
+            <span class="arrow-link__icon">
+              <span class="arrow-link__stem"></span>
+              <span class="arrow-link__head"></span>
+            </span>
+          </span>
+        ) : visibility ? (
+          <span class="section-label project-card__visibility">{visibility}</span>
+        ) : (
+          <span class="arrow-link">
+            <span>Read</span>
+            <span class="arrow-link__icon">
+              <span class="arrow-link__stem"></span>
+              <span class="arrow-link__head"></span>
+            </span>
+          </span>
+        )}
+      </span>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* ── Cell ─────────────────────────────────────────────── */
+  .project-cell {
+    animation: fadeUp var(--dur-slow) var(--ease-out-expo) both;
+  }
+
+  .project-cell--full {
+    grid-column: 1 / -1;
+  }
+
+  /* ── Card ─────────────────────────────────────────────── */
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-8);
+    height: 100%;
+    position: relative;
+    min-height: 260px;
+  }
+
+  /* Dark (featured) variant */
+  .project-card--dark {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #e8e4dc;
+  }
+
+  .project-card--dark .project-card__title { color: #f0ece3; }
+  .project-card--dark .project-card__desc  { color: #8a8780; }
+  .project-card--dark .section-label       { color: #524f4b; }
+  .project-card--dark .stack-tag           { border-color: #3a3834; color: #6e6b65; }
+  .project-card--dark .project-card__footer{ border-top-color: #3a3834; }
+  .project-card--dark .impact-stat__num    { color: #7aabea; }
+  .project-card--dark .impact-stat__label  { color: #524f4b; }
+  .project-card--dark .project-card__impact{ border-top-color: #3a3834; }
+  .project-card--dark .arrow-link          { color: #6e6b65; }
+  .project-card--dark .project-card__visibility { color: #524f4b; }
+  .project-card--dark .project-card__award {
+    background: rgba(43, 94, 167, 0.15);
+    border-color: rgba(43, 94, 167, 0.3);
+    color: #7aabea;
+  }
+
+  /* ── Full-card link ───────────────────────────────────── */
+  .project-card__full-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+
+  /* ── Card sections ────────────────────────────────────── */
+  .project-card__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .project-card__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .project-card__title {
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    transition: color var(--dur-fast) var(--ease-in-out);
+  }
+
+  .project-card__award {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: calc(var(--text-xs) * 0.92);
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent-dim) 35%, transparent);
+    border: 1px solid var(--accent-dim);
+    padding: 3px var(--space-3);
+    border-radius: 2px;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+
+  .project-card__desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: 1.72;
+    color: var(--ink-muted);
+    flex: 1;
+    max-width: none;
+  }
+
+  /* ── Impact bar ───────────────────────────────────────── */
+  .project-card__impact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  .impact-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .impact-stat__num {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .impact-stat__label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* ── Footer ───────────────────────────────────────────── */
+  .project-card__footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: auto;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  /* .project-card--featured .project-card__footer {
+    border-top-color: #3d3b37;
+  } */
+
+  .project-card__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+  }
+
+  .stack-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    border: 1px solid var(--rule);
+    padding: 2px var(--space-2);
+    border-radius: 2px;
+  }
+
+  .project-card__cta {
+    position: relative;
+    /* Maybe remove */
+    flex-shrink: 0;
+    color: var(--ink-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color var(--duration-fast);
+    z-index: 2;
+  }
+
+  .card-cell:hover .project-card__cta {
+    color: var(--accent);
+  }
+
+  /* ── Hover states ─────────────────────────────────────── */
+  /* The card grows via .card-cell:hover .card in global.css.
+     These rules update colours within that hovered state. */
+
+  .card-cell:hover .project-card__title {
+    color: var(--accent);
+  }
+
+  .card-cell:hover .project-card--dark .project-card__title {
+    color: #ffffff;
+  }
+
+  .card-cell:hover .arrow-link {
+    color: var(--accent);
+  }
+
+  .card-cell:hover .project-card--dark .arrow-link {
+    color: #7aabea;
+  }
+
+  .card-cell:hover .arrow-link .arrow-link__stem {
+    width: 12px;
+  }
+</style>

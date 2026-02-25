@@ -1,0 +1,255 @@
+---
+// src/components/About.astro
+import ArrowLink from './ArrowLink.astro';
+import { SITE, MAILTO } from '../config/site';
+import SectionDivider from './SectionDivider.astro';
+---
+
+<section id="about" class="about-section" aria-labelledby="about-heading">
+  <div class="container">
+
+    <SectionDivider numeral="02" label="About" />
+
+    <div class="about-grid">
+
+      <!-- Main copy -->
+      <div class="about-body-col">
+        <h2 class="about-heading" id="about-heading">
+          I build things<br />
+          <em>institutions depend&nbsp;on.</em>
+        </h2>
+
+        <div class="about-copy">
+          <p>
+            I'm a Software Engineer at Warren County Public Schools in Bowling Green, Kentucky,
+            where I've spent four years building the identity, data, and operational infrastructure
+            that underlies how 30,000+ students and staff interact with technology every day.
+          </p>
+          <p>
+            The work has grown outward: a provisioning system at one district became a statewide
+            platform serving 171 districts and 750,000&nbsp;users, recognised by the Kentucky
+            Department of Education with the Stillwell Award for innovation in 2022.
+            I presented the architecture and governance model at the Identity Automation
+            User Group in June&nbsp;2025.
+          </p>
+          <p>
+            In parallel, I work independently — most recently building a franchise banking
+            SaaS on AWS from architecture through launch. I work best on problems at the
+            intersection of engineering rigour and domain complexity, where understanding
+            the problem precisely is half the work.
+          </p>
+          <p>
+            Earlier: a customer management platform at International Business Associates
+            serving 100+&nbsp;associates; a multilingual travel app optimised for
+            constrained networks; rebuilt a real-time weather map at Kentucky Mesonet
+            aggregating 50+&nbsp;sensor stations.
+            B.S. Computer Science, Western Kentucky University,&nbsp;2018.
+          </p>
+        </div>
+
+        <div class="about-links">
+          <ArrowLink href={SITE.links.github}                        label="GitHub"   />
+          <ArrowLink href={SITE.links.linkedin}    label="LinkedIn" />
+          <ArrowLink href="/#contact"                                               label="Get in touch" />
+        </div>
+      </div>
+
+      <!-- Sidebar facts -->
+      <aside class="about-aside" aria-label="Quick facts">
+        <dl class="facts-card">
+          <div class="fact">
+            <dt class="section-label">Current role</dt>
+            <dd class="fact__val">Software Engineer, WCPS</dd>
+          </div>
+          <div class="fact">
+            <dt class="section-label">Location</dt>
+            <dd class="fact__val">Bowling Green, KY</dd>
+          </div>
+          <div class="fact">
+            <dt class="section-label">Focus</dt>
+            <dd class="fact__val fact__val--accent">Identity &amp; Data Infrastructure</dd>
+          </div>
+          <div class="fact">
+            <dt class="section-label">Education</dt>
+            <dd class="fact__val fact__val--sm">
+              B.S. Computer Science<br />
+              <span class="fact__sub">Western Kentucky Univ. &rsquo;18</span>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="recognition-block" aria-label="Awards and speaking">
+          <p class="section-label recognition-block__label">Recognition &amp; Speaking</p>
+          <ul class="recognition-list">
+            <li class="recognition-item">
+              <span class="recognition-item__mark" aria-hidden="true">◆</span>
+              <span>Stillwell Award — KY DOE Office of Educational Technology, 2022</span>
+            </li>
+            <li class="recognition-item">
+              <span class="recognition-item__mark" aria-hidden="true">◆</span>
+              <span>Speaker &amp; Panelist — Identity Automation User Group, June 2025</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    padding-bottom: var(--space-24);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  /* Heading */
+  .about-heading {
+    font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: var(--space-8);
+  }
+
+  .about-heading em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* Copy */
+  .about-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .about-copy p {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.82;
+    color: var(--ink-soft);
+    max-width: 58ch;
+  }
+
+  /* Links row */
+  .about-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+
+  /* Sidebar */
+  .about-aside {
+    position: sticky;
+    top: calc(57px + var(--space-8)); /* header height + breathing room */
+  }
+
+  /* Facts card */
+  .facts-card {
+    border: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fact {
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .fact:last-child {
+    border-bottom: none;
+  }
+
+  .fact__val {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .fact__val--accent {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .fact__val--sm {
+    font-size: var(--text-md);
+  }
+
+  .fact__sub {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* Recognition block */
+  .recognition-block {
+    margin-top: 1px; /* gap-less join to facts-card */
+    border: 1px solid var(--rule);
+    border-top: none;
+    padding: var(--space-4) var(--space-6);
+    background: var(--parchment);
+  }
+
+  .recognition-block__label {
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .recognition-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+    padding: 0;
+  }
+
+  .recognition-item {
+    display: flex;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .recognition-item__mark {
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-style: normal;
+    font-size: 0.7rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+    }
+
+    .about-aside {
+      position: static;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .about-links {
+      gap: var(--space-6);
+    }
+  }
+</style>

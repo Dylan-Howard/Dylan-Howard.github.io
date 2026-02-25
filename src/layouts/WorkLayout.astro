@@ -1,0 +1,164 @@
+---
+// Wraps individual project/case study MDX pages.
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ArrowLink from '../components/ArrowLink.astro';
+import { SITE } from '../config/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  type: string;
+  year: number;
+  stack: string[];
+  href?: string | null;
+  awards?: string[];
+  ogImage?: string;
+}
+
+const { title, description, type, year, stack, href, awards = [], ogImage } = Astro.props;
+---
+
+<BaseLayout title={`${title} — ${SITE.name}`} description={description} ogImage={ogImage} ogType="article">
+  <Header />
+
+  <main class="work-detail">
+    <div class="container container--narrow">
+
+      <!-- Back -->
+      <nav class="work-detail__back">
+        <ArrowLink href="/#work" label="All work" direction="left" />
+      </nav>
+
+      <!-- Header -->
+      <header class="work-detail__header fade-up">
+        <div class="work-detail__meta">
+          <span class="section-label">{type}</span>
+          <span class="section-label work-detail__year">{year}</span>
+        </div>
+
+        <h1 class="work-detail__title">{title}</h1>
+
+        {description && (
+          <p class="work-detail__lead">{description}</p>
+        )}
+
+        {awards.length > 0 && (
+          <div class="work-detail__awards">
+            {awards.map(a => (
+              <span class="award-badge">◆ {a}</span>
+            ))}
+          </div>
+        )}
+
+        <div class="work-detail__stack">
+          {stack.map(tech => <span class="stack-tag">{tech}</span>)}
+        </div>
+
+        {href && (
+          <div class="work-detail__link">
+            <ArrowLink href={href} label="View on GitHub" />
+          </div>
+        )}
+      </header>
+
+      <hr class="rule work-detail__rule" />
+
+      <!-- MDX content -->
+      <article class="prose fade-up" style="animation-delay: 100ms;">
+        <slot />
+      </article>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .work-detail {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-24);
+  }
+
+  .work-detail__back {
+    margin-bottom: var(--space-12);
+  }
+
+  .work-detail__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+
+  .work-detail__year::before {
+    content: '·';
+    margin-right: var(--space-6);
+  }
+
+  .work-detail__title {
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    margin-bottom: var(--space-6);
+  }
+
+  .work-detail__lead {
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    max-width: 56ch;
+    margin-bottom: var(--space-6);
+  }
+
+  .work-detail__awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .award-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.07em;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent-dim) 35%, transparent);
+    border: 1px solid var(--accent-dim);
+    padding: 3px var(--space-3);
+    border-radius: 2px;
+  }
+
+  .work-detail__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .stack-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    border: 1px solid var(--rule);
+    padding: 2px var(--space-3);
+    border-radius: 2px;
+  }
+
+  .work-detail__link {
+    margin-top: var(--space-2);
+  }
+
+  .work-detail__rule {
+    margin-block: var(--space-8);
+  }
+</style>

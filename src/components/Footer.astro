@@ -1,27 +1,86 @@
 ---
-import Divider from "@/components/Divider.astro";
-import Section from "@/components/Section.astro";
-import SocialLinks from "@/components/SocialLinks.astro";
-import Stack from "@/components/Stack.astro";
-import Typography from "@/components/Typography.astro";
+// src/components/Footer.astro
+import { SITE, MAILTO } from '../config/site';
+import ArrowLink from './ArrowLink.astro';
+
+const year = new Date().getFullYear();
 ---
 
-<Section component="footer">
-  <div class="footer-container">
-    <Divider />
-    <Stack direction="row" justifyContent="space-between">
-      <Typography>
-        &copy; {new Date().getFullYear()} Dylan Howard ·
-        <a href="/sitemap-index.xml">Sitemap</a>
-         · Built with Astro
-      </Typography>
-      <SocialLinks />
-    </Stack>
+<footer class="site-footer">
+  <div class="container">
+    <hr class="rule" />
+    <div class="site-footer__inner">
+
+      <div class="site-footer__identity">
+        <p class="footer__name">{SITE.name}</p>
+        <p class="footer__role section-label">{SITE.role}</p>
+      </div>
+
+      <nav class="site-footer__links" aria-label="External links">
+        <ArrowLink href={SITE.links.github}   label="GitHub"   />
+        <ArrowLink href={SITE.links.linkedin}  label="LinkedIn" />
+        <ArrowLink href={MAILTO}               label="Email"    />
+      </nav>
+
+      <p class="footer__copy section-label">
+        &copy; {year}. Built with <a href="https://astro.build" target="_blank" rel="noopener" class="footer__astro-link">Astro</a>.
+      </p>
+
+    </div>
   </div>
-</Section>
+</footer>
 
 <style>
-  .footer-container {
-    margin-bottom: var(--dlh-theme-shape-margin-large);
+  .site-footer {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    padding-top: var(--space-8);
+  }
+
+  .footer__name {
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .footer__role { margin-top: var(--space-1); }
+
+  .site-footer__links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+  }
+
+  .footer__copy {
+    color: var(--ink-muted);
+    max-width: none;
+  }
+
+  .footer__astro-link {
+    color: var(--ink-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--rule);
+    transition: color var(--dur-fast), text-decoration-color var(--dur-fast);
+  }
+
+  .footer__astro-link:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    .site-footer__inner { flex-direction: column; align-items: flex-start; gap: var(--space-6); }
+    .site-footer__links { gap: var(--space-6); }
   }
 </style>

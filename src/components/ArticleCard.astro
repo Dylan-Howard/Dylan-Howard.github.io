@@ -1,0 +1,154 @@
+---
+// src/components/ArticleCard.astro
+interface Props {
+  title: string;
+  description: string;
+  date: string;
+  slug: string;
+  tags?: string[];
+  readingTime?: string;
+  index?: number; // for staggered animation
+}
+
+const {
+  title,
+  description,
+  date,
+  slug,
+  tags = [],
+  readingTime,
+  index = 0,
+} = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
+
+const delay = index * 60;
+---
+
+<div class="card-cell" style={`animation-delay: ${delay}ms`}>
+  <a href={`/writing/${slug}`} class="card article-card" aria-label={`Read: ${title}`}>
+
+    <div class="article-card__top">
+      <span class="section-label">{formattedDate}</span>
+      {readingTime && <span class="section-label article-card__time">{readingTime} min</span>}
+    </div>
+
+    <h3 class="article-card__title">{title}</h3>
+
+    <p class="article-card__desc">{description}</p>
+
+    <div class="article-card__footer">
+      {tags.slice(0, 2).map(tag => <span class="tag">{tag}</span>)}
+      <span class="article-card__cta arrow-link">
+        <span>Read</span>
+        <span class="arrow-link__icon" aria-hidden="true">
+          <span class="arrow-link__stem"></span>
+          <span class="arrow-link__head"></span>
+        </span>
+      </span>
+    </div>
+
+  </a>
+</div>
+
+<style>
+  .card-cell {
+    animation: fadeUp var(--duration-slow) var(--ease-out-expo) both;
+  }
+
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-8);
+    text-decoration: none;
+    cursor: pointer;
+    min-height: 280px;
+  }
+
+  .article-card__top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .article-card__time::before {
+    content: '·';
+    margin-right: var(--space-4);
+  }
+
+  .article-card__title {
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    transition: color var(--duration-fast);
+    /* Allow up to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .article-card__desc {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    line-height: 1.65;
+    flex: 1;
+    /* Clamp to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: none;
+  }
+
+  .article-card__footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: auto;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  .article-card__cta {
+    margin-left: auto;
+    color: var(--ink-muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-transform: uppercase;
+    transition: color var(--duration-fast);
+  }
+
+  /* Hoist the cta arrow animation on card hover */
+  .article-card:hover .article-card__cta {
+    color: var(--accent);
+  }
+
+  .article-card:hover .article-card__cta .arrow-link__stem {
+    width: 12px;
+  }
+
+  .article-card:hover .article-card__title {
+    color: var(--accent);
+  }
+
+  /* Card grow effect — transform doesn't affect layout */
+  .card-cell:hover .card {
+    transform: scale(1.025);
+    box-shadow: 0 12px 40px -10px rgba(26,25,23,0.18),
+                0 4px 12px -4px rgba(26,25,23,0.08);
+    border-color: transparent;
+    z-index: 2;
+  }
+</style>

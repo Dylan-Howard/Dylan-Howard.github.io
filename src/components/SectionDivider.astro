@@ -1,0 +1,37 @@
+---
+// src/components/SectionDivider.astro
+interface Props {
+  numeral?: string;
+  label?: string;
+}
+
+const { numeral, label } = Astro.props;
+---
+
+<div class="section-divider">
+  {numeral && <span class="section-divider__num mono">{numeral}</span>}
+  <hr class="section-divider__rule" />
+  {label && <span class="section-label">{label}</span>}
+</div>
+
+<style>
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding-block: var(--space-12);
+  }
+
+  .section-divider__num {
+    color: var(--rule);
+    flex-shrink: 0;
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+  }
+
+  .section-divider__rule {
+    flex: 1;
+    border: none;
+    border-top: 1px solid var(--rule);
+  }
+</style>

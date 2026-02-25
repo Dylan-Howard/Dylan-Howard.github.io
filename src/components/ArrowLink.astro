@@ -1,0 +1,63 @@
+---
+// src/components/ArrowLink.astro
+//
+// Renders an animated link where a right-facing chevron (›) grows
+// a stem on hover, becoming a full arrow (→). The animation is
+// CSS-only: the stem is a zero-width span that transitions to 12px.
+//
+// direction="left" reverses the layout for back-navigation links.
+
+interface Props {
+  href: string;
+  label: string;
+  direction?: 'right' | 'left';
+  class?: string;
+}
+
+const {
+  href,
+  label,
+  direction = 'right',
+  class: className = '',
+} = Astro.props;
+
+const isLeft     = direction === 'left';
+const isExternal = href.startsWith('http');
+---
+
+<a
+  href={href}
+  class={`arrow-link ${isLeft ? 'arrow-link--left' : ''} ${className}`.trim()}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener noreferrer' : undefined}
+>
+  {isLeft && (
+    <span class="arrow-link__icon" aria-hidden="true">
+      <span class="arrow-link__head arrow-link__head--left"></span>
+      <span class="arrow-link__stem"></span>
+    </span>
+  )}
+
+  <span>{label}</span>
+
+  {!isLeft && (
+    <span class="arrow-link__icon" aria-hidden="true">
+      <span class="arrow-link__stem"></span>
+      <span class="arrow-link__head"></span>
+    </span>
+  )}
+</a>
+
+<style>
+  /* Left variant reverses the flex row and flips the chevron */
+  .arrow-link--left {
+    flex-direction: row-reverse;
+  }
+
+  .arrow-link__head--left {
+    /* Mirror the right-facing chevron (rotate 225deg instead of 45deg) */
+    transform: rotate(-135deg);
+    margin-left: 0;
+    margin-right: -1px;
+  }
+</style>

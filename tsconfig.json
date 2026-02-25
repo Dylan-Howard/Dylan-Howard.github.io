@@ -1,10 +1,9 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "build",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.astro"]
+  "include": ["src"]
 }

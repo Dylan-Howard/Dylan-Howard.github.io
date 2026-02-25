@@ -1,0 +1,537 @@
+---
+// src/components/ContactForm.astro
+// Wired to a Google Apps Script endpoint via fetch.
+//
+// WHY NO DIRECTIVE:
+// Astro's `<script>` tag is bundled, deduped, and injected before </body>
+// by default — no directive needed for a static site. The previous bug
+// was scoping: all getElementById calls targeted `document`, which works
+// for a single instance but is fragile. This version scopes every query
+// to the section element via a data attribute, making it safe for any
+// future multi-instance usage and easier to reason about.
+//
+// The `hidden` attribute is the correct way to hide elements before JS
+// runs — it maps to `display:none` via the browser's UA stylesheet,
+// no CSS class needed.
+
+import { SITE, MAILTO } from '../config/site';
+---
+
+<section id="contact" class="contact-section" aria-labelledby="contact-heading" data-contact-root>
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Left: intro -->
+      <div class="contact-intro">
+        <span class="section-label">Get in touch</span>
+        <h2 class="contact-heading" id="contact-heading">
+          Let's talk<br />
+          <em>about what you're building.</em>
+        </h2>
+        <p class="contact-sub">
+          Whether you're working on a complex integration problem, an IAM architecture,
+          or a full-stack product that needs someone who can work end-to-end —
+          I'd like to hear about it.
+        </p>
+
+        <ul class="contact-direct" aria-label="Direct contact options">
+          <li>
+            <a href={MAILTO} class="arrow-link contact-direct__link">
+              <span>{SITE.email}</span>
+              <span class="arrow-link__icon" aria-hidden="true">
+                <span class="arrow-link__stem"></span>
+                <span class="arrow-link__head"></span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href={SITE.links.linkedin} class="arrow-link contact-direct__link" target="_blank" rel="noopener noreferrer">
+              <span>LinkedIn</span>
+              <span class="arrow-link__icon" aria-hidden="true">
+                <span class="arrow-link__stem"></span>
+                <span class="arrow-link__head"></span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href={SITE.links.resume} class="arrow-link contact-direct__link" target="_blank" rel="noopener noreferrer">
+              <span>Download résumé</span>
+              <span class="arrow-link__icon" aria-hidden="true">
+                <span class="arrow-link__stem"></span>
+                <span class="arrow-link__head"></span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: form -->
+      <div class="contact-form-wrap">
+
+        <!--
+          aria-live region: announces status changes to screen readers
+          without moving focus. Content is set by JS only.
+        -->
+        <div
+          class="form-status"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          data-form-status
+        ></div>
+
+        <!-- Success panel — hidden until fetch resolves -->
+        <div class="form-success" hidden data-form-success aria-hidden="true">
+          <div class="form-success__mark" aria-hidden="true">◆</div>
+          <h3 class="form-success__heading" tabindex="-1">Message received.</h3>
+          <p class="form-success__body">
+            Thanks for reaching out — I'll get back to you as soon as I can.
+          </p>
+          <button class="form-success__reset" data-form-reset>Send another</button>
+        </div>
+
+        <!-- The form -->
+        <form class="contact-form" novalidate aria-label="Contact form" data-form>
+
+          <div class="form-field">
+            <label for="contact-name" class="form-label">Name</label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              class="input"
+              placeholder="Your name"
+              autocomplete="name"
+              required
+              aria-required="true"
+              aria-describedby="contact-name-error"
+            />
+            <span id="contact-name-error" class="form-error" role="alert" aria-live="assertive"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="contact-email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              class="input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+              aria-required="true"
+              aria-describedby="contact-email-error"
+            />
+            <span id="contact-email-error" class="form-error" role="alert" aria-live="assertive"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="contact-message" class="form-label">
+              Message
+              <span class="form-label__optional">(optional)</span>
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              class="input"
+              placeholder="What are you working on?"
+              rows="4"
+              aria-describedby="contact-message-hint"
+            ></textarea>
+            <span id="contact-message-hint" class="form-hint">
+              Not required — a name and email is enough to start a conversation.
+            </span>
+          </div>
+
+          <button
+            type="submit"
+            class="btn-primary contact-form__submit"
+            data-submit-btn
+          >
+            <!--
+              Both spans are always in the DOM. JS toggles `hidden` on each.
+              The button's accessible name comes from whichever span is visible.
+              When submitting: label hidden, spinner visible.
+              At rest: label visible, spinner hidden.
+            -->
+            <span data-submit-label>Send message</span>
+            <span class="submit-spinner" aria-hidden="true" hidden data-spinner>
+              <span class="spinner-dot"></span>
+              <span class="spinner-dot"></span>
+              <span class="spinner-dot"></span>
+            </span>
+          </button>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scope everything to the section element — safe for multiple instances
+  // and avoids ID collisions with any other page content.
+  const root = document.querySelector('[data-contact-root]') as HTMLElement | null;
+  if (!root) throw new Error('[ContactForm] Root element not found');
+
+  const form       = root.querySelector<HTMLFormElement>('[data-form]')!;
+  const successBox = root.querySelector<HTMLElement>('[data-form-success]')!;
+  const statusBox  = root.querySelector<HTMLElement>('[data-form-status]')!;
+  const submitBtn  = root.querySelector<HTMLButtonElement>('[data-submit-btn]')!;
+  const submitLbl  = root.querySelector<HTMLElement>('[data-submit-label]')!;
+  const spinner    = root.querySelector<HTMLElement>('[data-spinner]')!;
+  const resetBtn   = root.querySelector<HTMLButtonElement>('[data-form-reset]')!;
+  const nameInput  = root.querySelector<HTMLInputElement>('#contact-name')!;
+  const emailInput = root.querySelector<HTMLInputElement>('#contact-email')!;
+  const nameErr    = root.querySelector<HTMLElement>('#contact-name-error')!;
+  const emailErr   = root.querySelector<HTMLElement>('#contact-email-error')!;
+
+  // ── Endpoint from injected data attribute ────────────────
+  // Defined as a const here so it's easy to update — but the real
+  // single source of truth is src/config/site.ts → SITE.contactEndpoint,
+  // injected into the DOM via the data attribute below.
+  const ENDPOINT = root.dataset.endpoint
+    ?? 'https://script.google.com/macros/s/AKfycbzgcp7xdbWVFjB3CZHm0G_mTBTWR0Ma-x-KPhTETEYd_2x9E9GgII6S79eeeTBsMxQX_g/exec';
+
+  // ── Helpers ──────────────────────────────────────────────
+  function setSubmitting(active: boolean): void {
+    submitBtn.disabled  = active;
+    submitLbl.hidden    = active;
+    spinner.hidden      = !active;
+    active
+      ? submitBtn.setAttribute('aria-busy', 'true')
+      : submitBtn.removeAttribute('aria-busy');
+  }
+
+  function showSuccess(): void {
+    form.hidden          = true;
+    form.ariaHidden      = 'true';
+    successBox.hidden    = false;
+    successBox.ariaHidden = 'false';
+    // Move focus to the success heading so screen readers announce it
+    successBox.querySelector<HTMLElement>('h3')?.focus();
+    announce('Message sent successfully.');
+  }
+
+  function showForm(): void {
+    form.hidden           = false;
+    form.ariaHidden       = 'false';
+    successBox.hidden     = true;
+    successBox.ariaHidden = 'true';
+    announce('');
+  }
+
+  function announce(msg: string): void {
+    statusBox.textContent = msg;
+  }
+
+  function setFieldError(el: HTMLElement, msg: string): void {
+    el.textContent = msg;
+    el.classList.add('is-visible');
+  }
+
+  function clearFieldError(el: HTMLElement): void {
+    el.textContent = '';
+    el.classList.remove('is-visible');
+  }
+
+  function isValidEmail(val: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  }
+
+  // ── Inline validation on blur ────────────────────────────
+  nameInput.addEventListener('blur', () => {
+    nameInput.value.trim()
+      ? clearFieldError(nameErr)
+      : setFieldError(nameErr, 'Name is required.');
+  });
+
+  emailInput.addEventListener('blur', () => {
+    const val = emailInput.value.trim();
+    if      (!val)               setFieldError(emailErr, 'Email address is required.');
+    else if (!isValidEmail(val)) setFieldError(emailErr, 'Please enter a valid email address.');
+    else                         clearFieldError(emailErr);
+  });
+
+  // ── Submit ───────────────────────────────────────────────
+  form.addEventListener('submit', async (e: SubmitEvent) => {
+    e.preventDefault();
+
+    const name    = nameInput.value.trim();
+    const email   = emailInput.value.trim();
+    const message = (root.querySelector<HTMLTextAreaElement>('#contact-message'))?.value.trim() ?? '';
+
+    // Validate both fields before submitting
+    let hasError = false;
+
+    if (!name) {
+      setFieldError(nameErr, 'Name is required.');
+      hasError = true;
+    } else {
+      clearFieldError(nameErr);
+    }
+
+    if (!email) {
+      setFieldError(emailErr, 'Email address is required.');
+      hasError = true;
+    } else if (!isValidEmail(email)) {
+      setFieldError(emailErr, 'Please enter a valid email address.');
+      hasError = true;
+    } else {
+      clearFieldError(emailErr);
+    }
+
+    if (hasError) {
+      // Focus the first invalid field
+      (nameErr.textContent ? nameInput : emailInput).focus();
+      return;
+    }
+
+    setSubmitting(true);
+    announce('Sending…');
+
+    try {
+      const res  = await fetch(ENDPOINT, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ name, email, message }),
+      });
+
+      const data = await res.json();
+
+      if (data?.result === 'success') {
+        form.reset();
+        showSuccess();
+      } else {
+        throw new Error(data?.message ?? 'Unexpected response from server.');
+      }
+
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'An unexpected error occurred.';
+      announce(`Error: ${msg} Please try again or email directly.`);
+      setSubmitting(false);
+    }
+  });
+
+  // ── Reset to form ────────────────────────────────────────
+  resetBtn.addEventListener('click', () => {
+    showForm();
+    setSubmitting(false);
+    nameInput.focus();
+  });
+</script>
+
+<style>
+  .contact-section {
+    padding-block: var(--space-24);
+    border-top: 1px solid var(--rule);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  /* Left */
+  .contact-intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .contact-heading {
+    font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .contact-heading em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .contact-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.78;
+    color: var(--ink-soft);
+    max-width: 44ch;
+  }
+
+  .contact-direct {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-2);
+  }
+
+  .contact-direct__link { color: var(--ink-muted); }
+
+  /* Right */
+  .contact-form-wrap {
+    position: sticky;
+    top: calc(57px + var(--space-8));
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* Field */
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .form-label__optional {
+    color: var(--rule);
+    font-size: calc(var(--text-xs) * 0.9);
+  }
+
+  .form-error {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent-warm);
+    letter-spacing: 0.05em;
+    min-height: 1em;
+    opacity: 0;
+    transition: opacity var(--dur-fast) var(--ease-in-out);
+  }
+
+  .form-error.is-visible { opacity: 1; }
+
+  .form-hint {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+
+  /* Submit */
+  .contact-form__submit {
+    margin-top: var(--space-2);
+    gap: var(--space-3);
+  }
+
+  /* Spinner */
+  .submit-spinner {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .spinner-dot {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: spinnerPulse 1s ease-in-out infinite;
+  }
+
+  .spinner-dot:nth-child(2) { animation-delay: 0.15s; }
+  .spinner-dot:nth-child(3) { animation-delay: 0.30s; }
+
+  @keyframes spinnerPulse {
+    0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
+    40%           { opacity: 1;    transform: scale(1);   }
+  }
+
+  /* Status */
+  .form-status {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent-warm);
+    letter-spacing: 0.06em;
+    min-height: 1.4em;
+    margin-bottom: var(--space-2);
+  }
+
+  /* Success */
+  .form-success {
+    border: 1px solid var(--rule);
+    padding: var(--space-8);
+    background: var(--parchment);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  /* `hidden` maps to display:none via UA stylesheet — no extra CSS needed.
+     The flex display above takes effect only when `hidden` is absent.    */
+
+  .form-success__mark {
+    font-size: 1.5rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .form-success__heading {
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    /* tabindex="-1" allows programmatic focus; outline removed visually */
+    outline: none;
+  }
+
+  .form-success__body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--ink-muted);
+    font-style: italic;
+    max-width: 32ch;
+    line-height: 1.65;
+  }
+
+  .form-success__reset {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--rule);
+    transition: color var(--dur-fast), border-color var(--dur-fast);
+    margin-top: var(--space-2);
+  }
+
+  .form-success__reset:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+    }
+    .contact-form-wrap { position: static; }
+  }
+</style>

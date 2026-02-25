@@ -1,157 +1,173 @@
 ---
+// src/pages/index.astro
 import { getCollection } from 'astro:content';
-
-import Card from '../components/Card.astro';
-import ConnectForm from '../components/ConnectForm.astro';
-import Grid from '../components/Grid.astro';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
-import Section from '../components/Section.astro';
-import Layout from '../layouts/Layout.astro';
-import Typography from '../components/Typography.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SkillsGrid from '../components/SkillsGrid.astro';
+import About from '../components/About.astro';
+import ContactForm from '../components/ContactForm.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import { SITE, SITE_TITLE } from '../config/site';
 
-const projects = await getCollection('projects');
-projects.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
-);
+// Load and sort work entries from content collections
+const allWork: CollectionEntry<'work'>[] = await getCollection('work');
+const projects = allWork.sort((a, b) => a.data.order - b.data.order);
 
-const featuredProjects = projects.filter(project => project.data.featured);
-const allTechnologies = [...new Set(projects.flatMap(p => p.data.technologies || []))].sort();
+// Map content collection entries to ProjectCard props
+// Impact stats are defined here (alongside the card data)
+// because they're presentational, not stored in MDX frontmatter.
+const projectCards = projects.map((p) => ({
+  slug:        p.data.slug,
+  title:       p.data.title,
+  description: p.data.description,
+  type:        p.data.type,
+  year:        p.data.year,
+  stack:       p.data.stack,
+  href:        p.data.href,
+  featured:    p.data.featured,
+  awards:      p.data.awards,
+}));
+
+// Impact stats keyed by slug — keeps MDX frontmatter clean
+const impactMap: Record<string, { value: string; label: string }[]> = {
+  'kentucky-iam-platform': [
+    { value: '750k+', label: 'Users managed'             },
+    { value: '171',   label: 'Districts served'          },
+    { value: '99.9%', label: 'Uptime SLA'                },
+    { value: '80h',   label: 'Manual effort saved / mo.' },
+  ],
+  'identity-monitoring-platform': [
+    { value: '1.5→0.6', label: 'Avg. resolution (days)'  },
+    { value: '−60%',    label: 'Resolution time'          },
+  ],
+  'franchise-banking-saas': [
+    { value: '$18M+', label: 'Transactions processed'    },
+    { value: '−1 day', label: 'Incident response time'   },
+  ],
+  'enterprise-data-pipeline': [
+    { value: '40+',  label: 'Systems integrated'         },
+    { value: '−82%', label: 'Network utilization'        },
+    { value: '−30%', label: 'Server load'                },
+  ],
+};
+
+const visibilityMap: Record<string, string> = {
+  'kentucky-iam-platform':     'Production · State Platform',
+  'identity-monitoring-platform': '',
+  'franchise-banking-saas':    'Commercial · NDA',
+  'enterprise-data-pipeline':  'Production · Internal',
+  'data-validation-platform':  'Production · Internal',
+  'koine-greek-learning-platform': '',
+};
 ---
 
-<Layout title="Dylan Howard - Software Engineer" description="Full-stack software engineer specializing in identity management systems, educational technology, and enterprise applications. View my portfolio of React, .NET, and cloud-based projects.">
-  <Header title="Dylan Howard" subtitle="Software Engineer" />
-  
-  {featuredProjects.length > 0 && (
-    <Section id="featured-work" title="Featured Projects">
-      <Grid>
-        {featuredProjects.map((prj) => (
-          <Card
-            description={prj.data.excerpt || prj.data.description}
-            id={prj.slug}
-            imgSource={prj.data.image.src}
-            imgAlt={prj.data.image.alt}
-            link={`projects/${prj.slug}`}
-            supportingText={prj.data.technologies?.slice(0, 3).join(' • ') || prj.data.tags.join(' • ')}
-            title={prj.data.title}
-          />
-        ))}
-      </Grid>
-    </Section>
-  )}
+<BaseLayout
+  title={SITE_TITLE}
+  description={SITE.description}
+>
+  <Header />
 
-  <Section id="my-work" title="All Projects">
-    <div class="project-filters">
-      <Typography size="medium" variant="body" class="filter-label">Filter by technology:</Typography>
-      <div class="filter-buttons" id="technology-filters">
-        <button class="filter-btn active" data-filter="all">All</button>
-        {allTechnologies.map((tech) => (
-          <button class="filter-btn" data-filter={tech}>{tech}</button>
-        ))}
+  <main id="main-content">
+
+    <!-- ── Hero ──────────────────────────────────────────── -->
+    <Hero />
+
+    <!-- ── Work ──────────────────────────────────────────── -->
+    <section id="work" aria-labelledby="work-heading">
+      <div class="container">
+
+        <SectionDivider numeral="01" label="Selected Work" />
+
+        <div class="work-intro fade-up">
+          <h2 class="work-title" id="work-heading">Work</h2>
+          <p class="work-sub">
+            Six projects across identity engineering, data infrastructure,
+            and commercial full-stack development — each chosen because it
+            posed a non-trivial problem worth explaining.
+          </p>
+        </div>
+
+        <div class="projects-grid" role="list">
+          {projectCards.map((p, i) => (
+            <ProjectCard
+              {...p}
+              index={i}
+              impact={impactMap[p.slug] ?? []}
+              visibility={visibilityMap[p.slug] ?? ''}
+              award={p.awards?.[0]
+                ? p.awards[0].split('—')[0].trim()   /* shorten for card badge */
+                : undefined}
+            />
+          ))}
+        </div>
+
       </div>
-    </div>
-    
-    <Grid id="projects-grid">
-      {projects.map((prj) => (
-        <Card
-          description={prj.data.excerpt || prj.data.description}
-          id={prj.slug}
-          imgSource={prj.data.image.src}
-          imgAlt={prj.data.image.alt}
-          link={`projects/${prj.slug}`}
-          supportingText={prj.data.technologies?.slice(0, 3).join(' • ') || prj.data.tags.join(' • ')}
-          title={prj.data.title}
-          data-technologies={JSON.stringify(prj.data.technologies || [])}
-        />
-      ))}
-    </Grid>
-  </Section>
-  
-  <Section id="interest-form" title="Connect">
-    <ConnectForm />
-  </Section>
-</Layout>
+    </section>
 
-<script>
-  // Project filtering functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('[data-technologies]');
+    <!-- ── Skills ─────────────────────────────────────────── -->
+    <SkillsGrid />
 
-    filterButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const filter = this.getAttribute('data-filter');
-        
-        // Update active button
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-        
-        // Filter projects
-        projectCards.forEach(card => {
-          if (filter === 'all') {
-            card.style.display = 'block';
-          } else {
-            const technologies = JSON.parse(card.getAttribute('data-technologies') || '[]');
-            if (technologies.includes(filter)) {
-              card.style.display = 'block';
-            } else {
-              card.style.display = 'none';
-            }
-          }
-        });
-      });
-    });
-  });
-</script>
+    <!-- ── About ──────────────────────────────────────────── -->
+    <About />
+
+    <!-- ── Contact ────────────────────────────────────────── -->
+    <ContactForm />
+
+  </main>
+
+  <Footer />
+</BaseLayout>
 
 <style>
-  .project-filters {
-    margin-bottom: 2rem;
-    text-align: center;
+  /* Work section */
+  .work-intro {
+    margin-bottom: var(--space-8);
   }
 
-  .filter-label {
-    display: block;
-    margin-bottom: 1rem;
-    color: var(--dlh-theme-color-on-surface-variant);
+  .work-title {
+    font-size: var(--text-3xl);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-3);
   }
 
-  .filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
+  .work-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 50ch;
+    line-height: 1.65;
   }
 
-  .filter-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--dlh-theme-color-outline);
-    border-radius: var(--dlh-theme-shape-corner-small);
-    background: var(--dlh-theme-color-surface);
-    color: var(--dlh-theme-color-on-surface);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.875rem;
+  /* Projects grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* TODO: Revise gap style */
+    /* gap: 1px; */
+    /* background: var(--rule); */
+    /* border: 1px solid var(--rule); */
+    gap: 6px;
+    margin-bottom: var(--space-24);
   }
 
-  .filter-btn:hover {
-    background: var(--dlh-theme-color-surface-container);
+  /* Featured (full-width) card spans both columns */
+  .projects-grid :global(.project-cell--full) {
+    grid-column: 1 / -1;
   }
 
-  .filter-btn.active {
-    background: var(--dlh-theme-color-primary);
-    color: var(--dlh-theme-color-on-primary);
-    border-color: var(--dlh-theme-color-primary);
-  }
-
-  @media (max-width: 768px) {
-    .filter-buttons {
-      justify-content: flex-start;
-      overflow-x: auto;
-      padding-bottom: 0.5rem;
+  @media (max-width: 780px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
     }
-    
-    .filter-btn {
-      flex-shrink: 0;
+
+    .projects-grid :global(.project-cell--full) {
+      grid-column: 1;
     }
   }
 </style>

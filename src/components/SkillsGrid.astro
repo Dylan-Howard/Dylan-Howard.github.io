@@ -1,0 +1,155 @@
+---
+// src/components/SkillsGrid.astro
+const domains = [
+  {
+    index: '01',
+    area: 'Frontend',
+    description: 'Interfaces that surface complex system state without imposing complexity on the user.',
+    skills: ['React / Next.js', 'Astro', 'TypeScript', 'Angular', 'CSS'],
+  },
+  {
+    index: '02',
+    area: 'Backend',
+    description: 'APIs and services built for correctness under load and maintainability over time.',
+    skills: ['Java / Spring Boot', 'C# / .NET', 'Go', 'Node.js', 'PHP'],
+  },
+  {
+    index: '03',
+    area: 'Data',
+    description: 'ETL pipelines, validation systems, and data models built for real-world messiness.',
+    skills: ['MSSQL / PostgreSQL', 'MongoDB', 'REST / Microservices', 'Event-driven arch.', 'PowerShell'],
+  },
+  {
+    index: '04',
+    area: 'Platform',
+    description: 'Cloud infrastructure, IAM integrations, and compliance-oriented system design.',
+    skills: ['AWS (Lambda, API GW, S3)', 'Azure', 'Entra ID / Google WS', 'FERPA · CIPA'],
+  },
+];
+---
+
+<section class="skills-section" aria-label="Technical capabilities">
+  <div class="container">
+
+    <div class="skills-header">
+      <span class="section-label">Capabilities</span>
+      <h2 class="skills-heading">Full-stack, top to bottom</h2>
+    </div>
+
+    <div class="skills-grid" role="list">
+      {domains.map(({ index, area, description, skills }) => (
+        <div class="skills-item" role="listitem">
+          <span class="skills-item__index mono" aria-hidden="true">{index}</span>
+          <h3 class="skills-item__area">{area}</h3>
+          <p class="skills-item__desc">{description}</p>
+          <ul class="skills-item__list" aria-label={`${area} skills`}>
+            {skills.map(skill => (
+              <li class="skills-item__skill">{skill}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .skills-section {
+    padding-block: var(--space-24);
+    border-top: 1px solid var(--rule);
+  }
+
+  .skills-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-12);
+  }
+
+  .skills-heading {
+    font-size: var(--text-3xl);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .skills-item {
+    background: var(--paper);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: background var(--dur-fast) var(--ease-in-out);
+  }
+
+  .skills-item:hover {
+    background: var(--parchment);
+  }
+
+  .skills-item__index {
+    color: var(--rule);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+  }
+
+  .skills-item__area {
+    font-size: var(--text-xl);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .skills-item__desc {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    line-height: 1.65;
+    max-width: none;
+  }
+
+  .skills-item__list {
+    margin-top: auto;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .skills-item__skill {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .skills-item__skill::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 500px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
