@@ -21,7 +21,7 @@ const projects = allWork.sort((a, b) => a.data.order - b.data.order);
 // Impact stats are defined here (alongside the card data)
 // because they're presentational, not stored in MDX frontmatter.
 const projectCards = projects.map((p) => ({
-  slug:        p.data.slug,
+  slug:        p.slug,
   title:       p.data.title,
   description: p.data.description,
   type:        p.data.type,

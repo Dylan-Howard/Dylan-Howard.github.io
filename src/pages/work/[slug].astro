@@ -8,7 +8,7 @@ import WorkLayout from '@/layouts/WorkLayout.astro';
 export async function getStaticPaths() {
   const entries: CollectionEntry<'work'>[] = await getCollection('work');
   return entries.map((entry) => ({
-    params: { slug: entry.data.slug },
+    params: { slug: entry.slug },
     props:  { entry },
   }));
 }
