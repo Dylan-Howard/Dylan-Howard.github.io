@@ -17,7 +17,13 @@
 import { SITE, MAILTO } from '../config/site';
 ---
 
-<section id="contact" class="contact-section" aria-labelledby="contact-heading" data-contact-root>
+<section
+  id="contact"
+  class="contact-section"
+  aria-labelledby="contact-heading"
+  data-contact-root
+  data-endpoint={SITE.contactEndpoint}
+>
   <div class="container">
     <div class="contact-grid">
 
@@ -294,9 +300,15 @@ import { SITE, MAILTO } from '../config/site';
     try {
       const res  = await fetch(ENDPOINT, {
         method:  'POST',
+        mode:    'cors',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ name, email, message }),
+        redirect: 'follow',
       });
+
+      if (!res.ok) {
+        throw new Error(`Server responded with ${res.status}: ${res.statusText}`);
+      }
 
       const data = await res.json();
 
@@ -482,6 +494,9 @@ import { SITE, MAILTO } from '../config/site';
 
   /* `hidden` maps to display:none via UA stylesheet — no extra CSS needed.
      The flex display above takes effect only when `hidden` is absent.    */
+  [hidden] {
+    display: none !important;
+  }
 
   .form-success__mark {
     font-size: 1.5rem;
