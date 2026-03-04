@@ -10,7 +10,7 @@ const sitemapConfig = {
 
 export default defineConfig({
   compressHTML: true,
-  site: "https://dylan-howard.github.io",
+  site: "https://dylanlhoward.com",
   integrations: [
     compress(),
     sitemap(sitemapConfig),
