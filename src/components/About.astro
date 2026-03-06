@@ -15,36 +15,46 @@ import SectionDivider from './SectionDivider.astro';
       <!-- Main copy -->
       <div class="about-body-col">
         <h2 class="about-heading" id="about-heading">
-          I build things<br />
-          <em>institutions depend&nbsp;on.</em>
+          I build systems<br />
+          <em>that people depend on.</em>
         </h2>
 
         <div class="about-copy">
           <p>
-            I'm a Software Engineer at Warren County Public Schools in Bowling Green, Kentucky,
-            where I've spent four years building the identity, data, and operational infrastructure
-            that underlies how 30,000+ students and staff interact with technology every day.
+            I am a Software Engineer at Warren County Public Schools, where I&rsquo;ve spent four years 
+            architecting the identity, data, and operational infrastructure for 20,000+&nbsp;students 
+            and staff. My work is defined by a core conviction: <em>the best engineer is one who 
+            aims to serve the team and the users.</em> I aim place the needs of my coworkers first. 
+            Whether that involves building custom internal tools to 10x our technicians' 
+            productivity or stepping into non-development roles to ensure a project crosses the 
+            finish line, I prioritize the collective success of the mission over individual credit.
           </p>
           <p>
-            The work has grown outward: a provisioning system at one district became a statewide
-            platform serving 171 districts and 750,000&nbsp;users, recognised by the Kentucky
-            Department of Education with the Stillwell Award for innovation in 2022.
-            I presented the architecture and governance model at the Identity Automation
-            User Group in June&nbsp;2025.
+            The reach of my work has scaled significantly: a provisioning system I designed for a 
+            single district evolved into a statewide platform serving 750,000+&nbsp;users. This 
+            effort was recognized with the <em>Stillwell&nbsp;Award&nbsp;(2022)</em> and a featured 
+            speaking engagement at the <em>Identity Automation User Group (2025)</em>.
           </p>
           <p>
-            In parallel, I work independently — most recently building a franchise banking
-            SaaS on AWS from architecture through launch. I work best on problems at the
-            intersection of engineering rigour and domain complexity, where understanding
-            the problem precisely is half the work.
+            Driven by <em>User Empathy</em>, I approach engineering by identifying the &ldquo;right tool 
+            for the task&rdquo;—whether that&rsquo;s leveraging Astro for performance-first templating or 
+            implementing <em>O(m)</em> sync strategies to optimize Azure egress. I am <em>always a 
+            learner</em>, currently expanding my expertise in Go-based microservices and distributed 
+            system patterns.
           </p>
+          <h3>The Path So Far</h3>
+          <ul class="about-copy-list">
+            <li class="about-copy-item">
+              <span><em>SaaS Engineering:</em> Architected and launched a franchise banking platform on AWS, managing everything from polyglot data consistency to CI/CD.</span>
+            </li>
+            <li class="about-copy-item">
+              <span><em>Internal Tooling:</em> Developed custom user-impersonation and "Step-Up" authentication tools that cut IT helpdesk volume and boosted technician productivity.</span>
+            </li>
+            <li class="about-copy-item">
+              <span><em>Legacy Modernization:</em> Rebuilt real-time data aggregators for the Kentucky Mesonet, handling high-velocity sensor data from 50+ stations.</span>
+            </li>
+          </ul>
           <p>
-            Earlier: a customer management platform at International Business Associates
-            serving 100+&nbsp;associates; a multilingual travel app optimised for
-            constrained networks; rebuilt a real-time weather map at Kentucky Mesonet
-            aggregating 50+&nbsp;sensor stations.
-            B.S. Computer Science, Western Kentucky University,&nbsp;2018.
-          </p>
         </div>
 
         <div class="about-links">
@@ -67,7 +77,7 @@ import SectionDivider from './SectionDivider.astro';
           </div>
           <div class="fact">
             <dt class="section-label">Focus</dt>
-            <dd class="fact__val fact__val--accent">Identity &amp; Data Infrastructure</dd>
+            <dd class="fact__val fact__val--accent">Full-Stack .NET &amp; Next.js / Data Infrastructure</dd>
           </div>
           <div class="fact">
             <dt class="section-label">Education</dt>
@@ -137,6 +147,33 @@ import SectionDivider from './SectionDivider.astro';
     line-height: 1.82;
     color: var(--ink-soft);
     max-width: 58ch;
+  }
+
+  .about-copy-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-8);
+  }
+
+  .about-copy-item {
+    display: flex;
+    gap: var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--ink-soft);
+    line-height: 1.82;
+    max-width: 58ch;
+  }
+
+  .about-copy-item::before {
+    content: "◆";
+    flex-shrink: 0;
+    margin-top: 0.55em;
+    font-size: 0.7rem;
+    font-style: normal;
   }
 
   /* Links row */

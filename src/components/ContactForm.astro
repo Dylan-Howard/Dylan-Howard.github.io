@@ -3,7 +3,7 @@
 // Wired to a Google Apps Script endpoint via fetch.
 //
 // WHY NO DIRECTIVE:
-// Astro's `<script>` tag is bundled, deduped, and injected before </body>
+// Astro's `script` tag is bundled, deduped, and injected before </body>
 // by default — no directive needed for a static site. The previous bug
 // was scoping: all getElementById calls targeted `document`, which works
 // for a single instance but is fragile. This version scopes every query
@@ -31,13 +31,12 @@ import { SITE, MAILTO } from '../config/site';
       <div class="contact-intro">
         <span class="section-label">Get in touch</span>
         <h2 class="contact-heading" id="contact-heading">
-          Let's talk<br />
-          <em>about what you're building.</em>
+          Let's architect<br />
+          <em>your next breakthrough.</em>
         </h2>
         <p class="contact-sub">
-          Whether you're working on a complex integration problem, an IAM architecture,
-          or a full-stack product that needs someone who can work end-to-end —
-          I'd like to hear about it.
+          Looking for a partner who prioritizes your team's success? Let's talk about what you're 
+          building.
         </p>
 
         <ul class="contact-direct" aria-label="Direct contact options">

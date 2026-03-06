@@ -1,0 +1,26 @@
+---
+title: "Zero-Trust IAM & Step-Up Auth Architecture"
+slug: "zero-trust-iam"
+description: "Designed and implemented a Just-In-Time (JIT) privileged access system, reducing attack surfaces and Helpdesk volume through automated security workflows."
+type: "Security Engineering"
+year: 2024
+stack: ["LDAP", "JavaScript", "SAML"]
+featured: false
+order: 3
+---
+
+Security is a balance between protection and friction. As a proponent of **Servant Leadership**, I believe security systems should empower users, not hinder them.
+
+## Architecting the "Step-Up"
+
+Built on top of the **Rapid Identity** harness, I implemented a custom logic layer using **Rhino/JavaScript** and **.NET** to handle "Step-Up" authentication. Instead of forcing MFA at every login, the system triggers a challenge only when a user requests a high-privilege resource.
+
+## Mocking SAML for the Team
+
+To unblock our frontend developers, I engineered a **SAML Mocking framework**. This allowed the team to test impersonation and authentication flows locally without needing a live connection to the Production IdP. This "Team Player" move reduced our development cycle time for identity features by 30%.
+
+## Business Impact
+
+- **Reduced Helpdesk Volume:** Self-service access requests replaced manual tickets.
+- **Hardened Security:** Enforced JIT (Just-In-Time) access, ensuring privileged credentials only exist when needed.
+- **Empathy-Driven UX:** Reduced "MFA fatigue" by only prompting for extra verification when risk thresholds were met.

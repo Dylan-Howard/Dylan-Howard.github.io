@@ -4,10 +4,19 @@ slug: "koine-greek-learning-platform"
 description: "A personal project turned full-stack platform for learning Biblical and Classical Greek — built because every existing tool was either expensive, abandoned, or pedagogically unsound. Features spaced repetition, morphological parsing, and inline glosses across primary texts."
 type: "Personal Project"
 year: 2024
-stack: ["React", "TypeScript", "C#", ".NET", "Go", "Azure", "PostgreSQL", "MongoDB"]
+stack:
+  [
+    "React",
+    "TypeScript",
+    "C#",
+    ".NET",
+    "Azure",
+    "Entity Framework",
+    "SQL Server",
+  ]
 href: "https://github.com/Dylan-Howard/Greek-Learning-App"
 featured: false
-order: 6
+order: 8
 ---
 
 This project started selfishly. I wanted to read the New Testament in Greek, and I found that every tool designed to help me do so had a fatal flaw: either it required a $200 textbook as a companion, or it was built on pedagogical assumptions I disagreed with, or — most commonly — it hadn't been updated since 2009 and didn't run on anything I owned.
@@ -34,13 +43,13 @@ The approach I chose was a hybrid database-and-rule system. A pre-built morpholo
 
 ```typescript
 interface GreekToken {
-  surface:   string;        // the inflected form as it appears
-  lemma:     string;        // dictionary form (λύω, not λύσαντος)
-  pos:       PartOfSpeech;
-  parse:     MorphParse;    // { tense, voice, mood, case, number, gender }
-  gloss:     string;
-  certainty: 'known' | 'inferred' | 'uncertain';
-  strongsId?: string;       // cross-reference to Strong's lexicon
+  surface: string; // the inflected form as it appears
+  lemma: string; // dictionary form (λύω, not λύσαντος)
+  pos: PartOfSpeech;
+  parse: MorphParse; // { tense, voice, mood, case, number, gender }
+  gloss: string;
+  certainty: "known" | "inferred" | "uncertain";
+  strongsId?: string; // cross-reference to Strong's lexicon
 }
 ```
 
@@ -54,7 +63,7 @@ interface GreekToken {
 
 ## What I'd do differently
 
-The spaced repetition implementation is technically correct but UX-incomplete. The algorithm surfaces the right words at the right times; the interface for seeing your progress and understanding *why* a word is appearing today is underdeveloped. Users who want to understand their own learning model have to trust the system rather than interrogate it. I'd invest more in making the algorithm's reasoning transparent.
+The spaced repetition implementation is technically correct but UX-incomplete. The algorithm surfaces the right words at the right times; the interface for seeing your progress and understanding _why_ a word is appearing today is underdeveloped. Users who want to understand their own learning model have to trust the system rather than interrogate it. I'd invest more in making the algorithm's reasoning transparent.
 
 I'd also start with a narrower corpus. The platform currently supports reading in a subset of New Testament texts, which is the right scope for a first version, but the decisions I made about text encoding and annotation format early on have made expanding to Classical Greek texts more work than it should be. Abstraction of the corpus layer from day one would have been worth the upfront cost.
 

@@ -7,7 +7,7 @@ year: 2022
 stack: ["Java", "JavaScript", "PowerShell", "SQL Server", "REST APIs", "Azure"]
 href: null
 featured: false
-order: 4
+order: 9
 ---
 
 Every school district accumulates software systems the way old buildings accumulate wiring — one system at a time, each installed for a good reason, none of them designed to talk to the others. By the time I inherited the integration picture at Warren County Public Schools, there were 40+ systems with various degrees of overlap, dependency, and antagonism.

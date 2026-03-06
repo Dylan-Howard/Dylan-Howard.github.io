@@ -1,0 +1,35 @@
+---
+title: "High-Scale Data Sync & Algorithmic Optimization"
+slug: "data-sync-optimization"
+description: "Refactored a legacy synchronization engine to handle enterprise-level scale, reducing query execution time from 2 hours to under 60 seconds through O(m) strategies."
+type: "Systems Engineering"
+year: 2023
+stack: [".NET", "SQL Server", "T-SQL"]
+featured: false
+order: 2
+---
+
+Performance optimization is often where "Always a Learner" meets "Senior Engineering." I inherited a legacy sync suite where individual queries were taking 20-30 minutes, with the entire suite bottlenecking at 2 hours.
+
+## The Problem: O(n²) Thinking in an O(m) World
+
+The legacy system was pulling massive datasets to compare state, leading to high CPU spikes and astronomical egress stats. To solve this, I shifted the strategy to a **timestamp-based delta detection** model.
+
+## Technical Strategies:
+
+- **`O(m)` Deletion Detection:** Rather than comparing full tables, I implemented a strategy to detect deleted records in linear time based on change tracking.
+- **SQL Short-Circuiting:** Utilized `NOLOCK` and `SELECT 1` shortcuts to allow for rapid-fire status checks without locking production tables.
+- **Statistical Extrapolation:** Since granular telemetry was sparse, I used manual load testing and statistical modeling to predict scaling behavior across the school district.
+
+```sql
+-- Optimized delta fetch with non-blocking reads
+SELECT TOP (1000) [Id], [Payload]
+FROM [IdentitySync].[Queue] WITH (NOLOCK)
+WHERE [LastModified] > @LastSyncTimestamp
+  AND [IsProcessed] = 0
+OPTION (RECOMPILE); -- Optimize for specific parameter sniffing at scale
+```
+
+## The Results
+
+We moved from 15-minute polling intervals to 1-minute high-frequency polls. This wasn't just a technical win; it was a win for _User Empathy_. Staff and students no longer had to wait hours for their access changes to propagate—it happened in near real-time.

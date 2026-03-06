@@ -7,11 +7,12 @@
 
 export const SITE = {
   // ── Identity ──────────────────────────────────────────────
-  name:        'Dylan Howard',
-  role:        'Software Engineer',
-  tagline:     'Identity · Data · Full-Stack',
-  location:    'Bowling Green, KY',
-  employer:    'Warren County Public Schools',
+  name:           'Dylan Howard',
+  role:           'Software Engineer',
+  tagline:        '.NET · Next.js · Identity Systems',
+  expandedSkills: '.NET / C# · Next.js / React · TypeScript · Go · AWS / Azure · SQL',
+  location:       'Bowling Green, KY',
+  employer:       'Warren County Public Schools',
 
   // ── URLs ──────────────────────────────────────────────────
   url:         'https://dylan-howard.github.io',
@@ -23,9 +24,13 @@ export const SITE = {
   keywords: [
     'Dylan Howard',
     'Software Engineer',
+    'Software Developer',
+    'Senior Software Engineer',
+    'Full Stack Engineer',
     'Identity Access Management',
     'IAM',
     'Full Stack Developer',
+    'Next.js',
     'React',
     'TypeScript',
     'Java',
@@ -34,8 +39,9 @@ export const SITE = {
     'Go',
     'AWS',
     'Azure',
+    'SaaS Engineering',
+    'Distributed Systems',
     'Bowling Green Kentucky',
-    'Data Engineering',
     'K-12 Technology',
   ],
   ogImage: '/og.png',

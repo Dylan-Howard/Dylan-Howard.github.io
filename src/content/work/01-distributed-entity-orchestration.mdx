@@ -1,0 +1,58 @@
+---
+title: "Distributed Entity Orchestration & Transactional Integrity"
+slug: "distributed-entity-orchestration"
+description: "Architected a high-complexity 'Deep Copy' engine for a mature SaaS platform, orchestrating recursive data cloning across Azure SQL and CosmosDB using Hexagonal Architecture."
+type: "SaaS Engineering"
+year: 2025
+stack:
+  [
+    ".NET 8",
+    "Next.js",
+    "GraphQL",
+    "Azure SQL",
+    "CosmosDB",
+    "TypeScript",
+    "Entity Framework",
+  ]
+featured: true
+order: 1
+---
+
+In a mature SaaS environment, "duplication" is rarely as simple as a UI button. It is a complex data orchestration challenge. When users requested the ability to clone resource templates, I had to navigate deep dependency trees across polyglot data stores while maintaining absolute referential integrity.
+
+## The Challenge: Polyglot Consistency
+
+The system's data was fragmented: relational metadata lived in **Azure SQL**, while heavy document structures resided in **CosmosDB**. A successful "clone" required a perfect mirror of both, or a clean rollback of both.
+
+Guided by **Customer Empathy**, I recognized that users needed this to be instantaneous and invisible. However, as a **Senior Engineer**, I had to account for resource costs. I made the strategic decision to exclude attached video files from the automated clone—a 2% edge case that would have bloated storage costs significantly without providing proportional value.
+
+## The Solution: Hexagonal Architecture
+
+I implemented a transaction-aware system using **Hexagonal Architecture** to decouple the orchestration logic from the underlying databases.
+
+```csharp
+// Transaction-aware orchestration using Entity Framework
+public async Task<CloneResult> ExecuteDeepCopyAsync(Guid sourceId, Guid tenantId) {
+    using var transaction = await _context.Database.BeginTransactionAsync();
+    try {
+        // 1. Resolve recursive object graph
+        var graph = await _discoveryService.ResolveGraphAsync(sourceId);
+
+        // 2. Orchestrate SQL & CosmosDB writes via domain events
+        await _mediator.Publish(new EntityCloningInitiated(graph, tenantId));
+
+        await _context.SaveChangesAsync();
+        await transaction.CommitAsync();
+
+        return CloneResult.Success();
+    } catch (Exception ex) {
+        await transaction.RollbackAsync();
+        _logger.LogError(ex, "Cascade failure during cloning for {SourceId}", sourceId);
+        throw;
+    }
+}
+```
+
+## The Impact
+
+By moving the logic from simple CRUD to a robust event-driven orchestration, we reduced manual template recreation time from 20 minutes to 3 seconds. This project reinforced my belief in Servant Leadership: I didn't just write code; I built a reliable system that removed a daily friction point for our customers and support teams.

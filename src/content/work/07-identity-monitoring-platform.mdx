@@ -7,7 +7,7 @@ year: 2023
 stack: ["C#", ".NET", "Entity Framework", "React", "Next.js", "SQL Server"]
 href: "https://github.com/Dylan-Howard/Identity-Systems-Monitor"
 featured: false
-order: 2
+order: 7
 ---
 
 Building an IAM system is one problem. Knowing whether it is actually working — for every user, across every system, right now — is a different and harder one.
@@ -30,7 +30,7 @@ The design goal was not to build a better admin console. It was to build a syste
 
 The platform maintains a continuously updated graph of identity state: for each user, what does each connected system believe about them? This is not a snapshot — it's a live view, updated as events arrive from the IAM layer and as polling confirms the state of systems that don't emit events.
 
-When the state in two systems diverges, the platform records a *discrepancy*: a structured record of what was expected, what was found, when the divergence was first detected, and what provisioning operations are in-flight that might explain it.
+When the state in two systems diverges, the platform records a _discrepancy_: a structured record of what was expected, what was found, when the divergence was first detected, and what provisioning operations are in-flight that might explain it.
 
 ```csharp
 public record IdentityDiscrepancy(
