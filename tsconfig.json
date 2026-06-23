@@ -1,9 +1,14 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["src"]
+	"extends": "astro/tsconfigs/strict",
+	"compilerOptions": {
+		"paths": {
+			"@/*": [
+				"./src/*"
+			]
+		}
+	},
+	"include": [
+		"src",
+		"./worker-configuration.d.ts"
+	]
 }
