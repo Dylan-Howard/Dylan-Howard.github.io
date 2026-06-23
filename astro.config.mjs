@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import compress from "astro-compress";
 import mdx from '@astrojs/mdx';
 
+import cloudflare from "@astrojs/cloudflare";
+
 // Exclude any pages that shouldn't be indexed
 const sitemapConfig = {
   filter: (page) => !page.includes('/404'),
@@ -11,11 +13,12 @@ const sitemapConfig = {
 export default defineConfig({
   compressHTML: true,
   site: "https://dylanlhoward.com",
+
   integrations: [
     compress(),
     sitemap(sitemapConfig),
     mdx()],
-  output: 'static',
+
   // build: {
   //   inlineStylesheets: 'auto',
   // },
@@ -24,4 +27,7 @@ export default defineConfig({
   //     entrypoint: 'astro/assets/services/sharp'
   //   }
   // }
+  output: 'static',
+
+  adapter: cloudflare()
 });
