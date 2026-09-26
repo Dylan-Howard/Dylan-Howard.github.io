@@ -478,3 +478,10 @@ textarea.input {
   text-align: center;
   letter-spacing: 0.05em;
 }
+
+/* Work write-up summary card (recruiter skim) */
+.summary-card {
+  border: 1px solid var(--rule);
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-8);
+}

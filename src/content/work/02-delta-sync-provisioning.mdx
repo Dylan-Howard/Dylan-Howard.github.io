@@ -1,0 +1,52 @@
+---
+title: "From Nightly to a Minute: Delta Sync for District Provisioning"
+slug: "delta-sync-provisioning"
+description: "Replaced a nightly full load with a delta sync across our HR and student systems. New staff went from waiting a day or two for accounts to having them in about a minute, with payloads about 82% smaller on average."
+type: "Data Engineering"
+year: 2023 # TODO(Dylan): confirm go-live year
+stack: ["Rapid Identity", "JavaScript (Rhino)", "Java", "SQL", "REST APIs"]
+featured: true
+order: 2
+---
+
+<div class="summary-card">
+
+- **Problem:** Accounts were built once a night from a full load of every record. New hires waited a day at best, often two.
+- **What I built:** A delta sync over Munis (HR) and Infinite Campus (SIS) that runs all day. A full sync each evening catches anything the deltas miss.
+- **Result:** About **1 minute** from HR entry to working AD and Google accounts. Payloads about **82% smaller** on average. All 40+ connected apps are provisioned by the next morning.
+
+</div>
+
+Account provisioning looks like a solved problem. HR enters a new teacher, and the teacher gets a login. It stays solved until that teacher spends a first morning in a classroom without a login, borrowing a colleague's, and learning that our systems move at the speed of a nightly batch job.
+
+Our own help documentation said it plainly: *each night, our system will read this data, then create, reactivate, or disable accounts.* That was true, and it was the problem.
+
+## Nightly to Next Day
+
+The original design pulled every record from our two systems of record every night: Munis for employees and Infinite Campus for students. It compared everything and wrote the changes out. That works when nothing is urgent. In hiring season it wasn't enough, and we ended up running the full load by hand in the middle of the day, under heavy load, to get people started.
+
+The best case was an account the next day. The common case was two days.
+
+## Next Day to Delta
+
+The fix was to stop asking "what does everything look like?" and start asking "what changed?"
+
+Some source data made that easy, because it carried reliable modification timestamps. Some didn't, so I had to infer changes from the records around it. Employment is the clearest example. If any one of a person's employment records changed, I re-synced all of that person's employment details, because a change to one job can change which accounts, groups and buildings they should have.
+
+The delta sync runs from 5 a.m. to 10 p.m. I didn't pick that window arbitrarily. I looked at when records in our source systems actually change, and scheduled the work around the people changing them.
+
+## Delta to Deletes
+
+Deltas are good at noticing what's new and bad at noticing what's gone. Most of the time that doesn't matter, because our sources tombstone records with an end date instead of deleting them, and an end date is just another change. But a true delete, a row that simply disappears, never shows up in a delta.
+
+So every evening, a comprehensive full sync runs with up to three attempts. It catches hard deletes and anything else the deltas missed, and it gives me a nightly guarantee that the two sides agree.
+
+## Deletes to Failures
+
+Provisioning touches many systems I don't control, and any of them can fail partway through a batch. Failed calls retry with exponential backoff and jitter, so a struggling API gets room to recover instead of a pile of synchronized retries. And the scheduler skips a run if the previous one is still going, so a slow run can't stack up behind itself.
+
+## The Result
+
+A new employee now has working Active Directory and Google accounts about a minute after HR enters them in Munis. The rest of our 40+ connected applications are provisioned by the next morning at the latest. Because each run moves only what changed, payloads are about 82% smaller on average than the full loads they replaced.
+
+The number I care about most isn't on a dashboard. Schools lose instructional minutes every day to things nobody can control. This was one we could, and a teacher's first morning is now spent teaching.
