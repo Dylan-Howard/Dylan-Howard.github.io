@@ -1,0 +1,28 @@
+---
+// src/pages/notes/[slug].astro
+// Generates one static page per MDX note.
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const entries: CollectionEntry<'notes'>[] =
+    await getCollection('notes', ({ data }) => import.meta.env.DEV || !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props:  { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'notes'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, date, tags } = entry.data;
+---
+
+<ArticleLayout {title} {description} date={date.toISOString()} {tags}>
+  <Content />
+</ArticleLayout>

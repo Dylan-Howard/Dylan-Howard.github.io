@@ -64,19 +64,12 @@ export const SITE = {
     'https://script.google.com/macros/s/AKfycbzgcp7xdbWVFjB3CZHm0G_mTBTWR0Ma-x-KPhTETEYd_2x9E9GgII6S79eeeTBsMxQX_g/exec',
 
   // ── Recognition ───────────────────────────────────────────
-  awards: [
-    {
-      title:  'Stillwell Award',
-      org:    'Kentucky DOE Office of Educational Technology',
-      year:   2022,
-      short:  'Stillwell Award 2022',
-    },
-  ],
+  awards: [] as { title: string; org: string; year: number; short: string }[],
 
   speaking: [
     {
       event: 'Identity Automation User Group',
-      role:  'Speaker & Panelist',
+      role:  'Speaker',
       date:  'June 2025',
     },
   ],
@@ -85,6 +78,7 @@ export const SITE = {
   nav: [
     { href: '/#work',    label: 'Work'    },
     { href: '/#about',   label: 'About'   },
+    { href: '/notes',    label: 'Notes'   },
     { href: '/resume',   label: 'Résumé'  },
     { href: '/#contact', label: 'Contact' },
   ],

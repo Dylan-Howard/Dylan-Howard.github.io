@@ -1,16 +1,13 @@
 ---
 title: "Statewide Identity Platform — Kentucky Dept. of Education"
 slug: "kentucky-iam-platform"
-description: "A production identity and access management system scaled from a single district to 750,000+ users across 171 Kentucky school districts — built with 99.9% uptime, full FERPA and CIPA compliance, and recognised by the state with the Stillwell Award for innovation."
+description: "A production identity and access management system scaled from a single district to 750,000+ users across 171 Kentucky school districts — built with 99.9% uptime, full FERPA and CIPA compliance."
 type: "Platform Engineering"
 year: 2022
 stack: ["Java", "MSSQL", "JavaScript", "PowerShell", "REST"]
 href: null
 featured: false
 order: 4
-awards:
-  - "Stillwell Award — Kentucky DOE Office of Educational Technology, 2022"
-  - "Speaker & Panelist — Identity Automation User Group, June 2025"
 ---
 
 Identity infrastructure is typically invisible — until it fails. In a school district, a failure means a teacher locked out of their gradebook at 7:45 AM, a student who cannot access a state assessment, a new hire who spends their first week without any of the access they need to do their job. The problem compounds with scale: Warren County Public Schools serves 30,000+ users across multiple systems. The state of Kentucky has 750,000.
@@ -81,8 +78,6 @@ The key decisions were: asynchronous event processing (a slow downstream API doe
 Runbooks are code-reviewed. Every alert has a documented response procedure. On-call rotation was implemented when the platform went state-wide, because a system 171 institutions depend on is not one that can wait until morning.
 
 ## Recognition
-
-The Stillwell Award is the Kentucky DOE's recognition for statewide innovation in educational technology. Receiving it for this platform meant something specific: not that the engineering was clever, but that the system was working — that 750,000 students and staff could get to the tools they needed, reliably, every day.
 
 I presented the architecture and lessons learned at the Identity Automation User Group in June 2025, where the discussion that mattered most was not about the technology but about the governance model: how do you maintain consistency across 171 autonomous districts without imposing uniformity that breaks what they've already built?
 

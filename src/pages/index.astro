@@ -7,6 +7,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/Hero.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import ArrowLink from '../components/ArrowLink.astro';
 import SkillsGrid from '../components/SkillsGrid.astro';
 import About from '../components/About.astro';
 import ContactForm from '../components/ContactForm.astro';
@@ -16,6 +18,11 @@ import { SITE, SITE_TITLE } from '../config/site';
 // Load and sort work entries from content collections
 const allWork: CollectionEntry<'work'>[] = await getCollection('work');
 const projects = allWork.sort((a, b) => a.data.order - b.data.order);
+
+// Three most recent published notes for the homepage
+const recentNotes = (await getCollection('notes', ({ data }) => import.meta.env.DEV || !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 
 // Map content collection entries to ProjectCard props
 // Impact stats are defined here (alongside the card data)
@@ -107,6 +114,30 @@ const visibilityMap: Record<string, string> = {
       </div>
     </section>
 
+    <!-- ── Recent notes ─────────────────────────────────── -->
+    {recentNotes.length > 0 && (
+      <section id="notes" aria-labelledby="notes-heading">
+        <div class="container">
+          <div class="work-intro fade-up">
+            <h2 class="work-title" id="notes-heading">Recent notes</h2>
+          </div>
+          <div class="notes-grid" role="list">
+            {recentNotes.map((n, i) => (
+              <ArticleCard
+                title={n.data.title}
+                description={n.data.description}
+                date={n.data.date.toISOString()}
+                slug={n.slug}
+                tags={n.data.tags}
+                index={i}
+              />
+            ))}
+          </div>
+          <ArrowLink href="/notes" label="All notes" />
+        </div>
+      </section>
+    )}
+
     <!-- ── Skills ─────────────────────────────────────────── -->
     <SkillsGrid />
 
@@ -153,6 +184,19 @@ const visibilityMap: Record<string, string> = {
     /* border: 1px solid var(--rule); */
     gap: 6px;
     margin-bottom: var(--space-24);
+  }
+
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: var(--space-8);
+  }
+
+  @media (max-width: 780px) {
+    .notes-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* Featured (full-width) card spans both columns */

@@ -28,4 +28,15 @@ const resume = defineCollection({
   }),
 });
 
-export const collections = { work, resume };
+const notes = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title:       z.string(),
+    description: z.string(),
+    date:        z.date(),
+    tags:        z.array(z.string()).default([]),
+    draft:       z.boolean().default(false),
+  }),
+});
+
+export const collections = { work, resume, notes };
