@@ -1,73 +1,73 @@
 ---
 title: "Résumé"
-description: "Full-stack Software Engineer with 6+ years of experience in identity infrastructure, data pipelines, and enterprise integration across education and financial services."
-lastUpdated: 2025-01-01
+description: "Software engineer with 8 years of experience in backend and data systems, identity provisioning, and integration."
+lastUpdated: 2026-09-28
 pdfUrl: "https://drive.google.com/file/d/1J-RspJoFl6_dGBuUCKBHjSKS4cjCKMrc/view?usp=drive_link"
 ---
 
 ## Summary
 
-Full-stack Software Engineer proficient in Java, C#, React/Next.js, SQL (MSSQL), REST, and microservices architecture with AWS (Lambda, API Gateway, S3). Six years building identity and data infrastructure in production environments serving hundreds of thousands of users.
+Software engineer with 8 years of experience, focused on backend and data systems, with full-stack range. For the last five I've built the provisioning, sync, and integration layer behind a 21,000-user school district, and the state of Kentucky now runs that system across 171 districts.
 
 ---
 
-## Professional Experience
+## Experience
 
-### Software Engineer — Warren County Public Schools
-**September 2021 – Present**
+### Software Engineer (official title: Data Engineer) · Warren County Public Schools · Bowling Green, KY
+*Sep 2021 – Present*
 
-- Developed full-stack C#/.NET, Entity Framework, SQL, React/Next.js application, cutting average resolution time from **1.5 days to 0.6 days** by monitoring IAM events and surfacing actionable alerts and diagnostics.
-- Architected and led implementation of an IAM system using Java, SQL (MSSQL), and JavaScript for **30,000+ users**, managing IAM in real time for Microsoft Entra ID, Google Workspace, and the Student Information System — reducing onboarding errors by **25%** and manual effort by **80 hours/month**.
-- Built and maintained bi- and unidirectional data pipelines (40+ systems) using REST APIs, SQL, JavaScript, and PowerShell, optimising network utilisation by **82%** and server load by **30%**.
-- Partnered with Kentucky Dept. of Education to scale identity management for **750,000+ users across 171 school districts**, achieving **99.9% uptime** and compliance with FERPA and CIPA.
-- Developed a full-stack data validation platform using Java, Spring Boot, React, Astro, and TypeScript to provide real-time synchronisation and feedback across systems.
-- Led the diagnosis and resolution of critical production issues, maintaining **99.9% service availability**.
-- Led regional trainings and presented on IAM patterns and cloud best practices.
+- Built identity provisioning for **21,000 active users** across **40+ applications** on Rapid Identity (JavaScript/Rhino, Java, SQL), including about 14 direct integrations (Entra ID, Active Directory, Google Workspace, Clever via SFTP, and others).
+- Replaced a nightly full load with an all-day **delta sync** (live July 2023) over Munis (HR) and Infinite Campus (SIS). New-hire accounts went from a **worst case of 48 hours to about 1 minute**, and daily sync data volume fell by **about 82%**.
+- Built a **.NET/EF + Next.js control plane** that disables, merges and resets accounts, and flags orphaned, duplicate and mismatched records. After it launched, account-access ticket resolution fell from **1.5 to 0.6 days** (ticket export, May 2024 – May 2026).
+- My provisioning code, configuration and design were **deployed statewide by the Kentucky Department of Education and Identity Automation** (171 districts, ~750,000 users) with one change, the OneRoster API for student data. I advised on the rollout.
+- Designed **group-driven access**: request forms add and remove group members, granting and revoking app permissions. This automated contractor onboarding and elevated access, and let HR resend account-claim links without a helpdesk ticket. Added nightly **GitHub Actions checks** on provisioning SQL (row count, run time, schema).
 
-### Software Engineer — Independent
-**April 2024 – Present**
+### Software Engineer (Independent) · Restaurant franchisee (Wendy's)
+*Apr 2024 – Jun 2025*
 
-- Architected and launched a SaaS for franchise banking leveraging Java, Astro, React, and AWS (Lambda, API Gateway, S3, RDS), processing **$18M+ in transactions**, cutting average incident response time by **1 day**.
-- Delivered SQL & PowerShell integrations for SMB clients, automating reports and saving **2 hours/week** on average.
+- Built and ran, as sole engineer, a **Go + Next.js service on AWS (EC2, S3, RDS MySQL)** that reconciled point-of-sale sales against bank deposits (Teller.io) for **40 stores**, validating **$18M+ in revenue over 12 months**.
+- Matched deposits with a sliding window over store, date and time of day, handling multiple daily closeouts and next-day deposits. Acting on pending rather than posted transactions caught discrepancies **about a day** sooner.
+- Delivered SQL and PowerShell reporting integrations for small-business clients, saving one client **about 2 hours a week** (measured by their IT department).
 
-### Software Engineer — International Business Associates
-**October 2018 – August 2021**
+### Contract Software Engineer · RedRover (K-12 SaaS)
+*Dec 2025*
 
-- Built customer-management tool (PHP, HTML/CSS) used by **100+ associates**, improving task throughput by 20%.
-- Formulated MVP travel app with React and TypeScript, iterating rapidly from stakeholder feedback to define requirements and translate them into a functional product.
-- Developed multilingual frontend optimised for constrained networks and unreliable connections.
+- Built template deep-copy end to end in a mature **.NET/Entity Framework** codebase: the Next.js frontend controls, a new **GraphQL** endpoint, and backend logic that traced object creation and event emission so copies were created correctly within the existing event architecture.
 
-### Software Engineer Intern — Kentucky Mesonet
-**January 2018 – May 2018**
+### Software Engineer · International Business Associates
+*Oct 2018 – Aug 2021*
 
-- Rebuilt real-time weather map (TypeScript, Python) aggregating data from **50+ stations**, improving load times by 10% and removing external dependencies.
-- Implemented Angular/TypeScript admin panel for station monitoring and custom map creation.
+- Built a customer-management tool (PHP) used by **100+ associates**, and prototyped a React/TypeScript travel app MVP.
+- Built a multilingual frontend for constrained, unreliable networks.
+
+### Software Engineer Intern · Kentucky Mesonet
+*Jan 2018 – May 2018*
+
+- Rebuilt the real-time weather map (TypeScript, Python) and built an Angular admin panel for station monitoring.
 
 ---
 
-## Education
+## Projects
 
-### B.S. Computer Science — Western Kentucky University
-**May 2018**
+**Koine: Greek learning platform** (React, TypeScript, C#/.NET, EF, SQL Server). Spaced-repetition flashcards, morphological parsing, inline glosses, and AI-graded exercises.
 
 ---
 
 ## Speaking
 
-- **Speaker**, Identity Automation User Group — *“Flexible Authentication in Warren County Schools: Personalized Access,” June 2025*
+**Identity Automation User Group, June 2025.** "Flexible Authentication in Warren County Schools: Personalized Access." Sole speaker, and the only speaker not from the vendor.
 
 ---
 
-## Core Technologies
+## Education
 
-**Languages** — Java, C#, TypeScript, JavaScript, Go, Python, PHP, PowerShell, AppleScript
+**Master of Divinity**, The Southern Baptist Theological Seminary, 2024\
+**B.S. Computer Science**, Western Kentucky University, 2018
 
-**Frontend** — React, Next.js, Astro, Angular, HTML/CSS
+---
 
-**Backend** — .NET / Entity Framework, Spring Boot, Node.js, REST, Microservices
+## Skills
 
-**Data** — MSSQL, PostgreSQL, MongoDB, ETL design, event-driven architecture
-
-**Cloud & Platform** — AWS (Lambda, API Gateway, S3, RDS), Azure, Microsoft Entra ID, Google Workspace Admin SDK, Microsoft Graph API
-
-**Compliance** — FERPA, CIPA
+**Languages:** Java, C#, Go, TypeScript/JavaScript, SQL, PowerShell, Python\
+**Backend & data:** .NET/Entity Framework, REST, GraphQL, SQL Server, MySQL, delta/ETL sync design, React, Next.js, GitHub Actions\
+**Cloud & identity:** AWS (EC2, S3, RDS), Azure, Entra ID, Active Directory, Google Workspace Admin SDK, Microsoft Graph, LDAP, SAML
