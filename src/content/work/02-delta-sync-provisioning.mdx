@@ -1,7 +1,7 @@
 ---
 title: "From Nightly to a Minute: Delta Sync for District Provisioning"
 slug: "delta-sync-provisioning"
-description: "Replaced a nightly full load with a delta sync across our HR and student systems. New staff went from waiting a day or two for accounts to having them in about a minute, with payloads about 82% smaller on average."
+description: "Replaced a nightly full load with a delta sync across our HR and student systems. New staff went from waiting a day or two for accounts to having them in about a minute, and cut daily sync data volume by about 82%."
 type: "Data Engineering"
 year: 2023 # TODO(Dylan): confirm go-live year
 stack: ["Rapid Identity", "JavaScript (Rhino)", "Java", "SQL", "REST APIs"]
@@ -13,7 +13,7 @@ order: 2
 
 - **Problem:** Accounts were built once a night from a full load of every record. New hires waited a day at best, often two.
 - **What I built:** A delta sync over Munis (HR) and Infinite Campus (SIS) that runs all day. A full sync each evening catches anything the deltas miss.
-- **Result:** About **1 minute** from HR entry to working AD and Google accounts. Payloads about **82% smaller** on average. All 40+ connected apps are provisioned by the next morning.
+- **Result:** About **1 minute** from HR entry to working AD and Google accounts. Daily sync data volume down about **82%**. All 40+ connected apps are provisioned by the next morning.
 
 </div>
 
@@ -25,7 +25,7 @@ Our own help documentation said it plainly: *each night, our system will read th
 
 The original design pulled every record from our two systems of record every night: Munis for employees and Infinite Campus for students. It compared everything and wrote the changes out. That works when nothing is urgent. In hiring season it wasn't enough, and we ended up running the full load by hand in the middle of the day, under heavy load, to get people started.
 
-The best case was an account the next day. The common case was two days.
+The best case was an account the next day. The worst case was 48 hours.
 
 ## Next Day to Delta
 
@@ -47,6 +47,6 @@ Provisioning touches many systems I don't control, and any of them can fail part
 
 ## The Result
 
-A new employee now has working Active Directory and Google accounts about a minute after HR enters them in Munis. The rest of our 40+ connected applications are provisioned by the next morning at the latest. Because each run moves only what changed, payloads are about 82% smaller on average than the full loads they replaced.
+A new employee now has working Active Directory and Google accounts about a minute after HR enters them in Munis. The rest of our 40+ connected applications are provisioned by the next morning at the latest. Because each run moves only what changed, total daily sync data volume is about 82% lower than under the nightly full loads, even though syncs now run every minute.
 
 The number I care about most isn't on a dashboard. Schools lose instructional minutes every day to things nobody can control. This was one we could, and a teacher's first morning is now spent teaching.
