@@ -1,84 +1,55 @@
 ---
-title: "Statewide Identity Platform — Kentucky Dept. of Education"
+title: "One District's Provisioning, Every District's Tenant"
 slug: "kentucky-iam-platform"
-description: "A production identity and access management system scaled from a single district to 750,000+ users across 171 Kentucky school districts — built with 99.9% uptime, full FERPA and CIPA compliance."
-type: "Platform Engineering"
-year: 2022
-stack: ["Java", "MSSQL", "JavaScript", "PowerShell", "REST"]
+description: "The Kentucky Department of Education and Identity Automation took the provisioning system I built for Warren County and deployed it, district by district, across 171 districts and about 750,000 users. I advised on the rollout."
+type: "Identity & Integration"
+year: 2023 # TODO(Dylan): the year the statewide rollout started
+stack: ["Rapid Identity", "JavaScript (Rhino)", "SQL", "OneRoster API", "Infinite Campus", "Munis"]
 href: null
 featured: false
 order: 4
 ---
 
-Identity infrastructure is typically invisible — until it fails. In a school district, a failure means a teacher locked out of their gradebook at 7:45 AM, a student who cannot access a state assessment, a new hire who spends their first week without any of the access they need to do their job. The problem compounds with scale: Warren County Public Schools serves 30,000+ users across multiple systems. The state of Kentucky has 750,000.
+<div class="summary-card">
 
-This is the story of building a system that had to work — reliably, securely, and at a scale that most engineers never touch — in a domain where the cost of failure is measured in real people's days.
+- **Problem:** Many Kentucky districts provisioned accounts by hand, or with a mix of temperamental scripts and small, siloed tools.
+- **What I built:** The Warren County provisioning system on Rapid Identity: action sets, source mappings, group logic, naming rules, and the delta sync design.
+- **Result:** KDE and Identity Automation deployed that system into a tenant for each district, 171 districts and about 750,000 users, with one change to how student data comes in. I advised on the rollout.
 
-## Where it started
+</div>
 
-I joined WCPS and inherited a patchwork: Active Directory, Microsoft Entra ID, Google Workspace, and a Student Information System that spoke to none of the others. Provisioning a new account required manual steps in each system. Deprovisioning was even worse — catch-as-catch-can, documented by goodwill, audited by luck.
+Most engineers who build something for one organization expect it to stay there. That is usually right. A school district's provisioning is shaped by its HR system, its student system, its naming habits, and a decade of local decisions, and none of that travels well.
 
-The first version was a Java-based orchestration layer: it consumed events from the SIS (enrollments, transfers, terminations, role changes) and translated them into idempotent provisioning actions against each downstream platform. It used SQL Server as its coordination store, tracking the intent of each operation separately from its execution, so partial failures could be retried without duplicating work.
+I think ours traveled because we solved a problem every district already had, and solved it in a way that didn't depend on being Warren County.
 
-```java
-// Idempotent provisioning: the same event can be safely replayed
-@Transactional
-public ProvisioningResult provision(IdentityEvent event) {
-    ProvisioningRecord record = repository.findOrCreate(event.getCorrelationId());
+## Scripts to System
 
-    if (record.isComplete()) {
-        return ProvisioningResult.alreadyComplete(record);
-    }
+Before the statewide rollout, many Kentucky districts provisioned accounts by hand. Many others ran on some mix of temperamental scripts and small, siloed solutions.
 
-    List<ProvisioningStep> pending = record.getPendingSteps();
-    for (ProvisioningStep step : pending) {
-        try {
-            step.execute(platformClients);
-            record.markStepComplete(step);
-        } catch (TransientException e) {
-            // Retry later; do not mark failed
-            record.markStepPending(step, e.getRetryAfter());
-        } catch (PermanentException e) {
-            record.markStepFailed(step, e);
-            alertTeam(step, e);
-        }
-    }
-    return ProvisioningResult.of(record);
-}
-```
+The Kentucky Department of Education was already looking for something better. After we launched the delta sync at Warren County in July 2023, KDE and Identity Automation, the company behind Rapid Identity, asked to use our system as the basis for the state's.
 
-Within the first year, manual provisioning effort dropped by 80 hours per month and onboarding errors — the kind that create ghost accounts or leave access unclaimed — fell 25%.
+## System to State
 
-## The state partnership
+"Use our system" meant all of it. Each district got its own Rapid Identity tenant, and each tenant ran the same code and configuration:
 
-The Kentucky Department of Education saw what we had built and asked a question that changes the scope of any engineering project: _can it scale?_
+- the **action sets** that do the provisioning work
+- the **source mappings** from Munis (HR) and Infinite Campus (student data)
+- the **group logic** that decides who gets access to what
+- the **naming rules** for usernames and email addresses
+- the **delta sync design**: poll for changes all day, then run a full sync each evening
 
-The answer required rethinking several assumptions. A single-district system could afford to be opinionated — it knew its SIS, its OU structure, its naming conventions. A platform serving 171 districts had to be a framework, not a fixed implementation. Each district has a different SIS, different policies, different legacy configurations that cannot simply be swept away.
+A tenant per district kept every district's data separate, while still letting one design serve all of them.
 
-The solution was a tenant model with a layered configuration schema. Each district instance inherits a base set of platform defaults — the event contracts, the retry policies, the compliance-oriented audit schema — and overrides only what it needs to. A district running on PowerSchool gets a different SIS connector than one running on Infinite Campus, but they share the same provisioning engine, the same monitoring infrastructure, and the same audit trail.
+## State to Standard
 
-```java
-// Tenant-scoped configuration with inheritance
-public ProvisioningConfig resolve(TenantId tenant, ConfigKey key) {
-    return configStore.find(tenant, key)
-        .or(() -> configStore.find(tenant.getStateRegion(), key))
-        .or(() -> configStore.find(ConfigKey.STATE_DEFAULT, key))
-        .orElseThrow(() -> new MissingConfigException(tenant, key));
-}
-```
+One piece changed. At Warren County, I pulled student data from Infinite Campus with a direct database connection. That wasn't a principled choice; it simply made the architecture simpler. The state wanted to standardize on the OneRoster API instead, which makes sense when you're connecting 171 districts rather than one.
 
-Compliance was a different kind of constraint. FERPA governs student data — what can be transmitted, logged, retained, and to whom. CIPA governs content filtering. The system treats both as first-class concerns: all audit logs are structured to support FERPA access request responses; the provisioning model ensures content filtering policies are always applied before a student account becomes active.
+OneRoster alone didn't cover everything we needed, though. So the statewide version pairs it with an Infinite Campus write-back action set, which sends each student's username and email back to Infinite Campus and provisions staff data that originates in Munis.
 
-## Operating at 99.9% uptime
+## Standard to Support
 
-The number is not aspirational — it is a contractual obligation to 171 districts and the state's assessment infrastructure. Achieving it required treating reliability as an engineering discipline, not a deployment optimism.
+My part of the rollout was advisory. I met with KDE and Identity Automation weekly or every other week, and many more times with Identity Automation's architecture team. I also handed over documentation along with the code.
 
-The key decisions were: asynchronous event processing (a slow downstream API does not block the queue for other districts), circuit breakers on every platform integration (a Google Workspace outage does not cascade into Entra), a dead-letter queue with human alerting (nothing is silently dropped), and active-active regional deployment on Azure.
+A good share of those meetings went into how district setups differed. The conclusion we reached was that districts didn't need their own version. They could either improve their setup by adopting ours, or keep operating the way they were within our design.
 
-Runbooks are code-reviewed. Every alert has a documented response procedure. On-call rotation was implemented when the platform went state-wide, because a system 171 institutions depend on is not one that can wait until morning.
-
-## Recognition
-
-I presented the architecture and lessons learned at the Identity Automation User Group in June 2025, where the discussion that mattered most was not about the technology but about the governance model: how do you maintain consistency across 171 autonomous districts without imposing uniformity that breaks what they've already built?
-
-The answer is: carefully, incrementally, and with an API contract that is as stable as you can make it.
+{/* TODO(Dylan): the "what surprised us at scale" section, once you're ready to answer Q6. */}
