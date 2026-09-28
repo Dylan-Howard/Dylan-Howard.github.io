@@ -17,7 +17,7 @@ order: 2
 
 </div>
 
-Account provisioning looks like a solved problem. HR enters a new teacher, and the teacher gets a login. It stays solved until that teacher spends a first morning in a classroom without a login, borrowing a colleague's, and learning that our systems move at the speed of a nightly batch job.
+Account provisioning looks like a solved problem. HR enters a new teacher, and the teacher gets a login. It stays solved until a substitute shows up ready to teach, finds their account was never created, and borrows a colleague's login just to get through the day. Our systems moved at the speed of a nightly batch job, and people found their own ways around it.
 
 Our own help documentation said it plainly: *each night, our system will read this data, then create, reactivate, or disable accounts.* That was true, and it was the problem.
 
@@ -29,9 +29,9 @@ The best case was an account the next day. The worst case was 48 hours.
 
 ## Next Day to Delta
 
-The fix was to stop asking "what does everything look like?" and start asking "what changed?"
+The fix was to stop asking "what does everything look like?" and start asking "what changed?" Every minute, the sync polls Munis and Infinite Campus for changed records and processes only those.
 
-Some source data made that easy, because it carried reliable modification timestamps. Some didn't, so I had to infer changes from the records around it. Employment is the clearest example. If any one of a person's employment records changed, I re-synced all of that person's employment details, because a change to one job can change which accounts, groups and buildings they should have.
+Some source data made that easy, because it carried reliable modification timestamps. Some didn't, so I had to infer changes from the data model. Employment is the clearest example. A person's employment records span several tables but share one timestamp on a parent record. When that timestamp moves, I re-sync every employment record under it, because a change to one job can change which accounts, groups, and buildings a person should have.
 
 The delta sync runs from 5 a.m. to 10 p.m. I didn't pick that window arbitrarily. I looked at when records in our source systems actually change, and scheduled the work around the people changing them.
 
@@ -45,8 +45,12 @@ So every evening, a comprehensive full sync runs with up to three attempts. It c
 
 Provisioning touches many systems I don't control, and any of them can fail partway through a batch. Failed calls retry with exponential backoff and jitter, so a struggling API gets room to recover instead of a pile of synchronized retries. And the scheduler skips a run if the previous one is still going, so a slow run can't stack up behind itself.
 
+The riskier failure is a sync that succeeds at the wrong thing. A bad source export or a broken query could look like thousands of people leaving at once, and a delta sync running every minute would faithfully act on it. So I built a circuit breaker: if a single run would change more than 2% of our user base, the sync fails instead of proceeding.
+
+Normal days never come close. Even in hiring season, HR's own staffing caps changes at around 200 employee records a day. But the breaker did trip a couple of times during hiring season. Each time, the sync failed as designed, the nightly full sync picked up the changes, and the delta sync carried on normally the next day. I'd rather a sync stop and wait for the evening than disable a few hundred accounts because something upstream went wrong.
+
 ## The Result
 
 A new employee now has working Active Directory and Google accounts about a minute after HR enters them in Munis. The rest of our 40+ connected applications are provisioned by the next morning at the latest. Because each run moves only what changed, total daily sync data volume is about 82% lower than under the nightly full loads, even though syncs now run every minute.
 
-The number I care about most isn't on a dashboard. Schools lose instructional minutes every day to things nobody can control. This was one we could, and a teacher's first morning is now spent teaching.
+The number I care about most isn't on a dashboard. Schools lose instructional minutes every day to things nobody can control. This was one we could. A substitute who shows up ready to teach can now sign in, open the plans the teacher left in Google Drive, step into the class in Clever, and teach.
