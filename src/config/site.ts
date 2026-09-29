@@ -19,13 +19,12 @@ export const SITE = {
 
   // ── SEO defaults ──────────────────────────────────────────
   description:
-    'Full-stack Software Engineer specialising in identity infrastructure, ' +
-    'data pipelines, and enterprise integration. Based in Bowling Green, KY.',
+    'Software engineer focused on backend and data systems, identity ' +
+    'provisioning, and integration. Based in Bowling Green, KY.',
   keywords: [
     'Dylan Howard',
     'Software Engineer',
     'Software Developer',
-    'Senior Software Engineer',
     'Full Stack Engineer',
     'Identity Access Management',
     'IAM',
@@ -39,8 +38,8 @@ export const SITE = {
     'Go',
     'AWS',
     'Azure',
-    'SaaS Engineering',
-    'Distributed Systems',
+    'Backend Engineer',
+    'Data Engineering',
     'Bowling Green Kentucky',
     'K-12 Technology',
   ],

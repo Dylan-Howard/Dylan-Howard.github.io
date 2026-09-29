@@ -42,13 +42,11 @@ const projectCards = projects.map((p) => ({
 // Impact stats keyed by slug — keeps MDX frontmatter clean
 const impactMap: Record<string, { value: string; label: string }[]> = {
   'kentucky-iam-platform': [
-    { value: '750k+', label: 'Users managed'             },
-    { value: '99.9%', label: 'Uptime SLA'                },
-    { value: '80h',   label: 'Manual effort saved / mo.' },
+    { value: '171',   label: 'Districts deployed'        },
+    { value: '~750k', label: 'Users statewide'           },
   ],
   'identity-monitoring-platform': [
-    { value: '1.5→0.6', label: 'Avg. resolution (days)'  },
-    { value: '−60%',    label: 'Resolution time'          },
+    { value: '1.5→0.6', label: 'Access tickets (days)'   },
   ],
   'pos-bank-reconciliation': [
     { value: '$18M+', label: 'Revenue validated / yr'    },
@@ -65,8 +63,6 @@ const visibilityMap: Record<string, string> = {
   'kentucky-iam-platform':     'Production · State Platform',
   'identity-monitoring-platform': '',
   'pos-bank-reconciliation':   'Commercial · Client',
-  'enterprise-data-pipeline':  'Production · Internal',
-  'data-validation-platform':  'Production · Internal',
   'koine-greek-learning-platform': '',
 };
 ---

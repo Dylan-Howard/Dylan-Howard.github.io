@@ -21,39 +21,35 @@ import SectionDivider from './SectionDivider.astro';
 
         <div class="about-copy">
           <p>
-            I am a Software Engineer at Warren County Public Schools, where I&rsquo;ve spent four years 
-            architecting the identity, data, and operational infrastructure for 20,000+&nbsp;students 
-            and staff. My work is defined by a core conviction: <em>the best engineer is one who 
-            aims to serve the team and the users.</em> I aim place the needs of my coworkers first. 
-            Whether that involves building custom internal tools to 10x our technicians' 
-            productivity or stepping into non-development roles to ensure a project crosses the 
-            finish line, I prioritize the collective success of the mission over individual credit.
+            I&rsquo;m a software engineer at Warren County Public Schools, where for five years I&rsquo;ve
+            built the provisioning, sync, and integration layer behind 21,000&nbsp;students and staff.
+            Most of that work is invisible when it goes right. A substitute signs in on their first
+            morning. A former employee&rsquo;s access ends when they leave. I like building the kind of
+            system nobody has to think about.
           </p>
           <p>
-            The reach of my work has scaled significantly: a provisioning system I designed for a 
-            single district evolved into a statewide platform serving 750,000+&nbsp;users. In 2025 I 
-            spoke at the <em>Identity Automation User Group</em> on flexible authentication for K-12.
+            That system didn&rsquo;t stay in one district. The Kentucky Department of Education and
+            Identity Automation deployed it across 171&nbsp;districts, about 750,000&nbsp;users, and I
+            advised on the rollout. In June 2025 I spoke at the <em>Identity Automation User Group</em>
+            on flexible authentication for K-12.
           </p>
           <p>
-            Driven by <em>User Empathy</em>, I approach engineering by identifying the &ldquo;right tool 
-            for the task&rdquo;—whether that&rsquo;s leveraging Astro for performance-first templating or 
-            implementing <em>O(m)</em> sync strategies to optimize Azure egress. I am <em>always a 
-            learner</em>, currently expanding my expertise in Go-based microservices and distributed 
-            system patterns.
+            Outside the district, I&rsquo;ve built a Go service on AWS that reconciled restaurant sales
+            against bank deposits, and shipped a full-stack feature on contract for RedRover. Lately
+            I&rsquo;m most curious about storage and data internals.
           </p>
           <h3>The Path So Far</h3>
           <ul class="about-copy-list">
             <li class="about-copy-item">
-              <span><em>SaaS Engineering:</em> Architected and launched a franchise banking platform on AWS, managing everything from polyglot data consistency to CI/CD.</span>
+              <span><em>Data engineering:</em> Replaced a nightly full load with a delta sync that took new-hire accounts from a worst case of 48&nbsp;hours to about a minute.</span>
             </li>
             <li class="about-copy-item">
-              <span><em>Internal Tooling:</em> Developed custom user-impersonation and "Step-Up" authentication tools that cut IT helpdesk volume and boosted technician productivity.</span>
+              <span><em>Internal tooling:</em> Built a .NET and Next.js control plane that finds orphaned, duplicate, and mismatched accounts across systems.</span>
             </li>
             <li class="about-copy-item">
-              <span><em>Legacy Modernization:</em> Rebuilt real-time data aggregators for the Kentucky Mesonet, handling high-velocity sensor data from 50+ stations.</span>
+              <span><em>Backend:</em> Built and ran a Go reconciliation service that validated $18M+ in revenue over a year.</span>
             </li>
           </ul>
-          <p>
         </div>
 
         <div class="about-links">
@@ -76,7 +72,7 @@ import SectionDivider from './SectionDivider.astro';
           </div>
           <div class="fact">
             <dt class="section-label">Focus</dt>
-            <dd class="fact__val fact__val--accent">Full-Stack .NET &amp; Next.js / Data Infrastructure</dd>
+            <dd class="fact__val fact__val--accent">Backend &amp; Data Systems / Full-Stack</dd>
           </div>
           <div class="fact">
             <dt class="section-label">Education</dt>
