@@ -1,0 +1,27 @@
+---
+title: "Access Should Follow the Group"
+description: "Reusing our group sync logic so that group membership grants and revokes app access, and letting a request form do the work a helpdesk ticket used to."
+date: 2026-09-29
+tags: ["Identity", "Provisioning", "Rapid Identity"]
+draft: true
+---
+
+Most access requests at a school district aren't hard. A contractor needs an account. A technician needs admin rights in Entra ID for a project. A new hire lost the link to claim their account. Each one is a small ticket, and each one used to mean someone making the change by hand, and someone else remembering to undo it.
+
+## The idea
+
+We already had logic that synced group memberships across our connected apps. So instead of granting access app by app, I made group membership the thing that grants it. Put someone in the group, and the apps that trust that group give them access. Take them out, and it goes away.
+
+## The request form does the rest
+
+The piece that made it work was Rapid Identity's request service. A request form adds or removes a person from a group automatically, and that change flows through the same sync that provisions everything else. I wrote the logic behind those requests.
+
+That covered more than I expected:
+
+- **Contractor enrollment**, without a technician building each account
+- **Elevated access**, like Entra ID admin roles, granted through a request and revoked the same way
+- **Account-claim links**, which HR can now resend on their own instead of opening a ticket for a new hire
+
+## Why groups
+
+Revoking access is the part people forget. When access is tied to a group, removing it is one change, not a checklist across every app someone touched. The same mechanism that grants access takes it away, so the two can't drift apart.
