@@ -1,0 +1,45 @@
+---
+title: "Did the Money Make It to the Bank?"
+slug: "pos-bank-reconciliation"
+description: "A Go service on AWS that reconciled point-of-sale sales against bank deposits for 40 restaurants, validating $18M+ in revenue over a year and catching discrepancies about a day sooner by acting on pending transactions."
+type: "Backend / Full-Stack"
+year: 2024
+stack: ["Go", "Next.js", "TypeScript", "AWS EC2", "S3", "RDS MySQL", "Teller.io"]
+href: null
+featured: false
+order: 6
+---
+
+<div class="summary-card">
+
+- **Problem:** A restaurant franchisee reconciled sales against bank deposits by hand. It was often late, and it depended on one person.
+- **What I built:** A Go service on AWS that matched each store's point-of-sale sales to its bank deposits every day and alerted the CFO to anything that didn't match.
+- **Result:** **$18M+** in revenue validated over 12 months across **40 stores**. Discrepancies surfaced **about a day sooner** by working from pending bank transactions instead of waiting for posted ones.
+
+</div>
+
+Checking that the money made it to the bank sounds like the simplest job in a restaurant business. The register says what you sold, and the bank says what you deposited. Subtract.
+
+It stops being simple at 40 stores, each closing out two or three times a day, with banks that don't take deposits on the days you'd like them to. When I started, a Wendy's franchisee was doing that subtraction by hand. It was often late, and it depended on one person. There had also been two incidents just before I arrived, and the business wanted a safety net that didn't rely on someone noticing.
+
+## Sales to Deposits
+
+Two sources feed the service. Sales come from the Aloha point-of-sale system as exports, uploaded rather than pulled through an API, and stored in S3. Bank activity comes through Teller.io. Everything lands in a MySQL database on RDS, and a Go service on EC2 does the matching.
+
+Each store maps to a bank account, so the question for any store on any day is whether its sales and its deposits agree.
+
+## Deposits to Windows
+
+They rarely agree one-to-one. A store closes out after each major meal period, so a single day can produce two or three deposits. And when the bank is closed, a deposit lands the next business day instead.
+
+So the matcher doesn't compare a day to a day. It aggregates sales and deposits by store over a sliding window of date and time of day, wide enough to absorb a late deposit and narrow enough that a missing one still shows. When the totals agree, the deposit is confirmed automatically. When they don't, the CFO gets an in-app notification.
+
+## Windows to Warnings
+
+Bank transactions take at least two days to post. Waiting for posted transactions would have made every check at least two days stale. Teller.io also exposes pending transactions, so the service works from those instead, and discrepancies surface about a day sooner.
+
+## What It Caught
+
+Honestly, not much. Mismatches were rare, and that was the point. The service existed because of the incidents before it, and most of what it did was confirm, every day, that the money had arrived. Over 12 months, that added up to more than $18 million in revenue validated against the bank.
+
+I built the frontend first in Astro, then moved it to Next.js. The project ended after the employee who sponsored it left the company, which is how a lot of good internal tools end.
