@@ -1,67 +1,53 @@
 ---
-title: "Identity Monitoring & Alerting Platform"
+title: "A Control Plane for Every Account We Forgot About"
 slug: "identity-monitoring-platform"
-description: "A full-stack operational intelligence system built on top of the district's IAM infrastructure — surfacing anomalies, failed provisions, and policy drift through a diagnostic dashboard that cut average IT resolution time from 1.5 days to 0.6 days."
+description: "A .NET and Next.js tool that pulls every connected system's view of each person into one place, flags orphaned, duplicate, and mismatched accounts, and acts on them. After it launched, account-access ticket resolution fell from 1.5 days to 0.6."
 type: "Full-Stack Application"
-year: 2023
-stack: ["C#", ".NET", "Entity Framework", "React", "Next.js", "SQL Server"]
-href: "https://github.com/Dylan-Howard/Identity-Systems-Monitor"
+year: 2024
+stack: ["C#", ".NET", "Entity Framework", "Next.js", "React", "TypeScript"]
+href: null
 featured: false
 order: 7
 ---
 
-Building an IAM system is one problem. Knowing whether it is actually working — for every user, across every system, right now — is a different and harder one.
+<div class="summary-card">
 
-At Warren County Public Schools, the IAM provisioning layer could successfully create, update, and deprovision accounts across Microsoft Entra ID, Google Workspace, and the SIS. What it could not do, at first, was tell you clearly when something had gone wrong, why, and what to do about it. An IT technician who received a complaint that a student's Google account was not working had to manually check multiple admin consoles, compare data across systems, and piece together the sequence of events from logs that were designed for auditing, not diagnosis.
+- **Problem:** Provisioning kept accounts flowing, but nothing showed where the systems disagreed. Every account-access ticket meant checking several admin consoles by hand.
+- **What I built:** A control plane that reads each system's view of a person through APIs and databases every four hours, flags orphaned, duplicate, and mismatched records, and can disable, merge, or reset accounts.
+- **Result:** After it launched in May 2024, account-access ticket resolution fell from **1.5 days to 0.6** (ticket export, May 2024 – May 2026). It also surfaced accounts nobody had looked at in years.
 
-The monitoring platform exists to make that work unnecessary.
+</div>
 
-## The UX problem driving the engineering
+Provisioning is about making accounts. Nobody budgets for the accounts it leaves behind.
 
-Before writing a line of code, I spent two weeks reviewing support tickets — specifically the ones tagged "account access" and "provisioning." The patterns were clear:
+A sync can be correct every minute of every day and still leave a district full of quiet problems: an account kept alive as a favor, an email alias added in one system but not the other, a record entered twice. None of these break anything, so none of them file a ticket. I built the control plane to find them, and then to fix them without opening five admin consoles.
 
-- Most issues resolved to one of four root causes: a sync delay, a policy conflict, a data mismatch between systems, or a silent provisioning failure
-- The average technician spent 45 minutes per ticket investigating before they could begin resolving
-- The same issues recurred because there was no feedback mechanism to surface systemic patterns
+## Seeing It
 
-The design goal was not to build a better admin console. It was to build a system that, for any given user and any given complaint, could tell a technician within 30 seconds what was wrong and what to do about it.
+The control plane reads each connected system's view of a person, through APIs where a system has one and databases where it doesn't. It runs every four hours. Each run logs what changed, and I keep the full sync files for ten days, so I can replay any run when I need to know what a system believed on a given afternoon.
 
-## The data model
+The first version was a prototype in Java and Spring Boot, with a React and Astro frontend. Its early findings were real:
 
-The platform maintains a continuously updated graph of identity state: for each user, what does each connected system believe about them? This is not a snapshot — it's a live view, updated as events arrive from the IAM layer and as polling confirms the state of systems that don't emit events.
+- **847 grade-level mismatches** between the student information system and the LMS. I admit I can no longer tell you the root cause.
+- **1,200+ phone numbers** that failed a format check, traced to a free-text field in the legacy student system
+- **43 staff accounts** whose Active Directory and Google email addresses had diverged, each because an alias was added in one system and never in the other
 
-When the state in two systems diverges, the platform records a _discrepancy_: a structured record of what was expected, what was found, when the divergence was first detected, and what provisioning operations are in-flight that might explain it.
+## Rebuilding It
 
-```csharp
-public record IdentityDiscrepancy(
-    string UserId,
-    SystemName Source,
-    SystemName Target,
-    string Dimension,      // e.g. "AccountStatus", "GroupMembership", "DisplayName"
-    string ExpectedValue,
-    string ActualValue,
-    DateTimeOffset DetectedAt,
-    DiscrepancyStatus Status,   // Open, Resolving, Resolved, Accepted
-    string? ResolutionNote
-);
-```
+I rebuilt the prototype in .NET, Entity Framework, and Next.js. The reason wasn't technical. Around Nashville and southern Kentucky, far more developers work in .NET than in Spring, and a tool the district depends on should be one the next person here can maintain.
 
-An open discrepancy that has existed for longer than a configurable threshold generates an alert. Discrepancies that appear in patterns (same dimension, multiple users, same building) generate an aggregate alert that surfaces possible systemic causes.
+## Acting on It
 
-## The diagnostic surface
+Finding a problem is only half of it. From the control plane I can disable an account, merge duplicates, or reset a password, and every one of those actions asks for confirmation first.
 
-The React/Next.js frontend has two modes. The first is a user-search interface: enter a name, email, or student ID and see a unified view of that person's identity state across all connected systems, a timeline of recent provisioning events, and any open discrepancies with their current status.
+Some problems aren't mine to fix. A duplicate in the HR or student system is a legal record, and it can't change without documentation. For those, the control plane tells me who to message: the data entry staff who own that record.
 
-The second is an operational dashboard: aggregate metrics (open discrepancies by category, by building, by system), a queue of alerts ordered by age and severity, and trend lines that make systemic problems visible before they accumulate into a wave of support tickets.
+## What It Found
 
-The design constraint I enforced throughout: every piece of information shown must either enable an action or explain a status. No decorative metrics. No charts that don't help someone decide what to do.
+The story I tell most is an account kept open for a senior employee after they left, so they could help with the transition. Nobody closed it afterward. For four years, an account with a lot of permissions sat there with no one managing it.
 
-## The resolution workflow
+It wasn't the only one. The control plane surfaced several former employees who still had access to sensitive records, some without MFA. None of these accounts were broken. That's exactly why nothing else had caught them.
 
-Surfacing a problem is necessary but not sufficient. The platform includes a lightweight resolution workflow: a technician can acknowledge a discrepancy, record what action they've taken, and mark it resolved with a note. If the underlying data corrects itself (because the IAM layer addressed the root cause), the discrepancy auto-resolves.
+## Who It Served
 
-This workflow generates a dataset that has become genuinely useful: the history of what kinds of issues occur, how long they take to resolve, and whether specific root causes are recurring. That data drove the two highest-impact changes to the IAM layer in the following quarter — both invisible to users until the problems didn't occur anymore.
-
-## Outcome
-
-Resolution time for identity-related support tickets dropped from an average of 1.5 days to 0.6 days — a 60% reduction. The more meaningful number is the category that went to zero: tickets that required escalation to a senior administrator to diagnose. The monitoring platform made that information available to any technician.
+I was the control plane's only user, so it's fair to ask how it helped anyone else. Account-access tickets still went back to the technicians who owned them. What changed was the round trip in the middle. When a ticket reached me, I could see every system's view of that person in one place and switch into the problem quickly, instead of gathering data and trading messages. The technician got an answer sooner, and so did the person locked out.
