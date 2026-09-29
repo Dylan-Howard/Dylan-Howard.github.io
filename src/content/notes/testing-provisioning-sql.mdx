@@ -1,6 +1,6 @@
 ---
 title: "Testing the SQL Nobody Tests"
-description: "Our provisioning queries broke in two ways: from our own changes and from a vendor's. A small GitHub Actions check caught both."
+description: "Our provisioning queries broke in two ways: from our own changes and from a vendor's. The vendor slowdown pushed me to build a small GitHub Actions check, and it caught our own bug before production."
 date: 2026-09-25
 tags: ["SQL", "CI/CD", "GitHub Actions", "Data Engineering"]
 draft: true
@@ -18,7 +18,7 @@ The second way wasn't ours at all. Our HR system's vendor moved its hosting to A
 
 ## The check
 
-I set up a GitHub Actions workflow that runs every provisioning query against our staging environment each evening, when load is low, and checks three things:
+The slowdown is what pushed me to build a check. I set up a GitHub Actions workflow that runs every provisioning query against our staging environment each evening, when load is low, and checks three things:
 
 - **Row count** falls within an expected range
 - **Run time** stays under an expected ceiling
@@ -28,6 +28,6 @@ None of this is sophisticated, and that's the point. The single-user bug fails t
 
 ## What I'd tell someone starting out
 
-Test the outputs you can describe in one sentence. I couldn't have written a unit test for "this query is correct," but I could say "this should return about as many rows as we have employees, in under a minute, with these columns." That was enough to catch both failures before anyone lost access.
+Test the outputs you can describe in one sentence. I couldn't have written a unit test for "this query is correct," but I could say "this should return about as many rows as we have employees, in under a minute, with these columns." The check caught the single-user bug before it reached production, and it will catch the next slowdown the evening it happens, not when someone notices.
 
-The 7-minute query, for what it's worth, came back down after I rewrote it to use the indexes properly. But the check is what told us to look.
+The 7-minute query, for what it's worth, came back down after I rewrote it to use the indexes properly.
