@@ -45,7 +45,7 @@ So every evening, a comprehensive full sync runs with up to three attempts. It c
 
 Provisioning touches many systems I don't control, and any of them can fail partway through a batch. Failed calls retry with exponential backoff and jitter, so a struggling API gets room to recover instead of a pile of synchronized retries. And the scheduler skips a run if the previous one is still going, so a slow run can't stack up behind itself.
 
-The riskier failure is a sync that succeeds at the wrong thing. A bad source export or a broken query could look like thousands of people leaving at once, and a delta sync running every minute would faithfully act on it. So I built a circuit breaker: if a single run would change more than 2% of our user base, the sync fails instead of proceeding.
+The riskier failure is a sync that succeeds at the wrong thing. A bad source export or a broken query could look like thousands of people leaving at once, and a delta sync running every minute would faithfully act on it. So I built a circuit breaker: if a single run would touch more than 1% of our active users, the sync fails instead of proceeding.
 
 Normal days never come close. Even in hiring season, HR's own staffing caps changes at around 200 employee records a day. But the breaker did trip a couple of times during hiring season. Each time, the sync failed as designed, the nightly full sync picked up the changes, and the delta sync carried on normally the next day. I'd rather a sync stop and wait for the evening than disable a few hundred accounts because something upstream went wrong.
 
