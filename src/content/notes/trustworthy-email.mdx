@@ -1,0 +1,21 @@
+---
+title: "Our Emails Looked Like Phishing"
+description: "People ignored the district's account notifications because they looked like spam. A small templating system on Astro fixed that."
+date: 2026-09-29
+tags: ["Email", "Astro", "UX"]
+draft: true
+---
+
+We teach staff to be suspicious of emails that ask them to click a link to activate an account. Then our own system sent them exactly that email, plain and unbranded, and they were suspicious. They were right to be.
+
+The notification emails our provisioning system sent looked like spam. Each was put together differently, and none of them looked like they came from the district.
+
+## The fix
+
+I built a small templating system on Astro so every notification came from the same set of templates: consistent branding, a clear sender, and the same layout every time. Astro let me write the templates as components and render them to plain HTML for sending.
+
+## The result
+
+The emails went from looking like phishing to being trusted. People opened them and followed the instructions, which was the whole point of sending them.
+
+It's an unglamorous fix. But an account nobody claims is not much better than no account, and the email is where most people meet our system for the first time.

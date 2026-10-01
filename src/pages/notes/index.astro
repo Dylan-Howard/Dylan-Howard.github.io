@@ -1,0 +1,68 @@
+---
+// src/pages/notes/index.astro
+// Short, dated write-ups: things learned, gotchas, small experiments.
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+
+const notes = (await getCollection('notes', ({ data }) => import.meta.env.DEV || !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Notes — Dylan Howard" description="Short write-ups on what I'm learning and building.">
+  <Header />
+
+  <main id="main-content" class="notes-main">
+    <div class="container container--narrow">
+      <h1 class="notes-title">Notes</h1>
+      <p class="notes-sub">Short write-ups on what I'm learning and building.</p>
+
+      {notes.length === 0
+        ? <p class="notes-empty">Nothing here yet.</p>
+        : (
+          <div class="notes-list" role="list">
+            {notes.map((n, i) => (
+              <ArticleCard
+                title={n.data.title}
+                description={n.data.description}
+                date={n.data.date.toISOString()}
+                slug={n.slug}
+                tags={n.data.tags}
+                index={i}
+              />
+            ))}
+          </div>
+        )}
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .notes-main {
+    padding-block: var(--space-16) var(--space-24);
+  }
+
+  .notes-title {
+    font-size: var(--text-3xl);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-3);
+  }
+
+  .notes-sub,
+  .notes-empty {
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: var(--space-8);
+  }
+
+  .notes-list {
+    display: grid;
+    gap: 6px;
+  }
+</style>

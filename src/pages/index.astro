@@ -7,6 +7,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/Hero.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import ArrowLink from '../components/ArrowLink.astro';
 import SkillsGrid from '../components/SkillsGrid.astro';
 import About from '../components/About.astro';
 import ContactForm from '../components/ContactForm.astro';
@@ -16,6 +18,11 @@ import { SITE, SITE_TITLE } from '../config/site';
 // Load and sort work entries from content collections
 const allWork: CollectionEntry<'work'>[] = await getCollection('work');
 const projects = allWork.sort((a, b) => a.data.order - b.data.order);
+
+// Three most recent published notes for the homepage
+const recentNotes = (await getCollection('notes', ({ data }) => import.meta.env.DEV || !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 
 // Map content collection entries to ProjectCard props
 // Impact stats are defined here (alongside the card data)
@@ -35,31 +42,27 @@ const projectCards = projects.map((p) => ({
 // Impact stats keyed by slug — keeps MDX frontmatter clean
 const impactMap: Record<string, { value: string; label: string }[]> = {
   'kentucky-iam-platform': [
-    { value: '750k+', label: 'Users managed'             },
-    { value: '99.9%', label: 'Uptime SLA'                },
-    { value: '80h',   label: 'Manual effort saved / mo.' },
+    { value: '171',   label: 'Districts deployed'        },
+    { value: '~750k', label: 'Users statewide'           },
   ],
   'identity-monitoring-platform': [
-    { value: '1.5→0.6', label: 'Avg. resolution (days)'  },
-    { value: '−60%',    label: 'Resolution time'          },
+    { value: '1.5→0.6', label: 'Access tickets (days)'   },
   ],
-  'franchise-banking-saas': [
-    { value: '$18M+', label: 'Transactions processed'    },
-    { value: '−1 day', label: 'Incident response time'   },
+  'pos-bank-reconciliation': [
+    { value: '$18M+', label: 'Revenue validated / yr'    },
+    { value: '~1 day', label: 'Faster discrepancy detection' },
   ],
-  'data-sync-optimization': [
-    { value: '40+',  label: 'Systems integrated'         },
-    { value: '−82%', label: 'Network utilization'        },
-    { value: '−30%', label: 'Server load'                },
+  'delta-sync-provisioning': [
+    { value: '~1 min', label: 'Hire to AD + Google account' },
+    { value: '−82%',   label: 'Daily sync data volume'      },
+    { value: '40+',    label: 'Apps provisioned'            },
   ],
 };
 
 const visibilityMap: Record<string, string> = {
   'kentucky-iam-platform':     'Production · State Platform',
   'identity-monitoring-platform': '',
-  'franchise-banking-saas':    'Commercial · NDA',
-  'enterprise-data-pipeline':  'Production · Internal',
-  'data-validation-platform':  'Production · Internal',
+  'pos-bank-reconciliation':   'Commercial · Client',
   'koine-greek-learning-platform': '',
 };
 ---
@@ -107,6 +110,30 @@ const visibilityMap: Record<string, string> = {
       </div>
     </section>
 
+    <!-- ── Recent notes ─────────────────────────────────── -->
+    {recentNotes.length > 0 && (
+      <section id="notes" aria-labelledby="notes-heading">
+        <div class="container">
+          <div class="work-intro fade-up">
+            <h2 class="work-title" id="notes-heading">Recent notes</h2>
+          </div>
+          <div class="notes-grid" role="list">
+            {recentNotes.map((n, i) => (
+              <ArticleCard
+                title={n.data.title}
+                description={n.data.description}
+                date={n.data.date.toISOString()}
+                slug={n.slug}
+                tags={n.data.tags}
+                index={i}
+              />
+            ))}
+          </div>
+          <ArrowLink href="/notes" label="All notes" />
+        </div>
+      </section>
+    )}
+
     <!-- ── Skills ─────────────────────────────────────────── -->
     <SkillsGrid />
 
@@ -153,6 +180,19 @@ const visibilityMap: Record<string, string> = {
     /* border: 1px solid var(--rule); */
     gap: 6px;
     margin-bottom: var(--space-24);
+  }
+
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: var(--space-8);
+  }
+
+  @media (max-width: 780px) {
+    .notes-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* Featured (full-width) card spans both columns */

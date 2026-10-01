@@ -1,0 +1,34 @@
+---
+title: "Deep Copy in Someone Else's Codebase"
+slug: "redrover-deep-copy"
+description: "A one-month contract at RedRover: template deep-copy, end to end, in a mature .NET and Next.js codebase. Most of the work was learning how the system already created objects and emitted events, then making copies behave the same way."
+type: "Contract · Full-Stack"
+year: 2025
+stack: [".NET", "Entity Framework", "GraphQL", "Next.js", "TypeScript"]
+featured: true
+order: 5
+---
+
+<div class="summary-card">
+
+- **Problem:** Users of RedRover, a K-12 SaaS product, wanted to copy their resource templates instead of rebuilding them by hand.
+- **What I built:** Deep copy, end to end: the Next.js frontend controls, a new GraphQL endpoint, and the .NET/Entity Framework logic that performs the copy.
+- **Result:** Shipped within a one-month contract (December 2025), inside the existing event architecture rather than around it.
+
+</div>
+
+"Copy" sounds like the smallest feature a product can have. In a new codebase, it might be. In a mature one, an object is never just its row. It has children, references, and events that other parts of the system listen for, and a copy that skips any of those is a bug that just hasn't been found yet.
+
+## Reading Before Writing
+
+Most of the month went into reading. Before writing the copy, I traced how the system already created these objects and which events it emitted along the way. The goal was for a copied template to look, to every other part of the system, like one created normally.
+
+That shaped the implementation. I didn't design a new architecture for copying. I built the copy inside the event architecture the team already had, so the rest of the system would treat copies the way it treated everything else.
+
+## Front to Back
+
+The feature ran the full stack: controls in the Next.js frontend, a new GraphQL endpoint behind them, and the .NET and Entity Framework logic that walks the template and writes the copy.
+
+## Whose Decisions
+
+Some of the most important calls weren't mine. The product manager decided that attached videos would not be copied, a scoping choice that kept the feature simple and its cost in check. A senior engineer on the team guided the work. My part was the implementation, and learning a mature system quickly enough to build it right in a month.

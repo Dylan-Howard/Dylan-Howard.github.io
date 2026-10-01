@@ -1,0 +1,33 @@
+---
+title: "Testing the SQL Nobody Tests"
+description: "Our provisioning queries broke in two ways: from our own changes and from a vendor's. The vendor slowdown pushed me to build a small GitHub Actions check, and it caught our own bug before production."
+date: 2026-09-25
+tags: ["SQL", "CI/CD", "GitHub Actions", "Data Engineering"]
+draft: true
+---
+
+Most of the code that provisions accounts in our district isn't application code. It's SQL: queries against our HR and student systems that decide who gets an account, who loses one, and what each person can reach. If a query returns the wrong rows, a teacher doesn't get a login, or worse, someone who left keeps theirs.
+
+For a long time, we tested those queries the way most small shops do. Someone ran it, looked at the output, and said, "Looks right."
+
+## Two ways it broke
+
+The first way was ours. We changed queries often, and moving fast meant the occasional mistake slipped through. In one case, a date filter narrowed a query that should have returned every active employee down to a single user. Nothing errored. The query ran, returned one valid-looking row, and would have happily fed that row downstream.
+
+The second way wasn't ours at all. Our HR system's vendor moved its hosting to AWS and cut the compute behind our tenant. One query went from about 20 seconds to 7 minutes overnight. We didn't change a line.
+
+## The check
+
+The slowdown is what pushed me to build a check. I set up a GitHub Actions workflow that runs every provisioning query against our staging environment each evening, when load is low, and checks three things:
+
+- **Row count** falls within an expected range
+- **Run time** stays under an expected ceiling
+- **Column headers** match what downstream jobs expect
+
+None of this is sophisticated, and that's the point. The single-user bug fails the row count. The vendor slowdown fails the run time. A renamed column fails the headers. Each check covers a way a real query actually broke.
+
+## What I'd tell someone starting out
+
+Test the outputs you can describe in one sentence. I couldn't have written a unit test for "this query is correct," but I could say "this should return about as many rows as we have employees, in under a minute, with these columns." The check caught the single-user bug before it reached production, and it will catch the next slowdown the evening it happens, not when someone notices.
+
+The 7-minute query, for what it's worth, came back down after I rewrote it to use the indexes properly.

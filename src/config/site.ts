@@ -19,13 +19,12 @@ export const SITE = {
 
   // ── SEO defaults ──────────────────────────────────────────
   description:
-    'Full-stack Software Engineer specialising in identity infrastructure, ' +
-    'data pipelines, and enterprise integration. Based in Bowling Green, KY.',
+    'Software engineer focused on backend and data systems, identity ' +
+    'provisioning, and integration. Based in Bowling Green, KY.',
   keywords: [
     'Dylan Howard',
     'Software Engineer',
     'Software Developer',
-    'Senior Software Engineer',
     'Full Stack Engineer',
     'Identity Access Management',
     'IAM',
@@ -39,8 +38,8 @@ export const SITE = {
     'Go',
     'AWS',
     'Azure',
-    'SaaS Engineering',
-    'Distributed Systems',
+    'Backend Engineer',
+    'Data Engineering',
     'Bowling Green Kentucky',
     'K-12 Technology',
   ],
@@ -64,19 +63,12 @@ export const SITE = {
     'https://script.google.com/macros/s/AKfycbzgcp7xdbWVFjB3CZHm0G_mTBTWR0Ma-x-KPhTETEYd_2x9E9GgII6S79eeeTBsMxQX_g/exec',
 
   // ── Recognition ───────────────────────────────────────────
-  awards: [
-    {
-      title:  'Stillwell Award',
-      org:    'Kentucky DOE Office of Educational Technology',
-      year:   2022,
-      short:  'Stillwell Award 2022',
-    },
-  ],
+  awards: [] as { title: string; org: string; year: number; short: string }[],
 
   speaking: [
     {
       event: 'Identity Automation User Group',
-      role:  'Speaker & Panelist',
+      role:  'Speaker',
       date:  'June 2025',
     },
   ],
@@ -85,6 +77,7 @@ export const SITE = {
   nav: [
     { href: '/#work',    label: 'Work'    },
     { href: '/#about',   label: 'About'   },
+    { href: '/notes',    label: 'Notes'   },
     { href: '/resume',   label: 'Résumé'  },
     { href: '/#contact', label: 'Contact' },
   ],

@@ -1,0 +1,38 @@
+---
+title: "Five-Year-Olds Need a QR Code, Not a Password"
+description: "How a district committee of administrators, principals, teachers, and tech staff settled on sign-in methods for every age, from PreK to staff."
+date: 2026-09-29
+tags: ["Identity", "Authentication", "K-12"]
+draft: true
+---
+
+Sign-in policy looks like a security question. In a school district, it's mostly a question about people. A password policy that works for a high schooler is useless to a kindergartner who can't read yet, and a policy that works for the kindergartner is far too weak for staff.
+
+I didn't design our answer alone. I coordinated and ran a committee of administrators, principals, teachers, and tech staff, and over four meetings we worked out what each group could actually do.
+
+## Four questions
+
+We judged every option by the same four questions:
+
+- **Access:** what devices and settings does this person actually sign in from?
+- **Ability:** what can they do at their age or level of need?
+- **Convictions:** what does the district believe about security and privacy here?
+- **Resources:** what can we realistically support?
+
+## Where we landed
+
+- **PreK–1:** QR codes
+- **Exceptional Education and multilingual learners:** QR codes plus a pictograph
+- **Grades 2–6:** memorable random passwords
+- **Grades 7–12:** a claim system, with optional MFA
+- **Staff:** mandatory MFA (SMS, PingMe, one-time codes, or FIDO keys)
+
+The sign-in methods themselves are features of Rapid Identity. My part was configuring them and wiring up the group-flagging logic that decides which method each person gets.
+
+## What we learned
+
+A few things changed our minds along the way. We allowed student names in passwords, because some students have names only two or three letters long. We added school-level password managers. And biometrics, which look like the obvious answer on paper, weren't one for us: few of our Chromebooks have them.
+
+K–1 teachers estimated they got back at least an hour a week of instruction. That's their estimate, not a measurement. But it came from the people who used to spend the start of class typing passwords for twenty five-year-olds.
+
+I presented this work at the Identity Automation User Group in June 2025.
